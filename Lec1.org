@@ -1,0 +1,54 @@
+#+BEGIN_SRC ipython :session
+%load_ext tikzmagic
+import matplotlib
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+import control
+from control.matlab import *
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC ipython :session :file /home/yilin/EE3011/py20486OEh.png :exports both
+%%tikz -p circuitikz
+\draw (0,0) to [short, *-*] (6,0);
+\draw (0,3) to [short, *-] (1,3)
+to [R,l=R] (4,3) 
+to [short, -*] (6,3);
+\draw (4,3) to [C,l=C] (4,0);
+\draw (0,0) to [open, american voltages, v^>=${v}_i(t)$] (0,3);
+\draw (6,0) to [open, american voltages, v^>=${v}_o(t)$] (6,3);
+#+END_SRC
+
+#+RESULTS:
+[[file:/home/yilin/EE3011/py20486OEh.png]]
+
+
+
+#+BEGIN_SRC ipython :session :file /home/yilin/EE3011/py11525aKa.png :exports both
+%matplotlib inline
+
+R = 1e3
+C = 1e-4
+tau = R * C
+sys = tf([1],[tau,1])
+t = np.linspace(0,10,500)
+omega = 5
+vi = 2 * np.sin(omega * t+30*2*np.pi/360)
+_, vo, _ = control.forced_response(sys,t,vi)
+
+plt.plot(t,vi)
+plt.plot(t,vo)
+plt.xlabel(r't/sec')
+plt.ylabel(r'Voltage');
+plt.title(r'$\omega$ = 5rad/s')
+plt.show
+#+END_SRC
+
+#+RESULTS:
+[[file:/home/yilin/EE3011/py11525aKa.png]]
