@@ -193,11 +193,36 @@ point/.style={coordinate},
       G_2(j3) = 3.51\angle -71.6^\circ.
     \end{align*}
   \end{enumerate}
-\item Notice that
+\item 
   \begin{align*}
-    j\omega + 1 &= \sqrt{\omega^2+1}\angle \tan^{-1}(\omega),\\
-    (j\omega)^2 + j\omega + 1 &= 1-\omega^2 + j\omega = \sqrt{\omega^2+(1-\omega^2)^2}\angle 
+    G(0.1j)&=0.980-0.199j = 1\angle -11.5^\circ,\\
+G(1j) &= -0.500-0.500j = 0.707\angle -135^\circ,\\
+G(10j) &= 10^{-4}\times (-1.99+9.80j) = 1.00\times 10^{-3}\angle -258.5^\circ.
   \end{align*}
+Therefore, the output will be given by
+\begin{align*}
+  2\times 1 \sin(0.1t +30^\circ - 11.5^\circ) = 2\sin(0.1t+18.5^\circ),\\
+  2\times 0.707 \sin(1t +30^\circ - 135^\circ) = 1.414\sin(1t-105^\circ),\\
+  2\times 10^-3 \sin(10t +30^\circ - 258.5^\circ) = 0.002\sin(10t-228.5^\circ).
+\end{align*}
+\item Notice that
+\begin{align*}
+  Y(s) = \frac{1}{1+C(s)G(s)}D(s) = H(s)D(s),
+\end{align*}
+where
+\begin{align*}
+  H(s) = \frac{1}{1+C(s)G(s)} = \frac{s^2+2s+100}{s^2+19.2s+144}.
+\end{align*}
+Therefore,
+\begin{align*}
+  H(1j) = 0.682-0.078j = 0.686\angle -6.49^\circ,
+\end{align*}
+and
+\begin{align*}
+  H(100j) = 0.972+0.169j = 0.986\angle 9.86^\circ.
+\end{align*}
+As a result, 
+
 
 
 
