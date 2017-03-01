@@ -1,4 +1,7 @@
+*
 !.gitignore
 !*.ipynb
 !*.org
 !*.tex
+tmp*
+*#*
