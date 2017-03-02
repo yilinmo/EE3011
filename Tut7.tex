@@ -56,7 +56,7 @@
   \]
   Compute the steady-state responses to sinusoid $r(t) = 2\sin(\omega t+30^\circ)$ with frequency $\omega = 0.1,\,1,\,10\,rad/s$ respectively. Explain the results.
 
-\item A control system for a flexible structure is shown in Figure~\ref{fig:sys} where is an output disturbance due to an external vibration source. Evaluate the effect of the disturbance on the output if the disturbance is of frequency $1\,rad/s$ and $100\,rad/s$, respectively.
+\item A control system for a flexible structure is shown in Figure~\ref{fig:sys} where is an output disturbance due to an external vibration source. Evaluate the attenuation for disturbance with frequency $1\,rad/s$ and $100\,rad/s$, respectively.
   \begin{figure}[ht]
     \centering
 \begin{tikzpicture}[>=stealth',
@@ -128,7 +128,7 @@ point/.style={coordinate},
   \item $1.414\sin(t-105^\circ)$,
   \item $0.002\sin(10t-228.5^\circ)$.
   \end{enumerate}
-\item $3.2$dB attenuation for $1\,rad/s$ and $0.09$dB attenuation for $100\,rad/s$.
+\item $3.27$dB attenuation for $1\,rad/s$ and $0.12$dB attenuation for $100\,rad/s$.
 \end{enumerate}
 \newpage
 \section*{Detailed Solution:}
@@ -221,7 +221,7 @@ and
 \begin{align*}
   H(100j) = 0.972+0.169j = 0.986\angle 9.86^\circ.
 \end{align*}
-As a result, 
+As a result, the system has a $-20\log\,0.686 = 3.27$dB attenuation for frequency $1\,rad/s$ and $-20\log\,0.986 = 0.12$dB attenuation for frequency $100\,rad/s$.
 
 
 
