@@ -1,0 +1,460 @@
+#+BEGIN_SRC ipython :session :exports none
+import matplotlib
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Arial']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+import control
+from control.matlab import *
+
+%load_ext tikzmagic
+
+%matplotlib inline
+%config InlineBackend.figure_format = 'svg'
+#+END_SRC
+
+#+RESULTS:
+
+** Bode Plots
+
+- Bode plots play an important role in frequency domain analysis and design.
+- Bode plots of a transfer function $G(s)$ include two graphs:
+  + Magnitude plot: $20\log_{10}|G(j\omega)|$ (dB) in linear scale v.s. $\omega$ in log scale.
+  + Phase plot: $\angle G(j\omega)$ (degree) in linear scale v.s. $\omega$ in log-scale.
+
+** Example
+Consider the transfer function $G(s) = \frac{s+1}{s^2+2s+3}$.
+
+#+BEGIN_SRC ipython :session :file Lec2Bode1.svg :exports results
+num = [1,1];
+den = [1,2,3];
+sys = tf(num, den);
+bode(sys, dB=True);
+#+END_SRC
+
+#+RESULTS:
+[[file:Lec2Bode1.svg]]
+
+** Why Bode Plots?
+- Why choose $20\log_{10}|G(j\omega)|$?
+  + We typical write a transfer function as $$G(s) = K\frac{(s+z_1)\dots(s+z_i)}{(s+p_1)\dots(s+p_n)}$$
+  + The frequency response is $G(j\omega) = G_1(j\omega)\dots G_n(j\omega)$. Hence,
+\begin{align}
+20\log|G(j\omega)|&=20\log|G_1(j\omega)|+\dots+20\log|G_n(j\omega)|\\
+\angle G(j\omega)&=\angle G_1(j\omega)+\dots+\angle G_n(j\omega)
+\end{align}
+- Why choose the frequency $\omega$ in log-scale?
+  + The magnitude plot can be easily approximated by straight lines
+  + We can display a wider range of system behavior
+
+** What if $\omega$ is not in log-scale 
+#+BEGIN_SRC ipython :session :file Lec2Bode2.svg :exports results
+num = [1,1];
+den = [1,2,3];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False);
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.plot(omega, mag, 'b')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.plot(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+plt.grid(b=True, which='both')
+plt.xlabel('Frequency(rad/sec)')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Lec2Bode2.svg]]
+
+ 
+As a result, Bode plots are plotted on semilog papers with the horizontal axis in log scale and the vertical axis in linear scale. 
+
+** Sketching Bode Plots
+- A complex polynomial can always be factorized in to basic terms 
+  + $K$
+  + $s$
+  + $\tau s + 1$
+  + $$\left(\frac{s}{\omega_n}\right)^2 + 2\zeta \left(\frac{s}{\omega_n}\right) + 1,$$ where $-1<\zeta < 1$. (*Why?*)
+- To create the Bode plot of a complex rational transfer function, we only need to understand the Bode plots of simple polynomials
+
+** Example
+- Consider the following transfer function
+\begin{align}
+G(s) = \frac{10(s+1)}{s(s^2+0.4s+1)} &= \frac{2.5\times (s+1)}{s \times \left[(0.5s)^2 + 0.2(0.5s)+1\right]}\\
+&= \frac{G_1(s)G_2(s)}{G_3(s)G_4(s)}.
+\end{align}
+- Therefore, we know that
+\begin{align}
+\log|G(j\omega)| &=\log|G_1(j\omega)| + \log|G_2(j\omega)| +\log|G_3(j\omega)| +\log|G_4(j\omega)| \\
+\angle G(j\omega) &=\angle G_1(j\omega) + \angle G_2(j\omega) +\angle G_3(j\omega) +\angle G_4(j\omega) 
+\end{align}
+
+** Bode Plot of $K$
+- The magnitude is $20\log|K|$.
+- If $K > 0$, then the phase is $0^\circ$. 
+- If $K < 0$, then the phase is $-180^\circ$.
+#+BEGIN_SRC ipython :session :file Lec2BodeConstant.svg :exports results
+num = [10];
+den = [1];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False);
+
+plt.subplots_adjust(hspace=0.4)
+plt.subplot(211)
+plt.title("Bode Plot of Constant $K = 10$")
+plt.semilogx(omega, mag, 'b')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Lec2BodeConstant.svg]]
+
+
+
+** Bode Plot of an Integrator $1/s$ 
+- The magnitude in dB is $$20\log|1/\omega| = -20 \log \omega$$.
+- The magnitude is a straight line passing $(1,\,0dB)$ with slope -20.
+- The phase is $-90^\circ$.
+#+BEGIN_SRC ipython :session :file Lec2BodeIntegrators.svg :exports results
+num = [1];
+den = [1,0];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False);
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of Integrator $1/s$")
+plt.semilogx(omega, mag, 'b')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Lec2BodeIntegrators.svg]]
+
+** Bode Plot of an Integrator $s^N$ 
+From what we know about $s^{-1}$, we can prove that:
+- The magnitude in dB is $20N \log \omega$.
+- The magnitude is a straight line passing $(0dB,\,1)$ with slope 20N.
+- The phase is $90N^\circ$.
+#+BEGIN_SRC ipython :session :file Lec2BodeIntegrators2.svg :exports results
+num1 = [1];
+den1 = [1,0];
+sys1 = tf(num1, den1);
+mag1, phase1, omega1 = control.bode_plot(sys1, dB=True, Plot=False);
+
+num2 = [1];
+den2 = [1,0,0];
+sys2 = tf(num2, den2);
+mag2, phase2, omega2 = control.bode_plot(sys2, dB=True, Plot=False);
+
+num3 = [1,0];
+den3 = [1];
+sys3 = tf(num3, den3);
+mag3, phase3, omega3 = control.bode_plot(sys3, dB=True, Plot=False);
+
+num4 = [1,0,0];
+den4 = [1];
+sys4 = tf(num4, den4);
+mag4, phase4, omega4 = control.bode_plot(sys4, dB=True, Plot=False);
+
+plt.subplots_adjust(hspace=0.4)
+plt.subplot(211)
+plt.semilogx(omega1, mag1, 'b')
+plt.semilogx(omega2, mag2, 'k')
+plt.semilogx(omega3, mag3, 'r')
+plt.semilogx(omega4, mag4, 'g')
+yticks = np.linspace(-40, 40, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega1, phase1, 'b')
+plt.semilogx(omega2, phase2, 'k')
+plt.semilogx(omega3, phase3, 'r')
+plt.semilogx(omega4, phase4, 'g')
+yticks = np.linspace(-180, 180, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Lec2BodeIntegrators2.svg]]
+
+** Bode Plot of $1/(\tau s+ 1)$
+
+#+BEGIN_SRC ipython :session :file Lec2BodeFirstOrder.svg :exports results
+num = [1];
+den = [0.1,1];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-1,3,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $1/(0.1s+1)$")
+plt.semilogx(omega, mag, 'b')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-90, 0, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Lec2BodeFirstOrder.svg]]
+
+- Here we will assume $\tau > 0$. ($\tau < 0$ will be discussed later)
+- Observations:
+  + The magnitude plot bends around $10 = \tau^{-1}$.
+  + The magnitude plot is a straight line when $\omega \ll \tau^{-1}$ or $\omega \gg \tau^{-1}$.
+  + The phase is roughly $0^\circ$ when $\omega < 1 = 0.1/\tau$.
+  + The phase is roughly $-90^\circ$ when $\omega > 100 = 10/\tau$.
+  + The phase passes $-45^\circ$ when $\omega = 1/\tau$.
+
+** Bode Plot of $1/(\tau s+ 1)$
+*Asymptotes*
+- If $\omega\tau\ll 1$, i.e., $\omega\ll 1/\tau{}$, then $$G(j\omega{}) = \frac{1}{j\omega{\tau{}}+1} \approx 1,\,20\log\left|G(j\omega{})\right| \approx 0,\, \angle G(j\omega) \approx 0^\circ.$$
+  + The magnitude plot is a horizontal line at 0dB.
+  + The phase plot is a horizontal line at $0^\circ$.
+- If $\omega\tau\gg 1$, i.e., $\omega\gg 1/\tau{}$, then $$G(j\omega{}) = \frac{1}{j\omega{\tau{}}+1} \approx -j\omega^{-1}\tau^{-1},\, 20\log\left|\frac{1}{j\omega{\tau{}}+1}\right| \approx -20\log\omega{}-20\log\tau{},\, \angle G(j\omega) \approx -90^\circ.$$
+  + The magnitude plot is a line passing $(1/\tau{},0)$ with a slope -20.
+  + The phase plot is a horizontal line at $-90^\circ$.
+- $1/\tau{}$ is called the corner frequency. It is where the two asymptotes of the magnitude plot intersect.
+  + At the corner frequency, $G(j/\tau{}) = 1/(1+j) = 0.5-0.5j = 0.707\angle -45^\circ$. The magnitude is $-3dB$.
+
+** Sketch Bode Plot of $1/(\tau s+ 1)$ Using Asymptotes
+*** Magnitude
+- Draw a horizontal line at 0dB until the corner frequency $1/\tau$.
+- From the point $(1/\tau, 0dB)$, draw a straight line with slope -20.
+*** Phase
+- Draw a horizontal line at $0^\circ$ until the frequency $0.1/\tau$.
+- Draw a horizontal line at $-90^\circ$ from the frequency $10/\tau$ to $\infty$.
+- Connect $(0.1/\tau, 0^\circ)$ and $(-10/\tau,\,90^\circ)$ with a straight line.
+#+BEGIN_SRC ipython :session :file Lec2BodeFirstOrderAsym.svg :exports results
+num = [1];
+den = [0.1,1];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-1,3,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $1/(0.1s+1)$")
+plt.semilogx(omega, mag, 'b')
+plt.semilogx([1e-1,1e1,1e3], [0,0,-40], 'r--')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([1e-1,1e0,1e2,1e3], [0,0,-90,-90], 'r--')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-90, 0, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Lec2BodeFirstOrderAsym.svg]]
+
+
+** Sketch Bode Plot of $\tau s+ 1$ Using Asymptotes
+
+We can flip the plots of $1/(\tau s+1)$ to get the plots of $\tau s+1$
+#+BEGIN_SRC ipython :session :file Lec2BodeFirstOrderAsymInv.svg :exports results
+num = [1,1];
+den = [1];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,2,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $s+1$")
+plt.semilogx(omega, mag, 'b')
+plt.semilogx([1e-2,1e0,1e2], [0,0,40], 'r--')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([1e-2,1e-1,1e1,1e2], [0,0,90,90], 'r--')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(0, 90, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Lec2BodeFirstOrderAsymInv.svg]]
+** Bode Plot of $\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}$
+
+Recall that
+- $\omega_n$ is called the natural frequency.
+- $\zeta$ is the damping ratio.
+#+BEGIN_SRC ipython :session :file Lec2BodeSecondOrder.svg :exports results
+wn = 10;
+
+plt.subplots_adjust(hspace=0.4)
+
+for zeta in np.linspace(0.1,1,4):
+  num = [1];
+  den = [1/wn/wn, 2*zeta/wn, 1];
+  sys = tf(num, den);
+  mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-1,3,100));
+
+  plt.subplot(211)
+  plt.semilogx(omega, mag, 'b')
+  plt.subplot(212)
+  plt.semilogx(omega, phase,'b')
+
+plt.subplot(211)    
+plt.title('Bode Plot of a Second Order System with $\omega_n=10$')
+plt.ylabel('Magnitude(dB)')
+yticks = np.linspace(40, -80, 7) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+plt.ylim(-80, 40)
+plt.annotate('$\zeta=1$', xy=(1e1, 25), xytext=(1e1, -20),
+            arrowprops=dict(arrowstyle='->'),
+            horizontalalignment='center',
+            verticalalignment='top', 
+            )
+plt.annotate('$\zeta=0.1$',xytext=(1e1,20), xy=(1e1,20),
+            horizontalalignment='center',
+            verticalalignment='bottom', 
+            )
+
+plt.subplot(212)
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-180, 0, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+plt.annotate('$\zeta=1$', xy=(20, -45), xytext=(3, -90),
+            arrowprops=dict(arrowstyle='->'),
+            horizontalalignment='right',
+            verticalalignment='top', 
+            )
+plt.annotate('$\zeta=0.1$',xytext=(20,-45), xy=(20,-45),
+            horizontalalignment='left',
+            verticalalignment='bottom', 
+            )
+
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Lec2BodeSecondOrder.svg]]
+
+** Bode Plot of $\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}$
+- If $\omega \ll \omega_n$, then $G(j\omega) \approx 1$
+  - The magnitude is 0dB.
+  - The phase plot is $0^\circ$. 
+- If $\omega \gg \omega_n$, then $$G(j\omega) \approx 1/(j\omega/\omega_n)^2 = -\omega_n^2/\omega^2.$$
+  - The magnitude is $40\log \omega_n-40 \log\omega$. A straight line with slope -40 and passing $(\omega_n,0dB)$
+  - The phase is $-180^\circ$.
+- When $\omega = \omega_n$ (corner frequency), $$G(j\omega) = \frac{1}{j^2+2\zeta j+1} = \frac{-1}{2\zeta}j.$$ 
+  - The magnitude is $-20\log(2\zeta)$.
+  - the phase is $90^\circ$.
+ 
+** Sketching $\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}$ using Asymptotes
+*** Magnitude
+- Draw a horizontal line at 0dB until the corner frequency $\omega_n$.
+- From the point $(\omega_n, 0dB)$, draw a straight line with slope -40.
+- If you want to be more accurate, change the magnitude at the corner frequency to $-20\log(2\zeta)$ and draw a smooth curve.
+*** Phase
+- The phase plot cannot be drawn very accurately using asymptotes.
+#+BEGIN_SRC ipython :session :file Lec2BodeSecondOrder2.svg :exports results
+wn = 1;
+zeta = 0.25;
+correction = -20*np.log10(2*zeta);
+
+num = [1];
+den = [1/wn/wn, 2*zeta/wn, 1];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,2,100));
+
+plt.subplots_adjust(hspace=0.4)
+plt.subplot(211)
+plt.title('Bode Plot of a Second Order System with $\omega_n=1$ and $\zeta = 0.25$')
+plt.semilogx(omega, mag, 'b')
+plt.semilogx([1e-2, 1e0, 1e0, 1e0, 1e2], [0,0,correction,0,-80], 'r--')
+yticks = np.linspace(0, -80, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([1e-2, 1e0, 1e0, 1e2], [0,0,-180,-180], 'r--')
+plt.semilogx([1e-2, 1e-1, 1e1, 1e2], [0,0,-180,-180], 'r--')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-180, 0, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Lec2BodeSecondOrder2.svg]]
