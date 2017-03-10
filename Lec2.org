@@ -91,13 +91,13 @@ As a result, Bode plots are plotted on semilog papers with the horizontal axis i
 ** Example
 - Consider the following transfer function
 \begin{align}
-G(s) = \frac{10(s+1)}{s(s^2+0.4s+1)} &= \frac{2.5\times (s+1)}{s \times \left[(0.5s)^2 + 0.2(0.5s)+1\right]}\\
+G(s) = \frac{10(s+1)}{s(s^2+0.4s+4)} &= \frac{2.5\times (s+1)}{s \times \left[(0.5s)^2 + 2\times 0.1(0.5s)+1\right]}\\
 &= \frac{G_1(s)G_2(s)}{G_3(s)G_4(s)}.
 \end{align}
 - Therefore, we know that
 \begin{align}
-\log|G(j\omega)| &=\log|G_1(j\omega)| + \log|G_2(j\omega)| +\log|G_3(j\omega)| +\log|G_4(j\omega)| \\
-\angle G(j\omega) &=\angle G_1(j\omega) + \angle G_2(j\omega) +\angle G_3(j\omega) +\angle G_4(j\omega) 
+\log|G(j\omega)| &=\log|G_1(j\omega)| + \log|G_2(j\omega)| -\log|G_3(j\omega)| -\log|G_4(j\omega)| \\
+\angle G(j\omega) &=\angle G_1(j\omega) + \angle G_2(j\omega) -\angle G_3(j\omega) -\angle G_4(j\omega) 
 \end{align}
 
 ** Bode Plot of $K$
