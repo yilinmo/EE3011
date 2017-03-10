@@ -1,5 +1,8 @@
 *
 !.gitignore
+!assets
+!assets/
+!assets/*
 !*.ipynb
 !*.org
 !*.tex

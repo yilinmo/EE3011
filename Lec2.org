@@ -28,7 +28,7 @@ from control.matlab import *
 ** Example
 Consider the transfer function $G(s) = \frac{s+1}{s^2+2s+3}$.
 
-#+BEGIN_SRC ipython :session :file Lec2Bode1.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec2Bode1.svg :exports results
 num = [1,1];
 den = [1,2,3];
 sys = tf(num, den);
@@ -51,7 +51,7 @@ bode(sys, dB=True);
   + We can display a wider range of system behavior
 
 ** What if $\omega$ is not in log-scale 
-#+BEGIN_SRC ipython :session :file Lec2Bode2.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec2Bode2.svg :exports results
 num = [1,1];
 den = [1,2,3];
 sys = tf(num, den);
@@ -104,7 +104,7 @@ G(s) = \frac{10(s+1)}{s(s^2+0.4s+4)} &= \frac{2.5\times (s+1)}{s \times \left[(0
 - The magnitude is $20\log|K|$.
 - If $K > 0$, then the phase is $0^\circ$. 
 - If $K < 0$, then the phase is $-180^\circ$.
-#+BEGIN_SRC ipython :session :file Lec2BodeConstant.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec2BodeConstant.svg :exports results
 num = [10];
 den = [1];
 sys = tf(num, den);
@@ -135,7 +135,7 @@ plt.show()
 - The magnitude in dB is $$20\log|1/\omega| = -20 \log \omega$$.
 - The magnitude is a straight line passing $(1,\,0dB)$ with slope -20.
 - The phase is $-90^\circ$.
-#+BEGIN_SRC ipython :session :file Lec2BodeIntegrators.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec2BodeIntegrators.svg :exports results
 num = [1];
 den = [1,0];
 sys = tf(num, den);
@@ -166,7 +166,7 @@ From what we know about $s^{-1}$, we can prove that:
 - The magnitude in dB is $20N \log \omega$.
 - The magnitude is a straight line passing $(0dB,\,1)$ with slope 20N.
 - The phase is $90N^\circ$.
-#+BEGIN_SRC ipython :session :file Lec2BodeIntegrators2.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec2BodeIntegrators2.svg :exports results
 num1 = [1];
 den1 = [1,0];
 sys1 = tf(num1, den1);
@@ -219,7 +219,7 @@ plt.show()
 
 ** Bode Plot of $1/(\tau s+ 1)$
 
-#+BEGIN_SRC ipython :session :file Lec2BodeFirstOrder.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec2BodeFirstOrder.svg :exports results
 num = [1];
 den = [0.1,1];
 sys = tf(num, den);
@@ -275,7 +275,7 @@ plt.show()
 - Draw a horizontal line at $0^\circ$ until the frequency $0.1/\tau$.
 - Draw a horizontal line at $-90^\circ$ from the frequency $10/\tau$ to $\infty$.
 - Connect $(0.1/\tau, 0^\circ)$ and $(-10/\tau,\,90^\circ)$ with a straight line.
-#+BEGIN_SRC ipython :session :file Lec2BodeFirstOrderAsym.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec2BodeFirstOrderAsym.svg :exports results
 num = [1];
 den = [0.1,1];
 sys = tf(num, den);
@@ -310,7 +310,7 @@ plt.show()
 ** Sketch Bode Plot of $\tau s+ 1$ Using Asymptotes
 
 We can flip the plots of $1/(\tau s+1)$ to get the plots of $\tau s+1$
-#+BEGIN_SRC ipython :session :file Lec2BodeFirstOrderAsymInv.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec2BodeFirstOrderAsymInv.svg :exports results
 num = [1,1];
 den = [1];
 sys = tf(num, den);
@@ -345,7 +345,7 @@ plt.show()
 Recall that
 - $\omega_n$ is called the natural frequency.
 - $\zeta$ is the damping ratio.
-#+BEGIN_SRC ipython :session :file Lec2BodeSecondOrder.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec2BodeSecondOrder.svg :exports results
 wn = 10;
 
 plt.subplots_adjust(hspace=0.4)
@@ -421,7 +421,7 @@ plt.show()
 - If you want to be more accurate, change the magnitude at the corner frequency to $-20\log(2\zeta)$ and draw a smooth curve.
 *** Phase
 - The phase plot cannot be drawn very accurately using asymptotes.
-#+BEGIN_SRC ipython :session :file Lec2BodeSecondOrder2.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec2BodeSecondOrder2.svg :exports results
 wn = 1;
 zeta = 0.25;
 correction = -20*np.log10(2*zeta);

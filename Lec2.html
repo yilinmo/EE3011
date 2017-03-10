@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-03-10 Fri 15:50 -->
+<!-- 2017-03-10 Fri 15:57 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title></title>
@@ -254,37 +254,37 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org508d86e">1. Bode Plots</a></li>
-<li><a href="#org3d57925">2. Example</a></li>
-<li><a href="#org92cfa30">3. Why Bode Plots?</a></li>
-<li><a href="#org4f38782">4. What if \(\omega\) is not in log-scale</a></li>
-<li><a href="#org999e37e">5. Sketching Bode Plots</a></li>
-<li><a href="#orgaba852e">6. Example</a></li>
-<li><a href="#orgce92687">7. Bode Plot of \(K\)</a></li>
-<li><a href="#org6af3650">8. Bode Plot of an Integrator \(1/s\)</a></li>
-<li><a href="#orgd82b54c">9. Bode Plot of an Integrator \(s^N\)</a></li>
-<li><a href="#org851e3f5">10. Bode Plot of \(1/(\tau s+ 1)\)</a></li>
-<li><a href="#orgf7c7266">11. Bode Plot of \(1/(\tau s+ 1)\)</a></li>
-<li><a href="#orga71a4fe">12. Sketch Bode Plot of \(1/(\tau s+ 1)\) Using Asymptotes</a>
+<li><a href="#orgfeda568">1. Bode Plots</a></li>
+<li><a href="#org70d6917">2. Example</a></li>
+<li><a href="#org9276ce6">3. Why Bode Plots?</a></li>
+<li><a href="#org86648dd">4. What if \(\omega\) is not in log-scale</a></li>
+<li><a href="#orgf22f93b">5. Sketching Bode Plots</a></li>
+<li><a href="#org49304a6">6. Example</a></li>
+<li><a href="#org37869d4">7. Bode Plot of \(K\)</a></li>
+<li><a href="#org24b8e83">8. Bode Plot of an Integrator \(1/s\)</a></li>
+<li><a href="#org44694da">9. Bode Plot of an Integrator \(s^N\)</a></li>
+<li><a href="#org956637b">10. Bode Plot of \(1/(\tau s+ 1)\)</a></li>
+<li><a href="#org18f0897">11. Bode Plot of \(1/(\tau s+ 1)\)</a></li>
+<li><a href="#org64a92be">12. Sketch Bode Plot of \(1/(\tau s+ 1)\) Using Asymptotes</a>
 <ul>
-<li><a href="#org4c2c978">12.1. Magnitude</a></li>
-<li><a href="#org2a66773">12.2. Phase</a></li>
+<li><a href="#org2bc52d4">12.1. Magnitude</a></li>
+<li><a href="#orgd92f225">12.2. Phase</a></li>
 </ul>
 </li>
-<li><a href="#orgf8531c2">13. Sketch Bode Plot of \(\tau s+ 1\) Using Asymptotes</a></li>
-<li><a href="#orgefe7faf">14. Bode Plot of \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\)</a></li>
-<li><a href="#org4306a53">15. Bode Plot of \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\)</a></li>
-<li><a href="#orgd64600b">16. Sketching \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\) using Asymptotes</a>
+<li><a href="#org9396b5e">13. Sketch Bode Plot of \(\tau s+ 1\) Using Asymptotes</a></li>
+<li><a href="#orgcd71a31">14. Bode Plot of \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\)</a></li>
+<li><a href="#org6907bd1">15. Bode Plot of \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\)</a></li>
+<li><a href="#org5c0a1b9">16. Sketching \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\) using Asymptotes</a>
 <ul>
-<li><a href="#org9f704fb">16.1. Magnitude</a></li>
-<li><a href="#org3429f60">16.2. Phase</a></li>
+<li><a href="#org0daf302">16.1. Magnitude</a></li>
+<li><a href="#org497541f">16.2. Phase</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org508d86e" class="outline-2">
-<h2 id="org508d86e"><span class="section-number-2">1</span> Bode Plots</h2>
+<div id="outline-container-orgfeda568" class="outline-2">
+<h2 id="orgfeda568"><span class="section-number-2">1</span> Bode Plots</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li>Bode plots play an important role in frequency domain analysis and design.</li>
@@ -297,8 +297,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org3d57925" class="outline-2">
-<h2 id="org3d57925"><span class="section-number-2">2</span> Example</h2>
+<div id="outline-container-org70d6917" class="outline-2">
+<h2 id="org70d6917"><span class="section-number-2">2</span> Example</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Consider the transfer function \(G(s) = \frac{s+1}{s^2+2s+3}\).
@@ -306,15 +306,15 @@ Consider the transfer function \(G(s) = \frac{s+1}{s^2+2s+3}\).
 
 
 <div class="figure">
-<p><object type="image/svg+xml" data="Lec2Bode1.svg" class="org-svg">
+<p><object type="image/svg+xml" data="assets/Lec2Bode1.svg" class="org-svg">
 Sorry, your browser does not support SVG.</object>
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org92cfa30" class="outline-2">
-<h2 id="org92cfa30"><span class="section-number-2">3</span> Why Bode Plots?</h2>
+<div id="outline-container-org9276ce6" class="outline-2">
+<h2 id="org9276ce6"><span class="section-number-2">3</span> Why Bode Plots?</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li>Why choose \(20\log_{10}|G(j\omega)|\)?
@@ -337,12 +337,12 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org4f38782" class="outline-2">
-<h2 id="org4f38782"><span class="section-number-2">4</span> What if \(\omega\) is not in log-scale</h2>
+<div id="outline-container-org86648dd" class="outline-2">
+<h2 id="org86648dd"><span class="section-number-2">4</span> What if \(\omega\) is not in log-scale</h2>
 <div class="outline-text-2" id="text-4">
 
 <div class="figure">
-<p><object type="image/svg+xml" data="Lec2Bode2.svg" class="org-svg">
+<p><object type="image/svg+xml" data="assets/Lec2Bode2.svg" class="org-svg">
 Sorry, your browser does not support SVG.</object>
 </p>
 </div>
@@ -354,8 +354,8 @@ As a result, Bode plots are plotted on semilog papers with the horizontal axis i
 </div>
 </div>
 
-<div id="outline-container-org999e37e" class="outline-2">
-<h2 id="org999e37e"><span class="section-number-2">5</span> Sketching Bode Plots</h2>
+<div id="outline-container-orgf22f93b" class="outline-2">
+<h2 id="orgf22f93b"><span class="section-number-2">5</span> Sketching Bode Plots</h2>
 <div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li>A complex polynomial can always be factorized in to basic terms 
@@ -370,8 +370,8 @@ As a result, Bode plots are plotted on semilog papers with the horizontal axis i
 </div>
 </div>
 
-<div id="outline-container-orgaba852e" class="outline-2">
-<h2 id="orgaba852e"><span class="section-number-2">6</span> Example</h2>
+<div id="outline-container-org49304a6" class="outline-2">
+<h2 id="org49304a6"><span class="section-number-2">6</span> Example</h2>
 <div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li>Consider the following transfer function</li>
@@ -390,8 +390,8 @@ G(s) = \frac{10(s+1)}{s(s^2+0.4s+4)} &= \frac{2.5\times (s+1)}{s \times \left[(0
 </div>
 </div>
 
-<div id="outline-container-orgce92687" class="outline-2">
-<h2 id="orgce92687"><span class="section-number-2">7</span> Bode Plot of \(K\)</h2>
+<div id="outline-container-org37869d4" class="outline-2">
+<h2 id="org37869d4"><span class="section-number-2">7</span> Bode Plot of \(K\)</h2>
 <div class="outline-text-2" id="text-7">
 <ul class="org-ul">
 <li>The magnitude is \(20\log|K|\).</li>
@@ -400,7 +400,7 @@ G(s) = \frac{10(s+1)}{s(s^2+0.4s+4)} &= \frac{2.5\times (s+1)}{s \times \left[(0
 </ul>
 
 <div class="figure">
-<p><object type="image/svg+xml" data="Lec2BodeConstant.svg" class="org-svg">
+<p><object type="image/svg+xml" data="assets/Lec2BodeConstant.svg" class="org-svg">
 Sorry, your browser does not support SVG.</object>
 </p>
 </div>
@@ -409,8 +409,8 @@ Sorry, your browser does not support SVG.</object>
 
 
 
-<div id="outline-container-org6af3650" class="outline-2">
-<h2 id="org6af3650"><span class="section-number-2">8</span> Bode Plot of an Integrator \(1/s\)</h2>
+<div id="outline-container-org24b8e83" class="outline-2">
+<h2 id="org24b8e83"><span class="section-number-2">8</span> Bode Plot of an Integrator \(1/s\)</h2>
 <div class="outline-text-2" id="text-8">
 <ul class="org-ul">
 <li>The magnitude in dB is \[20\log|1/\omega| = -20 \log \omega\].</li>
@@ -419,15 +419,15 @@ Sorry, your browser does not support SVG.</object>
 </ul>
 
 <div class="figure">
-<p><object type="image/svg+xml" data="Lec2BodeIntegrators.svg" class="org-svg">
+<p><object type="image/svg+xml" data="assets/Lec2BodeIntegrators.svg" class="org-svg">
 Sorry, your browser does not support SVG.</object>
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgd82b54c" class="outline-2">
-<h2 id="orgd82b54c"><span class="section-number-2">9</span> Bode Plot of an Integrator \(s^N\)</h2>
+<div id="outline-container-org44694da" class="outline-2">
+<h2 id="org44694da"><span class="section-number-2">9</span> Bode Plot of an Integrator \(s^N\)</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 From what we know about \(s^{-1}\), we can prove that:
@@ -439,19 +439,19 @@ From what we know about \(s^{-1}\), we can prove that:
 </ul>
 
 <div class="figure">
-<p><object type="image/svg+xml" data="Lec2BodeIntegrators2.svg" class="org-svg">
+<p><object type="image/svg+xml" data="assets/Lec2BodeIntegrators2.svg" class="org-svg">
 Sorry, your browser does not support SVG.</object>
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org851e3f5" class="outline-2">
-<h2 id="org851e3f5"><span class="section-number-2">10</span> Bode Plot of \(1/(\tau s+ 1)\)</h2>
+<div id="outline-container-org956637b" class="outline-2">
+<h2 id="org956637b"><span class="section-number-2">10</span> Bode Plot of \(1/(\tau s+ 1)\)</h2>
 <div class="outline-text-2" id="text-10">
 
 <div class="figure">
-<p><object type="image/svg+xml" data="Lec2BodeFirstOrder.svg" class="org-svg">
+<p><object type="image/svg+xml" data="assets/Lec2BodeFirstOrder.svg" class="org-svg">
 Sorry, your browser does not support SVG.</object>
 </p>
 </div>
@@ -470,8 +470,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgf7c7266" class="outline-2">
-<h2 id="orgf7c7266"><span class="section-number-2">11</span> Bode Plot of \(1/(\tau s+ 1)\)</h2>
+<div id="outline-container-org18f0897" class="outline-2">
+<h2 id="org18f0897"><span class="section-number-2">11</span> Bode Plot of \(1/(\tau s+ 1)\)</h2>
 <div class="outline-text-2" id="text-11">
 <p>
 <b>Asymptotes</b>
@@ -495,11 +495,11 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orga71a4fe" class="outline-2">
-<h2 id="orga71a4fe"><span class="section-number-2">12</span> Sketch Bode Plot of \(1/(\tau s+ 1)\) Using Asymptotes</h2>
+<div id="outline-container-org64a92be" class="outline-2">
+<h2 id="org64a92be"><span class="section-number-2">12</span> Sketch Bode Plot of \(1/(\tau s+ 1)\) Using Asymptotes</h2>
 <div class="outline-text-2" id="text-12">
-</div><div id="outline-container-org4c2c978" class="outline-3">
-<h3 id="org4c2c978"><span class="section-number-3">12.1</span> Magnitude</h3>
+</div><div id="outline-container-org2bc52d4" class="outline-3">
+<h3 id="org2bc52d4"><span class="section-number-3">12.1</span> Magnitude</h3>
 <div class="outline-text-3" id="text-12-1">
 <ul class="org-ul">
 <li>Draw a horizontal line at 0dB until the corner frequency \(1/\tau\).</li>
@@ -507,8 +507,8 @@ Sorry, your browser does not support SVG.</object>
 </ul>
 </div>
 </div>
-<div id="outline-container-org2a66773" class="outline-3">
-<h3 id="org2a66773"><span class="section-number-3">12.2</span> Phase</h3>
+<div id="outline-container-orgd92f225" class="outline-3">
+<h3 id="orgd92f225"><span class="section-number-3">12.2</span> Phase</h3>
 <div class="outline-text-3" id="text-12-2">
 <ul class="org-ul">
 <li>Draw a horizontal line at \(0^\circ\) until the frequency \(0.1/\tau\).</li>
@@ -517,7 +517,7 @@ Sorry, your browser does not support SVG.</object>
 </ul>
 
 <div class="figure">
-<p><object type="image/svg+xml" data="Lec2BodeFirstOrderAsym.svg" class="org-svg">
+<p><object type="image/svg+xml" data="assets/Lec2BodeFirstOrderAsym.svg" class="org-svg">
 Sorry, your browser does not support SVG.</object>
 </p>
 </div>
@@ -526,22 +526,22 @@ Sorry, your browser does not support SVG.</object>
 </div>
 
 
-<div id="outline-container-orgf8531c2" class="outline-2">
-<h2 id="orgf8531c2"><span class="section-number-2">13</span> Sketch Bode Plot of \(\tau s+ 1\) Using Asymptotes</h2>
+<div id="outline-container-org9396b5e" class="outline-2">
+<h2 id="org9396b5e"><span class="section-number-2">13</span> Sketch Bode Plot of \(\tau s+ 1\) Using Asymptotes</h2>
 <div class="outline-text-2" id="text-13">
 <p>
 We can flip the plots of \(1/(\tau s+1)\) to get the plots of \(\tau s+1\)
 </p>
 
 <div class="figure">
-<p><object type="image/svg+xml" data="Lec2BodeFirstOrderAsymInv.svg" class="org-svg">
+<p><object type="image/svg+xml" data="assets/Lec2BodeFirstOrderAsymInv.svg" class="org-svg">
 Sorry, your browser does not support SVG.</object>
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgefe7faf" class="outline-2">
-<h2 id="orgefe7faf"><span class="section-number-2">14</span> Bode Plot of \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\)</h2>
+<div id="outline-container-orgcd71a31" class="outline-2">
+<h2 id="orgcd71a31"><span class="section-number-2">14</span> Bode Plot of \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\)</h2>
 <div class="outline-text-2" id="text-14">
 <p>
 Recall that
@@ -552,15 +552,15 @@ Recall that
 </ul>
 
 <div class="figure">
-<p><object type="image/svg+xml" data="Lec2BodeSecondOrder.svg" class="org-svg">
+<p><object type="image/svg+xml" data="assets/Lec2BodeSecondOrder.svg" class="org-svg">
 Sorry, your browser does not support SVG.</object>
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org4306a53" class="outline-2">
-<h2 id="org4306a53"><span class="section-number-2">15</span> Bode Plot of \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\)</h2>
+<div id="outline-container-org6907bd1" class="outline-2">
+<h2 id="org6907bd1"><span class="section-number-2">15</span> Bode Plot of \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\)</h2>
 <div class="outline-text-2" id="text-15">
 <ul class="org-ul">
 <li>If \(\omega \ll \omega_n\), then \(G(j\omega) \approx 1\)
@@ -582,11 +582,11 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgd64600b" class="outline-2">
-<h2 id="orgd64600b"><span class="section-number-2">16</span> Sketching \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\) using Asymptotes</h2>
+<div id="outline-container-org5c0a1b9" class="outline-2">
+<h2 id="org5c0a1b9"><span class="section-number-2">16</span> Sketching \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\) using Asymptotes</h2>
 <div class="outline-text-2" id="text-16">
-</div><div id="outline-container-org9f704fb" class="outline-3">
-<h3 id="org9f704fb"><span class="section-number-3">16.1</span> Magnitude</h3>
+</div><div id="outline-container-org0daf302" class="outline-3">
+<h3 id="org0daf302"><span class="section-number-3">16.1</span> Magnitude</h3>
 <div class="outline-text-3" id="text-16-1">
 <ul class="org-ul">
 <li>Draw a horizontal line at 0dB until the corner frequency \(\omega_n\).</li>
@@ -595,15 +595,15 @@ Sorry, your browser does not support SVG.</object>
 </ul>
 </div>
 </div>
-<div id="outline-container-org3429f60" class="outline-3">
-<h3 id="org3429f60"><span class="section-number-3">16.2</span> Phase</h3>
+<div id="outline-container-org497541f" class="outline-3">
+<h3 id="org497541f"><span class="section-number-3">16.2</span> Phase</h3>
 <div class="outline-text-3" id="text-16-2">
 <ul class="org-ul">
 <li>The phase plot cannot be drawn very accurately using asymptotes.</li>
 </ul>
 
 <div class="figure">
-<p><object type="image/svg+xml" data="Lec2BodeSecondOrder2.svg" class="org-svg">
+<p><object type="image/svg+xml" data="assets/Lec2BodeSecondOrder2.svg" class="org-svg">
 Sorry, your browser does not support SVG.</object>
 </p>
 </div>
