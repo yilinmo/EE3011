@@ -3,5 +3,6 @@
 !*.ipynb
 !*.org
 !*.tex
+!*.html
 tmp*
 *#*
