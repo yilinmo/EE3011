@@ -1,0 +1,217 @@
+#+TITLE: Tutorial 8: Bode Plots/Frequency Domain Modeling
+
+#+BEGIN_SRC ipython :session :exports none
+import matplotlib
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('text', usetex=True)
+import control
+from control.matlab import *
+
+%matplotlib inline
+%config InlineBackend.figure_format = 'svg'
+
+from matplotlib2tikz import save as tikz_save
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC ipython :session :file Tut81a.svg :exports results
+num = [100,100];
+den = [1,10];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,3,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $100(s+1)/(s+10)$")
+plt.semilogx(omega, mag, 'b')
+plt.semilogx([1e-2,1e0,1e1,1e3], [20,20,40,40], 'r--')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([1e-2,1e-1,1e0,1e1,1e2,1e3], [0,0,45,45,0,0], 'r--')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(0, 90, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+tikz_save(
+    'tikz/Tut81a.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Tut81a.svg]]
+
+#+BEGIN_SRC ipython :session :file Tut81b.svg :exports results
+num = [100];
+den = [1,22,40];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,3,100));
+
+g0 = 20*np.log10(2.5);
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $100/(s+2)/(s+20)$")
+plt.semilogx(omega, mag, 'b')
+plt.semilogx([1e-2,2,20,1e3], [g0,g0,g0-20,-80], 'r--')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([1e-2,0.2,2,20,200,1e3], [0,0,-45,-135,-180,-180], 'r--')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-180, 0, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+tikz_save(
+    'tikz/Tut81b.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Tut81b.svg]]
+
+#+BEGIN_SRC ipython :session :file Tut81c.svg :exports results
+num = [100];
+den = [1,2,100,0];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-1,3,100));
+
+zeta = 0.1;
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $100/s/(s^2+2s+100)$")
+plt.semilogx(omega, mag, 'b')
+plt.semilogx([1e-1,1e1,1e1,1e1,1e3], [20,-20,-20*np.log10(2*zeta)-20,-20,-140], 'r--')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([1e-1,1e1,1e1,1e3], [-90,-90,-270,-270], 'r--')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-270, -90, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+tikz_save(
+    'tikz/Tut81c.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Tut81c.svg]]
+#+BEGIN_SRC ipython :session :file Tut81d.svg :exports results
+zeta1 = 0.1
+zeta2 = 0.6
+omegan = 10
+num = [1,2*zeta1*omegan,omegan**2];
+den = [1,2*zeta2*omegan,omegan**2];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-1,3,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $(s^2+2s+100)/(s^2+12s+100)$")
+plt.semilogx(omega, mag, 'b')
+plt.semilogx([1e-1,1e1,1e1,1e1,1e3], [0,0,20*np.log10(zeta1/zeta2),0,0], 'r--')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-90, 90, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+tikz_save(
+    'tikz/Tut81d.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Tut81d.svg]]
+#+BEGIN_SRC ipython :session :file Tut82.svg :exports results
+num = [500,5000];
+den = [1,50,1];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(0,3,100));
+
+plt.semilogx(omega, mag, 'b')
+plt.semilogx([1e0,1e1,50,1e3], [40,20,20,20*np.log10(0.5)], 'r--')
+plt.ylabel('Magnitude(dB)')
+plt.xlabel('Frequency(rad/sec)')
+plt.grid(b=True, which='both')
+
+tikz_save(
+    'tikz/Tut82.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Tut82.svg]]
+
+#+BEGIN_SRC ipython :session :file Tut83.svg :exports results
+num = [10];
+den = [10,1];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,0,100));
+
+plt.semilogx(omega, mag, 'b')
+plt.ylabel('Magnitude(dB)')
+plt.xlabel('Frequency(rad/sec)')
+plt.grid(b=True, which='both')
+
+tikz_save(
+    'tikz/Tut83.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Tut83.svg]]
