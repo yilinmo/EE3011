@@ -1,0 +1,883 @@
+#+BEGIN_SRC ipython :session :exports none
+import matplotlib
+import numpy as np
+from numpy import log10 as log
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Arial']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+import control
+from control.matlab import *
+from control import bode_plot as bode
+
+%load_ext tikzmagic
+
+%matplotlib inline
+%config InlineBackend.figure_format = 'svg'
+#+END_SRC
+
+#+RESULTS:
+* Minimum Phase and Non-Minimum Phase System
+** Constant K
+[[file:assets/Lec2BodeConstant.svg]]
+
+** Integrator $1/s$ 
+[[file:assets/Lec2BodeIntegrators.svg]]
+
+** First Order $1/(\tau s+1)$ 
+[[file:assets/Lec2BodeFirstOrder.svg]]
+
+** Second Order $1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)$
+[[file:assets/Lec2BodeSecondOrder.svg]]
+
+** Minimum Phase System
+
+- A transfer function $G(s)$ is minimum phase if both $G(s)$ and $1/G(s)$ are causal and stable.
+- Roughly speaking it means that the system does not have zeros or poles on the right-half plane. Moreover, it does not have delay.
+- Bode discovered that the phase can be uniquely derived from the slope of the magnitude for minimum-phase system. *Bode's Relation*
+
+| Basic Factor                            | Mag Slope(Low Freq) | Phase(Low Freq) | Mag Slope(Low Freq) | Phase (High Freq) |
+| K                                       |                   0 |               0 |                   0 |                 0 |
+| $s^N$                                   |                 20N |             90N |                 20N |               90N |
+| $1/(\tau s+1)$                          |                   0 |               0 |                 -20 |               -90 |
+| $1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)$ |                   0 |               0 |                 -40 |              -180 |
+
+
+** Non-Minimum Phase System: Unstable Zeros
+Consider two transfer functions:
+$$G_1(s) = 1,\,G_2(s) = \frac{1-s}{1+s}$$
+- $G_1(s)$ is minimum phase since it does not have unstable zeros/poles.
+- The magnitude of $G_1(s)$ is 0dB, and the phase is $0^\circ$.
+- $G_2(s)$ is non-minimum phase, since $G_2(1) = 0$.
+- One can check that $1/G_2(s) = \frac{1+s}{1-s}$ is unstable.
+
+$$|G_2(j\omega)| = \frac{\sqrt{1+\omega^2}}{\sqrt{1+\omega^2}} = 1,\,\angle G_2(j\omega) = -\tan^{-1}\omega -\tan^{-1}\omega = -2\tan^{-1}\omega.$$
+
+** Non-Minimum Phase System: Delay
+#+BEGIN_SRC ipython :session :file assets/Lec3Delay.svg :exports results
+%%tikz -l matrix,arrows -s 400,60 -f svg -S assets/Lec3Delay.svg
+
+\tikzstyle{point} = [coordinate]
+\tikzstyle{box} = [rectangle, draw, semithick]
+\node (plant) [box] {Delay};
+\node (p1) [left of=plant, anchor=east] {$r(t)$};
+\node (p2) [right of=plant, anchor=west] {$y(t) = r(t-\tau)$};
+\draw [semithick,-stealth'] (p1)--(plant);
+\draw [semithick,-stealth'] (plant)--(p2);
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec3Delay.svg]]
+
+
+- Time delay often exists in communication systems, chemical and manufacturing processes, etc.
+- Time delay systems are of non-minimum phase behavior.
+- The transfer function of the time delay factor is $G_3(s) = \exp(-\tau s)$, where $\tau$ is the delay.
+
+$$G_3(j\omega) = \exp(j\omega\tau) = 1\angle -\omega\tau\times\frac{180^\circ}{\pi}.$$
+
+** Bode Plot of Minimum Phase and Non-Minimum Phase System
+Minimum phase system has *minimum phase* amongst all transfer functions that have the same magnitude plot.
+#+BEGIN_SRC ipython :session :file assets/Lec3UnstableZero.svg :exports results
+num = [-1,1];
+den = [1,1];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,1.5,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $1$, $(1-s)/(1+s)$, and $\exp(-0.1s)$")
+plt.semilogx(omega, mag, 'b')
+yticks = np.linspace(-20, 20, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+g1, = plt.semilogx([1e-2,30],[0,0],'r', label='1')
+g2, = plt.semilogx(omega, phase,'b', label='$(1-s)/(1+s)$')
+g3, = plt.semilogx(omega,np.array(omega)*(-18)/np.pi,'k', label='$\exp(-0.1s)$')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-180, 0, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+plt.legend(handles=[g1, g2, g3])
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec3UnstableZero.svg]]
+
+** Implications of Non-Minimum Phase
+
+#+BEGIN_SRC ipython :session :file assets/Lec3NonMinimumPhaseStep.svg :exports results
+T = np.linspace(0,6,200);
+y2 = 1 - 2.222*np.exp(-1*T) + 1.222*np.exp(-10*T);
+y1 = 1 - np.exp(-10*T);
+y3 = 1 - np.exp(-10*(T-2));
+y3 = [max(y,0) for y in y3];
+
+plt.title("Step Response")
+g1, = plt.plot(T, y1, 'r', label='Minimum Phase')
+g2, = plt.plot(T, y2, 'b', label='Unstable Zero')
+g3, = plt.plot(T, y3, 'k', label='Delay')
+plt.ylabel('$y(t)$')
+plt.xlabel('t')
+plt.grid(b=True, which='both')
+plt.legend(handles=[g1, g2, g3])
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec3NonMinimumPhaseStep.svg]]
+
+- Non-minimum phase systems are much more difficult to control than minimum phase system
+- Unfortunately, non-minimum phase is quite common in practice
+  - Flexible Structure
+  - Circuits
+  - Back a car into the parking lot
+- The unstable zeros can be changed by reallocating sensors and actuators, or by introducing new sensors and actuators.
+- You will learn this in EE4273 Digital Control Systems where we teach state space model.
+
+
+
+* Bode Plots of Complex Transfer Functions
+
+Bode plots of a transfer function (system) can be obtained using Matlab (experiment). However, to interpret the Bode plots, we shall take a look at how basic factors of the transfer function affect the Bode plots.
+
+** Example 1
+
+\begin{align}
+G(s) = \frac{2000(s+0.5)}{s(s+10)(s+50)} = \frac{2(2s+1)}{s(0.1s+1)(0.02s+1)}.
+\end{align}
+
+*** Step 1: Decompose the Transfer Function into Basic Factors
+
+| Factor        | Corner Frequency |
+|---------------+------------------|
+| 2             |                  |
+| $1/s$         |                  |
+| $2s+1$        |              0.5 |
+| $1/(0.1s+1)$  |               10 |
+| $1/(0.02s+1)$ |               50 |
+
+By adding the Bode plots of the above factors together, we can get the Bode plot of $G(s)$
+
+#+BEGIN_SRC ipython :session :file assets/Lec3Example1a.svg :exports results
+num = [2];
+den = [1];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,3,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $2$")
+plt.semilogx(omega, mag, 'b')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-45, 45, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec3Example1a.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Lec3Example1b.svg :exports results
+num = [1];
+den = [1,0];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,3,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $1/s$")
+plt.semilogx(omega, mag, 'b')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-90, 0, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec3Example1b.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Lec3Example1c.svg :exports results
+num = [2,1];
+den = [1];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,3,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $2s+1$")
+plt.semilogx(omega, mag, 'b')
+plt.semilogx([1e-2,0.5,1e3], [0,0,20*log(2e3)], 'r--')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([1e-2,0.05,5,1e3], [0,0,90,90], 'r--')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(0, 90, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec3Example1c.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Lec3Example1d.svg :exports results
+num = [1];
+den = [0.1,1];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,3,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $1/(0.1s+1)$")
+plt.semilogx(omega, mag, 'b')
+plt.semilogx([1e-2,1e1,1e3], [0,0,-40], 'r--')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([1e-2,1e0,1e2,1e3], [0,0,-90,-90], 'r--')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-90, 0, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec3Example1d.svg]]
+#+BEGIN_SRC ipython :session :file assets/Lec3Example1e.svg :exports results
+num = [1];
+den = [0.02,1];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,3,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $1/(0.02s+1)$")
+plt.semilogx(omega, mag, 'b')
+plt.semilogx([1e-2,50,1e3], [0,0,-20*log(1e3/50)], 'r--')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([1e-2,5,500,1e3], [0,0,-90,-90], 'r--')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-90, 0, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec3Example1e.svg]]
+
+*** Step 2: Determine the Plot at the Lower Frequency
+- For Lower Frequency, only need to look at the constant $K$ and $s^N$ term.
+- Draw the plot of $s^N$ first
+  - Magnitude: a straight line passes through $(1,0dB)$ with a slope of $20NdB$.
+  - Phase: a horizontal line at $90N^\circ$.
+- Adding the constant term $K$
+  - Magnitude: add $20\log|K|$
+  - Phase: If $K > 0$, do nothing. If $K < 0$, subtract $90^\circ$.
+#+BEGIN_SRC ipython :session :file assets/Lec3Example1f.svg :exports results
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+magof2 = 20*log(2)
+plt.title("Bode Plot of $2/s$")
+plt.semilogx([1e-2,1e3], [40,-60], 'r--')
+plt.semilogx([1e-2,1e3], np.array([40,-60])+magof2, 'r')
+yticks = np.linspace(-60, 60, 7) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.annotate('(1,0dB)', xy=(1e0,0), xytext=(1e0, -20),
+            arrowprops=dict(arrowstyle='->'),
+            horizontalalignment='center',
+            verticalalignment='top', 
+            )
+plt.annotate('1/s', xy=(1e-1,20), xytext=(1e-1, -40),
+            arrowprops=dict(arrowstyle='->'),
+            horizontalalignment='center',
+            verticalalignment='top', 
+            )
+plt.annotate('2/s', xy=(1e2,-40), xytext=(1e2, magof2),
+            arrowprops=dict(arrowstyle='->'),
+            horizontalalignment='center',
+            verticalalignment='bottom', 
+            )
+plt.annotate('+%.2fdB' % magof2, xy=(1e1,-40), xytext=(1e1, 20),
+            arrowprops=dict(arrowstyle='<-'),
+            horizontalalignment='center',
+            verticalalignment='bottom', 
+            )
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx([1e-2,1e3], [-90,-90], 'r')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-180, 0, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC 
+
+#+RESULTS:
+[[file:assets/Lec3Example1f.svg]]
+*** Step 3: Add First and Second Order Terms
+
+| Factor        | Corner Frequency | 
+| $2s+1$        |              0.5 |
+| $1/(0.1s+1)$  |               10 |
+| $1/(0.02s+1)$ |               50 |
+
+- Magnitude
+For $(\tau s+1)^N$, change the slope at corner frequency $1/\tau$ by $20N$.
+
+| Frequency    | Low | 0.5 |  10 |  50 |
+| Slope Change |     | +20 | -20 | -20 |
+| Slope        | -20 |   0 | -20 | -40 |
+- Phase
+For $(\tau s+1)^N$
+- change the slope at $0.1/\tau$ by $45N$.
+- change the slope at $10/\tau$ by $-45N$.
+
+| Frequency    | Low | 0.05 |   1 |       5 | 100 | 500 |
+| Slope Change |     |  +45 | -45 | -45 -45 | +45 | +45 |
+| Slope        |   0 |   45 |   0 |     -90 | -45 |  0  |
+#+BEGIN_SRC ipython :session :file assets/Lec3Example1g.svg :exports results
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+magof2 = 20*log(2)
+plt.title("Bode Plot of $G(s)$")
+plt.semilogx([1e-2,1e3], np.array([40,-60])+magof2, 'r--')
+
+freqs = [1e-2,0.5,10,50,1e3];
+slopes = [-20,0,-20,-40];
+mags = [40+20*log(2),0,0,0,0];
+for i in range(1, len(freqs)):
+    mags[i] = mags[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+    plt.annotate('%g' % slopes[i-1], xy=(1,1), xytext=(np.sqrt(freqs[i-1]*freqs[i]), -50),
+                horizontalalignment='center',
+                verticalalignment='center', 
+                )
+
+plt.semilogx(freqs,mags, 'r')
+
+for freq in [0.5, 10, 50]:
+    plt.annotate('%g' %freq, xy=(freq,-50), xytext=(freq, 50),
+                arrowprops=dict(arrowstyle='-'),
+                horizontalalignment='center',
+                verticalalignment='center', 
+                )
+
+yticks = np.linspace(-60, 60, 7) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx([1e-2,1e3], [-90,-90], 'r--')
+freqs = [1e-2,0.05,1,5,100,500,1e3]
+slopes = [0,45,0,-90,-45,0]
+phases = [-90,0,0,0,0,0,0]
+for i in range(1, len(freqs)):
+    phases[i] = phases[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+    plt.annotate('%g' % slopes[i-1], xy=(freq,-170), xytext=(np.sqrt(freqs[i-1]*freqs[i]), -170),
+                horizontalalignment='center',
+                verticalalignment='center', 
+                )
+
+plt.semilogx(freqs, phases, 'r')
+
+for freq in [0.05, 1, 5, 100, 500]:
+    plt.annotate('%g' %freq, xy=(freq,-170), xytext=(freq, -10),
+                arrowprops=dict(arrowstyle='-'),
+                horizontalalignment='center',
+                verticalalignment='center', 
+                )
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-180, 0, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC 
+
+#+RESULTS:
+[[file:assets/Lec3Example1g.svg]]
+
+*** Step 4 (Optional): Check your result in Matlab
+#+BEGIN_SRC ipython :session :file tmp.svg :exports code
+num = [2000,1000];
+den = [1,60,500,0];
+sys = tf(num, den);
+bode(sys);
+#+END_SRC
+
+#+RESULTS:
+[[file:tmp.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Lec3Example1h.svg :exports results
+num = [2000,1000];
+den = [1,60,500,0];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,3,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+magof2 = 20*log(2)
+plt.title("Bode Plot of $G(s)$")
+
+freqs = [1e-2,0.5,10,50,1e3];
+slopes = [-20,0,-20,-40];
+mags = [40+20*log(2),0,0,0,0];
+for i in range(1, len(freqs)):
+    mags[i] = mags[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+
+plt.semilogx(freqs,mags, 'r--')
+plt.semilogx(omega,mag, 'b')
+
+yticks = np.linspace(-60, 60, 7) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+freqs = [1e-2,0.05,1,5,100,500,1e3]
+slopes = [0,45,0,-90,-45,0]
+phases = [-90,0,0,0,0,0,0]
+for i in range(1, len(freqs)):
+    phases[i] = phases[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+
+plt.semilogx(freqs, phases, 'r--')
+plt.semilogx(omega,phase, 'b')
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-180, 0, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC 
+
+#+RESULTS:
+[[file:assets/Lec3Example1h.svg]]
+** Example 2
+
+\begin{align}
+G(s) = \frac{10}{s(s^2+0.4s+4)} = \frac{2.5}{s((s/2)^2+2\times 0.1s/2+1)}.
+\end{align}
+
+*** Step 1: Decompose the Transfer Function into Basic Factors
+
+| Factor             | Corner Frequency |
+|--------------------+------------------|
+| 2.5                |                  |
+| $1/s$              |                  |
+| $(s/2)^2+0.2s/2+1$ |                2 |
+
+#+BEGIN_SRC ipython :session :file assets/Lec3Example2a.svg :exports results
+num = [1];
+den = [0.25,0.1,1];
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-2,2,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $1/(0.25s^2+0.1s+1)$")
+plt.semilogx(omega, mag, 'b')
+plt.semilogx([1e-2,2,2,2,1e2], [0,0,-20*log(0.2),0,-40*log(50)], 'r--')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-180, 0, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec3Example2a.svg]]
+
+
+*** Step 2: Determine the Plot at the Lower Frequency
+The low frequency factors are $2.5$ and $1/s$.
+
+- Magnitude
+  + Draw a straight line passing through $(1,0dB)$ with slope -20.
+  + Shift the magnitude plot of $1/s$ up by $20\log(2.5)$.
+- Phase
+  + Draw a constant line at $-90^\circ$.
+#+BEGIN_SRC ipython :session :file assets/Lec3Example2b.svg :exports results
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $2.5/s$")
+plt.semilogx([1e-2,1e2], [40,-40], 'r--')
+plt.semilogx([1e-2,1e2], np.array([40,-40])+20*log(2.5), 'r')
+yticks = np.linspace(-100, 40, 8) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.annotate('(1,0dB)', xy=(1e0,0), xytext=(1e0, -20),
+            arrowprops=dict(arrowstyle='->'),
+            horizontalalignment='center',
+            verticalalignment='top', 
+            )
+plt.annotate('1/s', xy=(1e-1,20), xytext=(1e-1, -40),
+            arrowprops=dict(arrowstyle='->'),
+            horizontalalignment='center',
+            verticalalignment='top', 
+            )
+plt.annotate('2.5/s', xy=(1e2,-40), xytext=(1e2, 20*log(2.5)),
+            arrowprops=dict(arrowstyle='->'),
+            horizontalalignment='center',
+            verticalalignment='bottom', 
+            )
+plt.annotate('+%.2fdB' % (20*log(2.5)), xy=(1e1,-40), xytext=(1e1, 20),
+            arrowprops=dict(arrowstyle='<-'),
+            horizontalalignment='center',
+            verticalalignment='bottom', 
+            )
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx([1e-2,1e2], [-90,-90], 'r')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-180, 0, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC 
+
+#+RESULTS:
+[[file:assets/Lec3Example2b.svg]]
+
+*** Step 3: Add First and Second Order Terms
+Consider a second order term:
+
+$$\left[\left(\frac{s}{\omega_n}\right)^2+2\zeta\frac{s}{\omega_n}+1\right]^{\pm 1}.$$
+- Magnitude
+  + change the slope at the corner frequency $\omega_n$ by $\pm 40dB$;
+  + add $\mp 20\log(2\zeta)$ correction at the corner frequency $\omega_n$.
+- Phase
+  + draw the phase plot using calculators.
+#+BEGIN_SRC ipython :session :file assets/Lec3Example2c.svg :exports results
+  plt.subplots_adjust(hspace=0.4)
+
+  plt.subplot(211)
+  plt.title("Bode Plot of $G(s)$")
+
+  freqs = [1e-2,2,1e2];
+  slopes = [-20,-60];
+  mags = [40+20*log(2.5),0,0];
+  for i in range(1, len(freqs)):
+       mags[i] = mags[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+
+  plt.annotate('-20', xy=(1,-50), xytext=(1e-1, 20),
+		  horizontalalignment='center',
+		  verticalalignment='top', 
+		  )
+  plt.annotate('-60', xy=(1,-50), xytext=(1e1, -40),
+                  horizontalalignment='right',
+                  verticalalignment='top', 
+                  )
+  plt.annotate('+%.1fdB' % (-20*log(0.2)), xy=(2, 20*log(2.5/2/0.2)), xytext=(1e1, 20*log(2.5/2/0.2)),
+	arrowprops=dict(arrowstyle='->'),
+	horizontalalignment='left',
+	verticalalignment='top', 
+               )
+
+
+  plt.semilogx(freqs,mags, 'r--')
+  plt.semilogx([2,2],[20*log(2.5/2),20*log(2.5/2/0.2)], 'r')
+
+  yticks = np.linspace(-100, 40, 8) 
+  ylabels = [(str(ytick)) for ytick in yticks]
+  plt.yticks(yticks, ylabels)
+  plt.ylabel('Magnitude(dB)')
+  plt.grid(b=True, which='both')
+
+  plt.subplot(212)
+
+  plt.semilogx([1e-2,2],[-90,-90], 'r--')
+  plt.semilogx([2,1e2],[-270,-270],'r--')
+  plt.ylabel('Phase(deg)')
+  plt.xlabel('Frequency(rad/sec)')
+
+  yticks = np.linspace(-270, -90, 5) 
+  ylabels = [(str(ytick)) for ytick in yticks]
+  plt.yticks(yticks, ylabels)
+  plt.grid(b=True, which='both')
+
+  plt.xlabel('Frequency(rad/sec)')
+
+  plt.show()
+#+END_SRC 
+
+#+RESULTS:
+[[file:assets/Lec3Example2c.svg]]
+
+
+*** Step 4: Check your result in Matlab
+#+BEGIN_SRC ipython :session :file:tmp.svg  :exports code
+num = [10];
+den = [1,0.4,4,0];
+sys = tf(num, den);
+bode(sys);
+#+END_SRC
+
+#+RESULTS:
+: <matplotlib.figure.Figure at 0x7f32d01c01d0>
+
+
+
+#+BEGIN_SRC ipython :session :file assets/Lec3Example2d.svg :exports results
+num = [10];
+den = [1,0.4,4,0];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,2,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $G(s)$")
+
+freqs = [1e-2,2,1e2];
+slopes = [-20,-60];
+mags = [40+20*log(2.5),0,0];
+for i in range(1, len(freqs)):
+    mags[i] = mags[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+
+plt.semilogx(freqs,mags, 'r--')
+plt.semilogx([2,2],[20*log(2.5/2),20*log(2.5/2/0.2)], 'r')
+plt.semilogx(omega,mag, 'b')
+
+yticks = np.linspace(-100, 40, 8) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega,phase, 'b')
+
+plt.semilogx([1e-2,2],[-90,-90], 'r--')
+plt.semilogx([2,1e2],[-270,-270],'r--')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-270, -90, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC 
+
+#+RESULTS:
+[[file:assets/Lec3Example2d.svg]]
+
+** Example 3
+\begin{align}
+G(s) &= \frac{2500(s+10)}{s(s+2)(s^2+30+2500)}\\
+&=\frac{5(0.1s+1)}{s(0.5s+1)\left[(s/50)^2+0.6s/50+1\right]}.
+\end{align}
+
+| Factor                              | Corner Frequency |
+| 5                                   |                  |
+| $1/s$                               |                  |
+| $1/(0.5s+1)$                        |                2 |
+| $0.1s+1$                            |               10 |
+| $1/\left[(s/50)^2+0.6s/50+1\right]$ |               50 |
+
+- Magnitude
+  + Lower Frequency: Draw a straight line passing through $(1,0dB)$ with slope -20. Shift this line up by $20\log(5)=14dB$.
+  + Adding the first and second order term. Add $-20\log(0.6) = 4.4dB$ correction at 50.
+| Frequency    | Low |   2 |  10 |  50 |
+| Slope Change |     | -20 | +20 | -40 |
+| Slope        | -20 | -40 | -20 | -60 |
+- Phase
+  + Phase starts at $-90^\circ$ due to the integrator.
+  + Phase ends at $-90-90+90-180 = -270^\circ$.
+  + Use calculator to draw the phase plot.
+#+BEGIN_SRC ipython :session :file assets/Lec3Example3a.svg :exports results
+  plt.subplots_adjust(hspace=0.4)
+
+  plt.subplot(211)
+  plt.title("Bode Plot of $G(s)$")
+
+  freqs = [1e-1,2,10,50,1e3];
+  slopes = [-20,-40,-20,-60];
+  mags = [20+20*log(5),0,0,0,0];
+  for i in range(1, len(freqs)):
+       mags[i] = mags[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+       plt.annotate('%g' % slopes[i-1], xy=(1,1), xytext=(np.sqrt(freqs[i-1]*freqs[i]), -100),
+                horizontalalignment='center',
+                verticalalignment='center', 
+                )
+
+
+  for freq in [2, 10, 50]:
+       plt.annotate('%g' %freq, xy=(freq,-100), xytext=(freq, 20),
+                arrowprops=dict(arrowstyle='-'),
+                horizontalalignment='center',
+                verticalalignment='bottom', 
+                )
+
+  plt.annotate('+%.1fdB' % (-20*log(0.6)), xy=(50,mags[3]-20*log(0.6)), xytext=(1e2,mags[3]-20*log(0.6)),
+	arrowprops=dict(arrowstyle='->'),
+	horizontalalignment='left',
+	verticalalignment='top', 
+               )
+  plt.semilogx(freqs,mags, 'r--')
+  plt.semilogx([50,50],[mags[3], mags[3]-20*log(0.6)], 'r')
+
+  yticks = np.linspace(-100, 40, 8) 
+  ylabels = [(str(ytick)) for ytick in yticks]
+  plt.yticks(yticks, ylabels)
+  plt.ylabel('Magnitude(dB)')
+  plt.grid(b=True, which='both')
+
+  plt.subplot(212)
+
+  plt.semilogx([1e-1,50],[-90,-90], 'r--')
+  plt.semilogx([50,1e3],[-270,-270],'r--')
+  plt.ylabel('Phase(deg)')
+  plt.xlabel('Frequency(rad/sec)')
+
+  yticks = np.linspace(-270, -90, 5) 
+  ylabels = [(str(ytick)) for ytick in yticks]
+  plt.yticks(yticks, ylabels)
+  plt.grid(b=True, which='both')
+
+  plt.xlabel('Frequency(rad/sec)')
+
+  plt.show()
+#+END_SRC 
+
+#+RESULTS:
+[[file:assets/Lec3Example3a.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Lec3Example3b.svg :exports results
+
+  num = [2500, 25000];
+  den = [1,32,2560,5000,0];
+  sys = tf(num, den);
+  mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-1,3,100));
+  plt.subplots_adjust(hspace=0.4)
+
+  plt.subplot(211)
+  plt.title("Bode Plot of $G(s)$")
+
+  freqs = [1e-1,2,10,50,1e3];
+  slopes = [-20,-40,-20,-60];
+  mags = [20+20*log(5),0,0,0,0];
+  for i in range(1, len(freqs)):
+       mags[i] = mags[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+
+  plt.semilogx(freqs,mags, 'r--')
+  plt.semilogx(omega,mag, 'b')
+  plt.semilogx([50,50],[mags[3], mags[3]-20*log(0.6)], 'r')
+
+  yticks = np.linspace(-100, 40, 8) 
+  ylabels = [(str(ytick)) for ytick in yticks]
+  plt.yticks(yticks, ylabels)
+  plt.ylabel('Magnitude(dB)')
+  plt.grid(b=True, which='both')
+
+  plt.subplot(212)
+
+  plt.semilogx([1e-1,50],[-90,-90], 'r--')
+  plt.semilogx([50,1e3],[-270,-270],'r--')
+  plt.semilogx(omega,phase, 'b')
+  plt.ylabel('Phase(deg)')
+  plt.xlabel('Frequency(rad/sec)')
+
+  yticks = np.linspace(-270, -90, 5) 
+  ylabels = [(str(ytick)) for ytick in yticks]
+  plt.yticks(yticks, ylabels)
+  plt.grid(b=True, which='both')
+
+  plt.xlabel('Frequency(rad/sec)')
+
+  plt.show()
+#+END_SRC 
+
+#+RESULTS:
+[[file:assets/Lec3Example3b.svg]]
+

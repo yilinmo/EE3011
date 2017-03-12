@@ -1,0 +1,1051 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-03-12 Sun 22:51 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="MO Yilin (Asst Prof)" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgef5c891">1. Minimum Phase and Non-Minimum Phase System</a>
+<ul>
+<li><a href="#org853a6f9">1.1. Constant K</a></li>
+<li><a href="#org34d82d4">1.2. Integrator \(1/s\)</a></li>
+<li><a href="#org704c96d">1.3. First Order \(1/(\tau s+1)\)</a></li>
+<li><a href="#orgd1ae5cd">1.4. Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</a></li>
+<li><a href="#org038fcb8">1.5. Minimum Phase System</a></li>
+<li><a href="#orgf691655">1.6. Non-Minimum Phase System: Unstable Zeros</a></li>
+<li><a href="#org3d93382">1.7. Non-Minimum Phase System: Delay</a></li>
+<li><a href="#orgdf96840">1.8. Bode Plot of Minimum Phase and Non-Minimum Phase System</a></li>
+<li><a href="#orga60090a">1.9. Implications of Non-Minimum Phase</a></li>
+</ul>
+</li>
+<li><a href="#org7a96fd9">2. Bode Plots of Complex Transfer Functions</a>
+<ul>
+<li><a href="#org1bb5068">2.1. Example 1</a>
+<ul>
+<li><a href="#org64a9ec8">2.1.1. Step 1: Decompose the Transfer Function into Basic Factors</a></li>
+<li><a href="#org7b821d2">2.1.2. Step 2: Determine the Plot at the Lower Frequency</a></li>
+<li><a href="#orge8157a5">2.1.3. Step 3: Add First and Second Order Terms</a></li>
+<li><a href="#orgbf62524">2.1.4. Step 4 (Optional): Check your result in Matlab</a></li>
+</ul>
+</li>
+<li><a href="#orgde0b034">2.2. Example 2</a>
+<ul>
+<li><a href="#org5897f9d">2.2.1. Step 1: Decompose the Transfer Function into Basic Factors</a></li>
+<li><a href="#orgaa88c7c">2.2.2. Step 2: Determine the Plot at the Lower Frequency</a></li>
+<li><a href="#org2be052e">2.2.3. Step 3: Add First and Second Order Terms</a></li>
+<li><a href="#orgfc6a804">2.2.4. Step 4: Check your result in Matlab</a></li>
+</ul>
+</li>
+<li><a href="#orgeec1859">2.3. Example 3</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgef5c891" class="outline-2">
+<h2 id="orgef5c891"><span class="section-number-2">1</span> Minimum Phase and Non-Minimum Phase System</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-org853a6f9" class="outline-3">
+<h3 id="org853a6f9"><span class="section-number-3">1.1</span> Constant K</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec2BodeConstant.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org34d82d4" class="outline-3">
+<h3 id="org34d82d4"><span class="section-number-3">1.2</span> Integrator \(1/s\)</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec2BodeIntegrators.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org704c96d" class="outline-3">
+<h3 id="org704c96d"><span class="section-number-3">1.3</span> First Order \(1/(\tau s+1)\)</h3>
+<div class="outline-text-3" id="text-1-3">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec2BodeFirstOrder.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd1ae5cd" class="outline-3">
+<h3 id="orgd1ae5cd"><span class="section-number-3">1.4</span> Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</h3>
+<div class="outline-text-3" id="text-1-4">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec2BodeSecondOrder.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org038fcb8" class="outline-3">
+<h3 id="org038fcb8"><span class="section-number-3">1.5</span> Minimum Phase System</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>A transfer function \(G(s)\) is minimum phase if both \(G(s)\) and \(1/G(s)\) are causal and stable.</li>
+<li>Roughly speaking it means that the system does not have zeros or poles on the right-half plane. Moreover, it does not have delay.</li>
+<li>Bode discovered that the phase can be uniquely derived from the slope of the magnitude for minimum-phase system. <b>Bode's Relation</b></li>
+</ul>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Basic Factor</td>
+<td class="org-right">Mag Slope(Low Freq)</td>
+<td class="org-right">Phase(Low Freq)</td>
+<td class="org-right">Mag Slope(Low Freq)</td>
+<td class="org-right">Phase (High Freq)</td>
+</tr>
+
+<tr>
+<td class="org-left">K</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+</tr>
+
+<tr>
+<td class="org-left">\(s^N\)</td>
+<td class="org-right">20N</td>
+<td class="org-right">90N</td>
+<td class="org-right">20N</td>
+<td class="org-right">90N</td>
+</tr>
+
+<tr>
+<td class="org-left">\(1/(\tau s+1)\)</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">-20</td>
+<td class="org-right">-90</td>
+</tr>
+
+<tr>
+<td class="org-left">\(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">-40</td>
+<td class="org-right">-180</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+<div id="outline-container-orgf691655" class="outline-3">
+<h3 id="orgf691655"><span class="section-number-3">1.6</span> Non-Minimum Phase System: Unstable Zeros</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+Consider two transfer functions:
+\[G_1(s) = 1,\,G_2(s) = \frac{1-s}{1+s}\]
+</p>
+<ul class="org-ul">
+<li>\(G_1(s)\) is minimum phase since it does not have unstable zeros/poles.</li>
+<li>The magnitude of \(G_1(s)\) is 0dB, and the phase is \(0^\circ\).</li>
+<li>\(G_2(s)\) is non-minimum phase, since \(G_2(1) = 0\).</li>
+<li>One can check that \(1/G_2(s) = \frac{1+s}{1-s}\) is unstable.</li>
+</ul>
+
+<p>
+\[|G_2(j\omega)| = \frac{\sqrt{1+\omega^2}}{\sqrt{1+\omega^2}} = 1,\,\angle G_2(j\omega) = -\tan^{-1}\omega -\tan^{-1}\omega = -2\tan^{-1}\omega.\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3d93382" class="outline-3">
+<h3 id="org3d93382"><span class="section-number-3">1.7</span> Non-Minimum Phase System: Delay</h3>
+<div class="outline-text-3" id="text-1-7">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Delay.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+<ul class="org-ul">
+<li>Time delay often exists in communication systems, chemical and manufacturing processes, etc.</li>
+<li>Time delay systems are of non-minimum phase behavior.</li>
+<li>The transfer function of the time delay factor is \(G_3(s) = \exp(-\tau s)\), where \(\tau\) is the delay.</li>
+</ul>
+
+<p>
+\[G_3(j\omega) = \exp(j\omega\tau) = 1\angle -\omega\tau\times\frac{180^\circ}{\pi}.\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdf96840" class="outline-3">
+<h3 id="orgdf96840"><span class="section-number-3">1.8</span> Bode Plot of Minimum Phase and Non-Minimum Phase System</h3>
+<div class="outline-text-3" id="text-1-8">
+<p>
+Minimum phase system has <b>minimum phase</b> amongst all transfer functions that have the same magnitude plot.
+</p>
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3UnstableZero.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga60090a" class="outline-3">
+<h3 id="orga60090a"><span class="section-number-3">1.9</span> Implications of Non-Minimum Phase</h3>
+<div class="outline-text-3" id="text-1-9">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3NonMinimumPhaseStep.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<ul class="org-ul">
+<li>Non-minimum phase systems are much more difficult to control than minimum phase system</li>
+<li>Unfortunately, non-minimum phase is quite common in practice
+<ul class="org-ul">
+<li>Flexible Structure</li>
+<li>Circuits</li>
+<li>Back a car into the parking lot</li>
+</ul></li>
+<li>The unstable zeros can be changed by reallocating sensors and actuators, or by introducing new sensors and actuators.</li>
+<li>You will learn this in EE4273 Digital Control Systems where we teach state space model.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org7a96fd9" class="outline-2">
+<h2 id="org7a96fd9"><span class="section-number-2">2</span> Bode Plots of Complex Transfer Functions</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Bode plots of a transfer function (system) can be obtained using Matlab (experiment). However, to interpret the Bode plots, we shall take a look at how basic factors of the transfer function affect the Bode plots.
+</p>
+</div>
+
+<div id="outline-container-org1bb5068" class="outline-3">
+<h3 id="org1bb5068"><span class="section-number-3">2.1</span> Example 1</h3>
+<div class="outline-text-3" id="text-2-1">
+\begin{align}
+G(s) = \frac{2000(s+0.5)}{s(s+10)(s+50)} = \frac{2(2s+1)}{s(0.1s+1)(0.02s+1)}.
+\end{align}
+</div>
+
+<div id="outline-container-org64a9ec8" class="outline-4">
+<h4 id="org64a9ec8"><span class="section-number-4">2.1.1</span> Step 1: Decompose the Transfer Function into Basic Factors</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Factor</th>
+<th scope="col" class="org-right">Corner Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">2</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">\(1/s\)</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">\(2s+1\)</td>
+<td class="org-right">0.5</td>
+</tr>
+
+<tr>
+<td class="org-left">\(1/(0.1s+1)\)</td>
+<td class="org-right">10</td>
+</tr>
+
+<tr>
+<td class="org-left">\(1/(0.02s+1)\)</td>
+<td class="org-right">50</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+By adding the Bode plots of the above factors together, we can get the Bode plot of \(G(s)\)
+</p>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example1a.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example1b.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example1c.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example1d.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example1e.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7b821d2" class="outline-4">
+<h4 id="org7b821d2"><span class="section-number-4">2.1.2</span> Step 2: Determine the Plot at the Lower Frequency</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<ul class="org-ul">
+<li>For Lower Frequency, only need to look at the constant \(K\) and \(s^N\) term.</li>
+<li>Draw the plot of \(s^N\) first
+<ul class="org-ul">
+<li>Magnitude: a straight line passes through \((1,0dB)\) with a slope of \(20NdB\).</li>
+<li>Phase: a horizontal line at \(90N^\circ\).</li>
+</ul></li>
+<li>Adding the constant term \(K\)
+<ul class="org-ul">
+<li>Magnitude: add \(20\log|K|\)</li>
+<li>Phase: If \(K > 0\), do nothing. If \(K < 0\), subtract \(90^\circ\).</li>
+</ul></li>
+</ul>
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example1f.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orge8157a5" class="outline-4">
+<h4 id="orge8157a5"><span class="section-number-4">2.1.3</span> Step 3: Add First and Second Order Terms</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Factor</td>
+<td class="org-right">Corner Frequency</td>
+</tr>
+
+<tr>
+<td class="org-left">\(2s+1\)</td>
+<td class="org-right">0.5</td>
+</tr>
+
+<tr>
+<td class="org-left">\(1/(0.1s+1)\)</td>
+<td class="org-right">10</td>
+</tr>
+
+<tr>
+<td class="org-left">\(1/(0.02s+1)\)</td>
+<td class="org-right">50</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li>Magnitude</li>
+</ul>
+<p>
+For \((\tau s+1)^N\), change the slope at corner frequency \(1/\tau\) by \(20N\).
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Frequency</td>
+<td class="org-left">Low</td>
+<td class="org-right">0.5</td>
+<td class="org-right">10</td>
+<td class="org-right">50</td>
+</tr>
+
+<tr>
+<td class="org-left">Slope Change</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">+20</td>
+<td class="org-right">-20</td>
+<td class="org-right">-20</td>
+</tr>
+
+<tr>
+<td class="org-left">Slope</td>
+<td class="org-left">-20</td>
+<td class="org-right">0</td>
+<td class="org-right">-20</td>
+<td class="org-right">-40</td>
+</tr>
+</tbody>
+</table>
+<ul class="org-ul">
+<li>Phase</li>
+</ul>
+<p>
+For \((\tau s+1)^N\)
+</p>
+<ul class="org-ul">
+<li>change the slope at \(0.1/\tau\) by \(45N\).</li>
+<li>change the slope at \(10/\tau\) by \(-45N\).</li>
+</ul>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Frequency</td>
+<td class="org-left">Low</td>
+<td class="org-right">0.05</td>
+<td class="org-right">1</td>
+<td class="org-right">5</td>
+<td class="org-right">100</td>
+<td class="org-right">500</td>
+</tr>
+
+<tr>
+<td class="org-left">Slope Change</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">+45</td>
+<td class="org-right">-45</td>
+<td class="org-right">-45 -45</td>
+<td class="org-right">+45</td>
+<td class="org-right">+45</td>
+</tr>
+
+<tr>
+<td class="org-left">Slope</td>
+<td class="org-left">0</td>
+<td class="org-right">45</td>
+<td class="org-right">0</td>
+<td class="org-right">-90</td>
+<td class="org-right">-45</td>
+<td class="org-right">0</td>
+</tr>
+</tbody>
+</table>
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example1g.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbf62524" class="outline-4">
+<h4 id="orgbf62524"><span class="section-number-4">2.1.4</span> Step 4 (Optional): Check your result in Matlab</h4>
+<div class="outline-text-4" id="text-2-1-4">
+<div class="org-src-container">
+<pre class="src src-ipython">num = [2000,1000];
+den = [1,60,500,0];
+sys = tf(num, den);
+bode(sys);
+</pre>
+</div>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example1h.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgde0b034" class="outline-3">
+<h3 id="orgde0b034"><span class="section-number-3">2.2</span> Example 2</h3>
+<div class="outline-text-3" id="text-2-2">
+\begin{align}
+G(s) = \frac{10}{s(s^2+0.4s+4)} = \frac{2.5}{s((s/2)^2+2\times 0.1s/2+1)}.
+\end{align}
+</div>
+
+<div id="outline-container-org5897f9d" class="outline-4">
+<h4 id="org5897f9d"><span class="section-number-4">2.2.1</span> Step 1: Decompose the Transfer Function into Basic Factors</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Factor</th>
+<th scope="col" class="org-left">Corner Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">2.5</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">\(1/s\)</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">\((s/2)^2+0.2s/2+1\)</td>
+<td class="org-left">2</td>
+</tr>
+</tbody>
+</table>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example2a.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgaa88c7c" class="outline-4">
+<h4 id="orgaa88c7c"><span class="section-number-4">2.2.2</span> Step 2: Determine the Plot at the Lower Frequency</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<p>
+The low frequency factors are \(2.5\) and \(1/s\).
+</p>
+
+<ul class="org-ul">
+<li>Magnitude
+<ul class="org-ul">
+<li>Draw a straight line passing through \((1,0dB)\) with slope -20.</li>
+<li>Shift the magnitude plot of \(1/s\) up by \(20\log(2.5)\).</li>
+</ul></li>
+<li>Phase
+<ul class="org-ul">
+<li>Draw a constant line at \(-90^\circ\).</li>
+</ul></li>
+</ul>
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example2b.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2be052e" class="outline-4">
+<h4 id="org2be052e"><span class="section-number-4">2.2.3</span> Step 3: Add First and Second Order Terms</h4>
+<div class="outline-text-4" id="text-2-2-3">
+<p>
+Consider a second order term:
+</p>
+
+<p>
+\[\left[\left(\frac{s}{\omega_n}\right)^2+2\zeta\frac{s}{\omega_n}+1\right]^{\pm 1}.\]
+</p>
+<ul class="org-ul">
+<li>Magnitude
+<ul class="org-ul">
+<li>change the slope at the corner frequency \(\omega_n\) by \(\pm 40dB\);</li>
+<li>add \(\mp 20\log(2\zeta)\) correction at the corner frequency \(\omega_n\).</li>
+</ul></li>
+<li>Phase
+<ul class="org-ul">
+<li>draw the phase plot using calculators.</li>
+</ul></li>
+</ul>
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example2c.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgfc6a804" class="outline-4">
+<h4 id="orgfc6a804"><span class="section-number-4">2.2.4</span> Step 4: Check your result in Matlab</h4>
+<div class="outline-text-4" id="text-2-2-4">
+<div class="org-src-container">
+<pre class="src src-ipython">num = [10];
+den = [1,0.4,4,0];
+sys = tf(num, den);
+bode(sys);
+</pre>
+</div>
+
+
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example2d.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgeec1859" class="outline-3">
+<h3 id="orgeec1859"><span class="section-number-3">2.3</span> Example 3</h3>
+<div class="outline-text-3" id="text-2-3">
+\begin{align}
+G(s) &= \frac{2500(s+10)}{s(s+2)(s^2+30+2500)}\\
+&=\frac{5(0.1s+1)}{s(0.5s+1)\left[(s/50)^2+0.6s/50+1\right]}.
+\end{align}
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Factor</td>
+<td class="org-right">Corner Frequency</td>
+</tr>
+
+<tr>
+<td class="org-left">5</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">\(1/s\)</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">\(1/(0.5s+1)\)</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-left">\(0.1s+1\)</td>
+<td class="org-right">10</td>
+</tr>
+
+<tr>
+<td class="org-left">\(1/\left[(s/50)^2+0.6s/50+1\right]\)</td>
+<td class="org-right">50</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li>Magnitude
+<ul class="org-ul">
+<li>Lower Frequency: Draw a straight line passing through \((1,0dB)\) with slope -20. Shift this line up by \(20\log(5)=14dB\).</li>
+<li>Adding the first and second order term. Add \(-20\log(0.6) = 4.4dB\) correction at 50.</li>
+</ul></li>
+</ul>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Frequency</td>
+<td class="org-left">Low</td>
+<td class="org-right">2</td>
+<td class="org-right">10</td>
+<td class="org-right">50</td>
+</tr>
+
+<tr>
+<td class="org-left">Slope Change</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">-20</td>
+<td class="org-right">+20</td>
+<td class="org-right">-40</td>
+</tr>
+
+<tr>
+<td class="org-left">Slope</td>
+<td class="org-left">-20</td>
+<td class="org-right">-40</td>
+<td class="org-right">-20</td>
+<td class="org-right">-60</td>
+</tr>
+</tbody>
+</table>
+<ul class="org-ul">
+<li>Phase
+<ul class="org-ul">
+<li>Phase starts at \(-90^\circ\) due to the integrator.</li>
+<li>Phase ends at \(-90-90+90-180 = -270^\circ\).</li>
+<li>Use calculator to draw the phase plot.</li>
+</ul></li>
+</ul>
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example3a.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec3Example3b.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
