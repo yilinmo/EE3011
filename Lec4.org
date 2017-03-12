@@ -1,0 +1,218 @@
+#+BEGIN_SRC ipython :session :exports none
+import matplotlib
+import numpy as np
+from numpy import log10 as log
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Arial']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+import control
+from control.matlab import *
+from control import bode_plot as bode
+
+%load_ext tikzmagic
+
+%matplotlib inline
+%config InlineBackend.figure_format = 'svg'
+#+END_SRC
+
+#+RESULTS:
+
+* Frequency Domain Modeling
+
+- Modeling from first principles can be difficult and time-consuming
+- The Bode plots of a system can be obtained through experiments.
+- For a minimum phase system, an approximate transfer function can be derived from the Bode magnitude plot
+** How to Get the Transfer Function
+- Determine an asymptotic magnitude plot by approximating the actual gain plot by a sequence of straight lines with slopes of $20N$.
+- From the low frequency plot, determine the number of integrator $1/s^N$ and the constant term $K$.
+  - The beginning slope is $20N$ for $s^N$.
+  - Calculate the constant term $K$ accordingly
+- Determine the corner frequency from the intersection of two consecutive lines.
+- From the change of slopes of the consecutive lines, determine the associated basic factor.
+  + $+20$ implies first order zero and $-20$ implies first order pole;
+  + $+40$ implies second order zero and $-40$ implies second order pole.
+- Determine the damping ratio for second order zeros and poles.
+  + $-20\log(2\zeta)$ correction for second order poles.
+  + $+20\log(2\zeta)$ correction for second order zeros.
+- The phase plot can be used to verify your results.
+
+*** Example 1
+Given the Bode plot of a minimum phase system. Obtain an estimated transfer function.
+#+BEGIN_SRC ipython :session :file assets/Lec4Example1a.svg :exports results
+num = [0.1,10];
+den = [0.01,0.2,1];
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-1,4,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of an Unknown Transfer Function")
+plt.semilogx(omega, mag, 'b')
+yticks = np.linspace(-60, 20, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(0, -135, 4) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec4Example1.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Lec4Example1b.svg :exports results
+num = [0.1,10];
+den = [0.01,0.2,1];
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-1,4,200));
+
+plt.title("Magnitude Plot of an Unknown Transfer Function")
+plt.semilogx(omega, mag, 'b')
+
+freqs = [1e-1,1e1,1e2,1e4]
+slopes = [0,-40,-20];
+mags = [20,0,0,0];
+for i in range(1, len(freqs)):
+    mags[i] = mags[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+    plt.annotate('%g' % slopes[i-1], xy=(1,1), xytext=(np.sqrt(freqs[i-1]*freqs[i]), -60),
+                horizontalalignment='center',
+                verticalalignment='bottom', 
+                )
+
+plt.semilogx(freqs,mags, 'r--')
+
+for freq in [1e1, 1e2]:
+    plt.annotate('%g' %freq, xy=(freq,20), xytext=(freq, -40),
+                arrowprops=dict(arrowstyle='-'),
+                horizontalalignment='center',
+                verticalalignment='center', 
+                )
+
+slop = [1e-1,1e1,1e2,1e4]
+yticks = np.linspace(-60, 20, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.xlabel('Frequency(rad/sec)')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec4Example1b.svg]]
+
+- Approximate the magnitude plot via a sequence of straight lines with slope $20N$.
+- For the low frequency:
+  + The slope is 0. Hence, no integrator;
+  + The magnitude is 20dB. Hence, the constant term is $K = 10$.
+- Determine the first and second order terms:
+  + There is second order term with natural frequency $\omega_n = 10$.
+  + The correction is $-6$dB. Hence $-20\log(2\zeta) = -6$, $\zeta = 1$. The system is critically damped.
+  + There is a first order zero at $100$.
+| Corner Frequency | Slope Before | Slope After | Change of Slope |
+|               10 |            0 |         -40 |             -40 |
+|              100 |          -40 |         -20 |             +20 |
+
+$$G(s) = \frac{10(0.01s+1)}{(s/10)^2+2(s/10)+1} = \frac{10(0.01s+1)}{(0.1s+1)^2}$$
+- Verify the transfer function using the Bode phase plot
+| Frequency    | Low |   1 |  10 | 100 | 1000 |
+| Slope Change |     | -90 | +45 | +90 |  -45 |
+| Slope        |   0 | -90 | -45 |  45 |    0 |
+
+#+BEGIN_SRC ipython :session :file assets/Lec4Example1c.svg :exports results
+num = [0.1,10];
+den = [0.01,0.2,1];
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-1,4,200));
+
+plt.title("Phase Plot of an Unknown Transfer Function")
+plt.semilogx(omega, phase, 'b')
+
+freqs = [1e-1,1e0,1e1,1e2,1e3,1e4]
+slopes = [0,-90,-45,45,0];
+phases = [0,0,0,0,0,0];
+for i in range(1, len(freqs)):
+    phases[i] = phases[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+
+plt.semilogx(freqs,phases, 'r--')
+
+yticks = np.linspace(-135, 0, 4) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Phase(Deg)')
+plt.grid(b=True, which='both')
+plt.xlabel('Frequency(rad/sec)')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec4Example1c.svg]]
+
+*** Example 2
+The following magnitude plot has been obtained from experiments of a minimum phase system. Determine its transfer function. A straight line mag. approximation is provided.
+#+BEGIN_SRC ipython :session :file assets/Lec4Example2a.svg :exports results
+num = [10,12.5,10];
+den = [25,2.5,1,0];
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-2,2,200));
+
+plt.title("Magnitude Plot of an Unknown Transfer Function")
+plt.semilogx(omega, mag, 'b')
+
+freqs = [1e-2,0.2,1,1e2]
+slopes = [-20,-60,-20];
+mags = [60,0,0,0];
+for i in range(1, len(freqs)):
+    mags[i] = mags[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+    plt.annotate('%g' % slopes[i-1], xy=(1,1), xytext=(np.sqrt(freqs[i-1]*freqs[i]), -40),
+                horizontalalignment='center',
+                verticalalignment='bottom', 
+                )
+
+plt.semilogx(freqs,mags, 'r--')
+plt.semilogx([1e-2,1e0],[60,20], 'r--')
+
+
+for freq in [0.2, 1]:
+    plt.annotate('%g' %freq, xy=(freq,-50), xytext=(freq, 60),
+                arrowprops=dict(arrowstyle='-'),
+                horizontalalignment='center',
+                verticalalignment='center', 
+                )
+
+plt.annotate('%g' % slopes[i-1], xy=(1,1), xytext=(np.sqrt(freqs[i-1]*freqs[i]), -40),
+                horizontalalignment='center',
+                verticalalignment='bottom', 
+                )
+
+
+slop = [1e-1,1e1,1e2,1e4]
+yticks = np.linspace(-60, 60, 7) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.xlabel('Frequency(rad/sec)')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec4Example2a.svg]]
