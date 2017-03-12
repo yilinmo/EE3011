@@ -494,8 +494,8 @@ mags = [40+20*log(2),0,0,0,0];
 for i in range(1, len(freqs)):
     mags[i] = mags[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
 
-plt.semilogx(freqs,mags, 'r--')
 plt.semilogx(omega,mag, 'b')
+plt.semilogx(freqs,mags, 'r--')
 
 yticks = np.linspace(-60, 60, 7) 
 ylabels = [(str(ytick)) for ytick in yticks]
@@ -510,8 +510,8 @@ phases = [-90,0,0,0,0,0,0]
 for i in range(1, len(freqs)):
     phases[i] = phases[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
 
-plt.semilogx(freqs, phases, 'r--')
 plt.semilogx(omega,phase, 'b')
+plt.semilogx(freqs, phases, 'r--')
 
 plt.ylabel('Phase(deg)')
 plt.xlabel('Frequency(rad/sec)')
@@ -702,7 +702,7 @@ bode(sys);
 #+END_SRC
 
 #+RESULTS:
-: <matplotlib.figure.Figure at 0x7f32d01c01d0>
+: <matplotlib.figure.Figure at 0x7f88f5d26f60>
 
 
 
@@ -723,9 +723,9 @@ mags = [40+20*log(2.5),0,0];
 for i in range(1, len(freqs)):
     mags[i] = mags[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
 
+plt.semilogx(omega,mag, 'b')
 plt.semilogx(freqs,mags, 'r--')
 plt.semilogx([2,2],[20*log(2.5/2),20*log(2.5/2/0.2)], 'r')
-plt.semilogx(omega,mag, 'b')
 
 yticks = np.linspace(-100, 40, 8) 
 ylabels = [(str(ytick)) for ytick in yticks]
@@ -850,8 +850,8 @@ G(s) &= \frac{2500(s+10)}{s(s+2)(s^2+30+2500)}\\
   for i in range(1, len(freqs)):
        mags[i] = mags[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
 
-  plt.semilogx(freqs,mags, 'r--')
   plt.semilogx(omega,mag, 'b')
+  plt.semilogx(freqs,mags, 'r--')
   plt.semilogx([50,50],[mags[3], mags[3]-20*log(0.6)], 'r')
 
   yticks = np.linspace(-100, 40, 8) 
@@ -862,9 +862,9 @@ G(s) &= \frac{2500(s+10)}{s(s+2)(s^2+30+2500)}\\
 
   plt.subplot(212)
 
+  plt.semilogx(omega,phase, 'b')
   plt.semilogx([1e-1,50],[-90,-90], 'r--')
   plt.semilogx([50,1e3],[-270,-270],'r--')
-  plt.semilogx(omega,phase, 'b')
   plt.ylabel('Phase(deg)')
   plt.xlabel('Frequency(rad/sec)')
 
