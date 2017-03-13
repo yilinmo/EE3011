@@ -38,7 +38,7 @@ from control import bode_plot as bode
 - Roughly speaking it means that the system does not have zeros or poles on the right-half plane. Moreover, it does not have delay.
 - Bode discovered that the phase can be uniquely derived from the slope of the magnitude for minimum-phase system. *Bode's Relation*
 
-| Basic Factor                            | Mag Slope(Low Freq) | Phase(Low Freq) | Mag Slope(Low Freq) | Phase (High Freq) |
+| Basic Factor                            | Mag Slope(Low Freq) | Phase(Low Freq) | Mag Slope(High Freq) | Phase (High Freq) |
 | K                                       |                   0 |               0 |                   0 |                 0 |
 | $s^N$                                   |                 20N |             90N |                 20N |               90N |
 | $1/(\tau s+1)$                          |                   0 |               0 |                 -20 |               -90 |
@@ -321,8 +321,8 @@ plt.show()
 #+RESULTS:
 [[file:assets/Lec3Example1e.svg]]
 
-*** Step 2: Determine the Plot at the Lower Frequency
-- For Lower Frequency, only need to look at the constant $K$ and $s^N$ term.
+*** Step 2: Determine the Plot at the Low Frequency
+- For low frequency, only need to look at the constant $K$ and $s^N$ term.
 - Draw the plot of $s^N$ first
   - Magnitude: a straight line passes through $(1,0dB)$ with a slope of $20NdB$.
   - Phase: a horizontal line at $90N^\circ$.
@@ -571,7 +571,7 @@ plt.show()
 [[file:assets/Lec3Example2a.svg]]
 
 
-*** Step 2: Determine the Plot at the Lower Frequency
+*** Step 2: Determine the Plot at the Low Frequency
 The low frequency factors are $2.5$ and $1/s$.
 
 - Magnitude
@@ -766,7 +766,7 @@ G(s) &= \frac{2500(s+10)}{s(s+2)(s^2+30+2500)}\\
 | $1/\left[(s/50)^2+0.6s/50+1\right]$ |               50 |
 
 - Magnitude
-  + Lower Frequency: Draw a straight line passing through $(1,0dB)$ with slope -20. Shift this line up by $20\log(5)=14dB$.
+  + Low Frequency: Draw a straight line passing through $(1,0dB)$ with slope -20. Shift this line up by $20\log(5)=14dB$.
   + Adding the first and second order term. Add $-20\log(0.6) = 4.4dB$ correction at 50.
 | Frequency    | Low |   2 |  10 |  50 |
 | Slope Change |     | -20 | +20 | -40 |
