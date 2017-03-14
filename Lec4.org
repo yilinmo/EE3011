@@ -127,7 +127,7 @@ plt.show()
   + The magnitude is 20dB. Hence, the constant term is $K = 10$.
 - Determine the first and second order terms:
   + There is second order term with natural frequency $\omega_n = 10$.
-  + The correction is $-6$dB. Hence $-20\log(2\zeta) = -6$, $\zeta = 1$. The system is critically damped.
+  + The correction is -6dB. Hence $-20\log(2\zeta) = -6$, $\zeta = 1$. The system is critically damped.
   + There is a first order zero at $100$.
 | Corner Frequency | Slope Before | Slope After | Change of Slope |
 |               10 |            0 |         -40 |             -40 |
@@ -178,6 +178,7 @@ sys = tf(num, den);
 mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-2,2,200));
 
 plt.title("Magnitude Plot of an Unknown Transfer Function")
+
 plt.semilogx(omega, mag, 'b')
 
 freqs = [1e-2,0.2,1,1e2]
@@ -231,16 +232,16 @@ plt.show()
   + The magnitude of the low frequency asymptote is 20dB at frequency 1. Hence, $K = 10$.
 - Determine the first and second order terms:
   + There is second order term on the denominator with natural frequency $\omega_n = 0.2$.
-  + The correction is $+6$dB. Hence $-20\log(2\zeta) = 6$, $\zeta = 0.25 $.
+  + The correction is +6dB. Hence $-20\log(2\zeta) = 6$, $\zeta = 0.25$.
   $$\left[(s/0.2)^2+0.5(s/0.2)+1\right]^{-1}$$
   + There is second order term on the numerator with natural frequency $\omega_n = 1$.
-  + The correction is $+2$dB. Hence $20\log(2\zeta) = 2$, $\zeta = 0.63 $. 
+  + The correction is +2dB. Hence $20\log(2\zeta) = 2$, $\zeta = 0.63$. 
   $$s^2+1.26s+1$$
 | Corner Frequency | Slope Before | Slope After | Change of Slope |
 |              0.2 |          -20 |         -60 |             -40 |
 |                1 |          -60 |         -20 |             +40 |
 
-$$G(s) = \frac{10(s^+1.26s+1)}{s\left[(s/0.2)^2+0.5(s/0.2)+1\right]} $$
+$$G(s) = \frac{10(s^2+1.26s+1)}{s\left[(s/0.2)^2+0.5(s/0.2)+1\right]}.$$
 
 *** Example 3: Pupillary Light Reflex Dynamics
 - The human eye is an organ that is easily accessible for experiments. It has a control system that adjusts the pupil opening to regulate the light intensity at the retina.
@@ -266,16 +267,18 @@ plt.title("Pupillary Light Reflex Dynamics")
 plt.semilogx(omega, mag, 'b')
 plt.semilogx(omegaExp[0:len(magExp)], magExp, 'k+')
 plt.semilogx([0.8,12.5,40],[20*log(0.17), 20*log(0.17), 20*log(0.17)-60*log(40/12.5)] , 'g--')
-plt.annotate('-60', xy=(1,1), xytext=(20, -40),
+plt.ylabel('Magnitude(dB)')
+
+plt.annotate('-60', xy=(1e1,-14), xytext=(20, -40),
+                horizontalalignment='right',
+                verticalalignment='top', 
+                )
+
+plt.annotate('12.5', xy=(12.5,-14), xytext=(12.5, -40),
+                arrowprops=dict(arrowstyle='-'),
                 horizontalalignment='center',
                 verticalalignment='top', 
-                );
-plt.annotate('12.5', xy=(12.5,-10), xytext=(12.5, -40),
-            arrowprops=dict(arrowstyle='-'),
-            horizontalalignment='center',
-            verticalalignment='center', 
-            );
-plt.ylabel('Magnitude(dB)')
+                )
 plt.grid(b=True, which='both')
 
 plt.subplot(212)
@@ -283,6 +286,7 @@ plt.semilogx(omega,phase, 'g--')
 plt.semilogx(omega,phase-0.2*180/np.pi*omega, 'b')
 plt.semilogx(omegaExp, -1*phaseExp, 'k+')
 plt.ylabel('Phase(deg)')
+
 yticks = np.linspace(0, -360, 5) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
@@ -297,7 +301,7 @@ plt.show()
 #+RESULTS:
 [[file:assets/Lec4Example3.svg]]
 - By matching the magnitude, a model can be obtained as
-$$G_1(s) = \frac{0.17}{(0.08s+1)^3}$$
+$$G_1(s) = \frac{0.17}{(0.08s+1)^3}.$$
 - The phase of $G_1(s)$ (plotted as the green dashed line, is significantly different from actual phase
 - We can add a delay term $\exp(-0.2s)$ to match the phase, without affecting the magnitude (*why?*)
-$$G(s) = \frac{0.17}{(0.08s+1)^3}\exp(-0.2s)$$
+$$G(s) = \frac{0.17}{(0.08s+1)^3}\exp(-0.2s).$$
