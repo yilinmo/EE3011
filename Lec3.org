@@ -56,7 +56,7 @@ $$G_1(s) = 1,\,G_2(s) = \frac{1-s}{1+s}$$
 $$|G_2(j\omega)| = \frac{\sqrt{1+\omega^2}}{\sqrt{1+\omega^2}} = 1,\,\angle G_2(j\omega) = -\tan^{-1}\omega -\tan^{-1}\omega = -2\tan^{-1}\omega.$$
 
 ** Non-Minimum Phase System: Delay
-#+BEGIN_SRC ipython :session :file assets/Lec3Delay.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec3Delay.svg :exports results :eval no
 %%tikz -l matrix,arrows -s 400,60 -f svg -S assets/Lec3Delay.svg
 
 \tikzstyle{point} = [coordinate]
@@ -76,10 +76,10 @@ $$|G_2(j\omega)| = \frac{\sqrt{1+\omega^2}}{\sqrt{1+\omega^2}} = 1,\,\angle G_2(
 - Time delay systems are of non-minimum phase behavior.
 - The transfer function of the time delay factor is $G_3(s) = \exp(-\tau s)$, where $\tau$ is the delay.
 
-$$G_3(j\omega) = \exp(j\omega\tau) = 1\angle -\omega\tau\times\frac{180^\circ}{\pi}.$$
+$$G_3(j\omega) = \exp(-j\omega\tau) = 1\angle -\omega\tau\times\frac{180^\circ}{\pi}.$$
 
 ** Bode Plot of Minimum Phase and Non-Minimum Phase System
-Minimum phase system has *minimum phase* amongst all transfer functions that have the same magnitude plot.
+Minimum phase system has *minimum phase change* amongst all transfer functions that have the same magnitude plot.
 #+BEGIN_SRC ipython :session :file assets/Lec3UnstableZero.svg :exports results
 num = [-1,1];
 den = [1,1];
@@ -106,8 +106,9 @@ plt.xlabel('Frequency(rad/sec)')
 yticks = np.linspace(-180, 0, 5) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
+plt.ylim(-180,10)
 plt.grid(b=True, which='both')
-plt.legend(handles=[g1, g2, g3])
+plt.legend(handles=[g1, g2, g3], loc=3)
 
 plt.show()
 #+END_SRC
@@ -129,9 +130,10 @@ g1, = plt.plot(T, y1, 'r', label='Minimum Phase')
 g2, = plt.plot(T, y2, 'b', label='Unstable Zero')
 g3, = plt.plot(T, y3, 'k', label='Delay')
 plt.ylabel('$y(t)$')
+plt.ylim(-0.8,1.2)
 plt.xlabel('t')
 plt.grid(b=True, which='both')
-plt.legend(handles=[g1, g2, g3])
+plt.legend(handles=[g1, g2, g3], loc=4)
 
 plt.show()
 #+END_SRC
@@ -328,7 +330,7 @@ plt.show()
   - Phase: a horizontal line at $90N^\circ$.
 - Adding the constant term $K$
   - Magnitude: add $20\log|K|$
-  - Phase: If $K > 0$, do nothing. If $K < 0$, subtract $90^\circ$.
+  - Phase: If $K > 0$, do nothing. If $K < 0$, subtract $180^\circ$.
 #+BEGIN_SRC ipython :session :file assets/Lec3Example1f.svg :exports results
 plt.subplots_adjust(hspace=0.4)
 
@@ -633,7 +635,7 @@ Consider a second order term:
 $$\left[\left(\frac{s}{\omega_n}\right)^2+2\zeta\frac{s}{\omega_n}+1\right]^{\pm 1}.$$
 - Magnitude
   + change the slope at the corner frequency $\omega_n$ by $\pm 40dB$;
-  + add $\mp 20\log(2\zeta)$ correction at the corner frequency $\omega_n$.
+  + add $\pm 20\log(2\zeta)$ correction at the corner frequency $\omega_n$.
 - Phase
   + draw the phase plot using calculators.
 #+BEGIN_SRC ipython :session :file assets/Lec3Example2c.svg :exports results

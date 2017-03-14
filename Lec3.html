@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-03-12 Sun 22:51 -->
+<!-- 2017-03-14 Tue 12:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title></title>
@@ -254,48 +254,48 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgef5c891">1. Minimum Phase and Non-Minimum Phase System</a>
+<li><a href="#orgd32a5cc">1. Minimum Phase and Non-Minimum Phase System</a>
 <ul>
-<li><a href="#org853a6f9">1.1. Constant K</a></li>
-<li><a href="#org34d82d4">1.2. Integrator \(1/s\)</a></li>
-<li><a href="#org704c96d">1.3. First Order \(1/(\tau s+1)\)</a></li>
-<li><a href="#orgd1ae5cd">1.4. Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</a></li>
-<li><a href="#org038fcb8">1.5. Minimum Phase System</a></li>
-<li><a href="#orgf691655">1.6. Non-Minimum Phase System: Unstable Zeros</a></li>
-<li><a href="#org3d93382">1.7. Non-Minimum Phase System: Delay</a></li>
-<li><a href="#orgdf96840">1.8. Bode Plot of Minimum Phase and Non-Minimum Phase System</a></li>
-<li><a href="#orga60090a">1.9. Implications of Non-Minimum Phase</a></li>
+<li><a href="#org9fd711f">1.1. Constant K</a></li>
+<li><a href="#org70752fd">1.2. Integrator \(1/s\)</a></li>
+<li><a href="#org29bc7cb">1.3. First Order \(1/(\tau s+1)\)</a></li>
+<li><a href="#orgeeee034">1.4. Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</a></li>
+<li><a href="#org4f87ea7">1.5. Minimum Phase System</a></li>
+<li><a href="#orgc99fa90">1.6. Non-Minimum Phase System: Unstable Zeros</a></li>
+<li><a href="#orgc11fc88">1.7. Non-Minimum Phase System: Delay</a></li>
+<li><a href="#org43f5621">1.8. Bode Plot of Minimum Phase and Non-Minimum Phase System</a></li>
+<li><a href="#org620ba41">1.9. Implications of Non-Minimum Phase</a></li>
 </ul>
 </li>
-<li><a href="#org7a96fd9">2. Bode Plots of Complex Transfer Functions</a>
+<li><a href="#orgc46a007">2. Bode Plots of Complex Transfer Functions</a>
 <ul>
-<li><a href="#org1bb5068">2.1. Example 1</a>
+<li><a href="#org3507b49">2.1. Example 1</a>
 <ul>
-<li><a href="#org64a9ec8">2.1.1. Step 1: Decompose the Transfer Function into Basic Factors</a></li>
-<li><a href="#org7b821d2">2.1.2. Step 2: Determine the Plot at the Lower Frequency</a></li>
-<li><a href="#orge8157a5">2.1.3. Step 3: Add First and Second Order Terms</a></li>
-<li><a href="#orgbf62524">2.1.4. Step 4 (Optional): Check your result in Matlab</a></li>
+<li><a href="#org2b66ea2">2.1.1. Step 1: Decompose the Transfer Function into Basic Factors</a></li>
+<li><a href="#org13f4284">2.1.2. Step 2: Determine the Plot at the Low Frequency</a></li>
+<li><a href="#org1ca9176">2.1.3. Step 3: Add First and Second Order Terms</a></li>
+<li><a href="#org20e80c4">2.1.4. Step 4 (Optional): Check your result in Matlab</a></li>
 </ul>
 </li>
-<li><a href="#orgde0b034">2.2. Example 2</a>
+<li><a href="#orge0d52c2">2.2. Example 2</a>
 <ul>
-<li><a href="#org5897f9d">2.2.1. Step 1: Decompose the Transfer Function into Basic Factors</a></li>
-<li><a href="#orgaa88c7c">2.2.2. Step 2: Determine the Plot at the Lower Frequency</a></li>
-<li><a href="#org2be052e">2.2.3. Step 3: Add First and Second Order Terms</a></li>
-<li><a href="#orgfc6a804">2.2.4. Step 4: Check your result in Matlab</a></li>
+<li><a href="#org023fc70">2.2.1. Step 1: Decompose the Transfer Function into Basic Factors</a></li>
+<li><a href="#org3590c1d">2.2.2. Step 2: Determine the Plot at the Low Frequency</a></li>
+<li><a href="#org4c88511">2.2.3. Step 3: Add First and Second Order Terms</a></li>
+<li><a href="#org1729109">2.2.4. Step 4: Check your result in Matlab</a></li>
 </ul>
 </li>
-<li><a href="#orgeec1859">2.3. Example 3</a></li>
+<li><a href="#orgd9ef2c3">2.3. Example 3</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgef5c891" class="outline-2">
-<h2 id="orgef5c891"><span class="section-number-2">1</span> Minimum Phase and Non-Minimum Phase System</h2>
+<div id="outline-container-orgd32a5cc" class="outline-2">
+<h2 id="orgd32a5cc"><span class="section-number-2">1</span> Minimum Phase and Non-Minimum Phase System</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-org853a6f9" class="outline-3">
-<h3 id="org853a6f9"><span class="section-number-3">1.1</span> Constant K</h3>
+</div><div id="outline-container-org9fd711f" class="outline-3">
+<h3 id="org9fd711f"><span class="section-number-3">1.1</span> Constant K</h3>
 <div class="outline-text-3" id="text-1-1">
 
 <div class="figure">
@@ -306,8 +306,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org34d82d4" class="outline-3">
-<h3 id="org34d82d4"><span class="section-number-3">1.2</span> Integrator \(1/s\)</h3>
+<div id="outline-container-org70752fd" class="outline-3">
+<h3 id="org70752fd"><span class="section-number-3">1.2</span> Integrator \(1/s\)</h3>
 <div class="outline-text-3" id="text-1-2">
 
 <div class="figure">
@@ -318,8 +318,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org704c96d" class="outline-3">
-<h3 id="org704c96d"><span class="section-number-3">1.3</span> First Order \(1/(\tau s+1)\)</h3>
+<div id="outline-container-org29bc7cb" class="outline-3">
+<h3 id="org29bc7cb"><span class="section-number-3">1.3</span> First Order \(1/(\tau s+1)\)</h3>
 <div class="outline-text-3" id="text-1-3">
 
 <div class="figure">
@@ -330,8 +330,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgd1ae5cd" class="outline-3">
-<h3 id="orgd1ae5cd"><span class="section-number-3">1.4</span> Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</h3>
+<div id="outline-container-orgeeee034" class="outline-3">
+<h3 id="orgeeee034"><span class="section-number-3">1.4</span> Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</h3>
 <div class="outline-text-3" id="text-1-4">
 
 <div class="figure">
@@ -342,8 +342,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org038fcb8" class="outline-3">
-<h3 id="org038fcb8"><span class="section-number-3">1.5</span> Minimum Phase System</h3>
+<div id="outline-container-org4f87ea7" class="outline-3">
+<h3 id="org4f87ea7"><span class="section-number-3">1.5</span> Minimum Phase System</h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
 <li>A transfer function \(G(s)\) is minimum phase if both \(G(s)\) and \(1/G(s)\) are causal and stable.</li>
@@ -370,7 +370,7 @@ Sorry, your browser does not support SVG.</object>
 <td class="org-left">Basic Factor</td>
 <td class="org-right">Mag Slope(Low Freq)</td>
 <td class="org-right">Phase(Low Freq)</td>
-<td class="org-right">Mag Slope(Low Freq)</td>
+<td class="org-right">Mag Slope(High Freq)</td>
 <td class="org-right">Phase (High Freq)</td>
 </tr>
 
@@ -411,8 +411,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 
 
-<div id="outline-container-orgf691655" class="outline-3">
-<h3 id="orgf691655"><span class="section-number-3">1.6</span> Non-Minimum Phase System: Unstable Zeros</h3>
+<div id="outline-container-orgc99fa90" class="outline-3">
+<h3 id="orgc99fa90"><span class="section-number-3">1.6</span> Non-Minimum Phase System: Unstable Zeros</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
 Consider two transfer functions:
@@ -431,8 +431,8 @@ Consider two transfer functions:
 </div>
 </div>
 
-<div id="outline-container-org3d93382" class="outline-3">
-<h3 id="org3d93382"><span class="section-number-3">1.7</span> Non-Minimum Phase System: Delay</h3>
+<div id="outline-container-orgc11fc88" class="outline-3">
+<h3 id="orgc11fc88"><span class="section-number-3">1.7</span> Non-Minimum Phase System: Delay</h3>
 <div class="outline-text-3" id="text-1-7">
 
 <div class="figure">
@@ -449,16 +449,16 @@ Sorry, your browser does not support SVG.</object>
 </ul>
 
 <p>
-\[G_3(j\omega) = \exp(j\omega\tau) = 1\angle -\omega\tau\times\frac{180^\circ}{\pi}.\]
+\[G_3(j\omega) = \exp(-j\omega\tau) = 1\angle -\omega\tau\times\frac{180^\circ}{\pi}.\]
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgdf96840" class="outline-3">
-<h3 id="orgdf96840"><span class="section-number-3">1.8</span> Bode Plot of Minimum Phase and Non-Minimum Phase System</h3>
+<div id="outline-container-org43f5621" class="outline-3">
+<h3 id="org43f5621"><span class="section-number-3">1.8</span> Bode Plot of Minimum Phase and Non-Minimum Phase System</h3>
 <div class="outline-text-3" id="text-1-8">
 <p>
-Minimum phase system has <b>minimum phase</b> amongst all transfer functions that have the same magnitude plot.
+Minimum phase system has <b>minimum phase change</b> amongst all transfer functions that have the same magnitude plot.
 </p>
 
 <div class="figure">
@@ -469,8 +469,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orga60090a" class="outline-3">
-<h3 id="orga60090a"><span class="section-number-3">1.9</span> Implications of Non-Minimum Phase</h3>
+<div id="outline-container-org620ba41" class="outline-3">
+<h3 id="org620ba41"><span class="section-number-3">1.9</span> Implications of Non-Minimum Phase</h3>
 <div class="outline-text-3" id="text-1-9">
 
 <div class="figure">
@@ -496,24 +496,24 @@ Sorry, your browser does not support SVG.</object>
 
 
 
-<div id="outline-container-org7a96fd9" class="outline-2">
-<h2 id="org7a96fd9"><span class="section-number-2">2</span> Bode Plots of Complex Transfer Functions</h2>
+<div id="outline-container-orgc46a007" class="outline-2">
+<h2 id="orgc46a007"><span class="section-number-2">2</span> Bode Plots of Complex Transfer Functions</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Bode plots of a transfer function (system) can be obtained using Matlab (experiment). However, to interpret the Bode plots, we shall take a look at how basic factors of the transfer function affect the Bode plots.
 </p>
 </div>
 
-<div id="outline-container-org1bb5068" class="outline-3">
-<h3 id="org1bb5068"><span class="section-number-3">2.1</span> Example 1</h3>
+<div id="outline-container-org3507b49" class="outline-3">
+<h3 id="org3507b49"><span class="section-number-3">2.1</span> Example 1</h3>
 <div class="outline-text-3" id="text-2-1">
 \begin{align}
 G(s) = \frac{2000(s+0.5)}{s(s+10)(s+50)} = \frac{2(2s+1)}{s(0.1s+1)(0.02s+1)}.
 \end{align}
 </div>
 
-<div id="outline-container-org64a9ec8" class="outline-4">
-<h4 id="org64a9ec8"><span class="section-number-4">2.1.1</span> Step 1: Decompose the Transfer Function into Basic Factors</h4>
+<div id="outline-container-org2b66ea2" class="outline-4">
+<h4 id="org2b66ea2"><span class="section-number-4">2.1.1</span> Step 1: Decompose the Transfer Function into Basic Factors</h4>
 <div class="outline-text-4" id="text-2-1-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -597,11 +597,11 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org7b821d2" class="outline-4">
-<h4 id="org7b821d2"><span class="section-number-4">2.1.2</span> Step 2: Determine the Plot at the Lower Frequency</h4>
+<div id="outline-container-org13f4284" class="outline-4">
+<h4 id="org13f4284"><span class="section-number-4">2.1.2</span> Step 2: Determine the Plot at the Low Frequency</h4>
 <div class="outline-text-4" id="text-2-1-2">
 <ul class="org-ul">
-<li>For Lower Frequency, only need to look at the constant \(K\) and \(s^N\) term.</li>
+<li>For low frequency, only need to look at the constant \(K\) and \(s^N\) term.</li>
 <li>Draw the plot of \(s^N\) first
 <ul class="org-ul">
 <li>Magnitude: a straight line passes through \((1,0dB)\) with a slope of \(20NdB\).</li>
@@ -610,7 +610,7 @@ Sorry, your browser does not support SVG.</object>
 <li>Adding the constant term \(K\)
 <ul class="org-ul">
 <li>Magnitude: add \(20\log|K|\)</li>
-<li>Phase: If \(K > 0\), do nothing. If \(K < 0\), subtract \(90^\circ\).</li>
+<li>Phase: If \(K > 0\), do nothing. If \(K < 0\), subtract \(180^\circ\).</li>
 </ul></li>
 </ul>
 
@@ -621,8 +621,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 </div>
-<div id="outline-container-orge8157a5" class="outline-4">
-<h4 id="orge8157a5"><span class="section-number-4">2.1.3</span> Step 3: Add First and Second Order Terms</h4>
+<div id="outline-container-org1ca9176" class="outline-4">
+<h4 id="org1ca9176"><span class="section-number-4">2.1.3</span> Step 3: Add First and Second Order Terms</h4>
 <div class="outline-text-4" id="text-2-1-3">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -772,8 +772,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgbf62524" class="outline-4">
-<h4 id="orgbf62524"><span class="section-number-4">2.1.4</span> Step 4 (Optional): Check your result in Matlab</h4>
+<div id="outline-container-org20e80c4" class="outline-4">
+<h4 id="org20e80c4"><span class="section-number-4">2.1.4</span> Step 4 (Optional): Check your result in Matlab</h4>
 <div class="outline-text-4" id="text-2-1-4">
 <div class="org-src-container">
 <pre class="src src-ipython">num = [2000,1000];
@@ -792,16 +792,16 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 </div>
-<div id="outline-container-orgde0b034" class="outline-3">
-<h3 id="orgde0b034"><span class="section-number-3">2.2</span> Example 2</h3>
+<div id="outline-container-orge0d52c2" class="outline-3">
+<h3 id="orge0d52c2"><span class="section-number-3">2.2</span> Example 2</h3>
 <div class="outline-text-3" id="text-2-2">
 \begin{align}
 G(s) = \frac{10}{s(s^2+0.4s+4)} = \frac{2.5}{s((s/2)^2+2\times 0.1s/2+1)}.
 \end{align}
 </div>
 
-<div id="outline-container-org5897f9d" class="outline-4">
-<h4 id="org5897f9d"><span class="section-number-4">2.2.1</span> Step 1: Decompose the Transfer Function into Basic Factors</h4>
+<div id="outline-container-org023fc70" class="outline-4">
+<h4 id="org023fc70"><span class="section-number-4">2.2.1</span> Step 1: Decompose the Transfer Function into Basic Factors</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -845,8 +845,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 
 
-<div id="outline-container-orgaa88c7c" class="outline-4">
-<h4 id="orgaa88c7c"><span class="section-number-4">2.2.2</span> Step 2: Determine the Plot at the Lower Frequency</h4>
+<div id="outline-container-org3590c1d" class="outline-4">
+<h4 id="org3590c1d"><span class="section-number-4">2.2.2</span> Step 2: Determine the Plot at the Low Frequency</h4>
 <div class="outline-text-4" id="text-2-2-2">
 <p>
 The low frequency factors are \(2.5\) and \(1/s\).
@@ -872,8 +872,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org2be052e" class="outline-4">
-<h4 id="org2be052e"><span class="section-number-4">2.2.3</span> Step 3: Add First and Second Order Terms</h4>
+<div id="outline-container-org4c88511" class="outline-4">
+<h4 id="org4c88511"><span class="section-number-4">2.2.3</span> Step 3: Add First and Second Order Terms</h4>
 <div class="outline-text-4" id="text-2-2-3">
 <p>
 Consider a second order term:
@@ -886,7 +886,7 @@ Consider a second order term:
 <li>Magnitude
 <ul class="org-ul">
 <li>change the slope at the corner frequency \(\omega_n\) by \(\pm 40dB\);</li>
-<li>add \(\mp 20\log(2\zeta)\) correction at the corner frequency \(\omega_n\).</li>
+<li>add \(\pm 20\log(2\zeta)\) correction at the corner frequency \(\omega_n\).</li>
 </ul></li>
 <li>Phase
 <ul class="org-ul">
@@ -903,8 +903,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 
 
-<div id="outline-container-orgfc6a804" class="outline-4">
-<h4 id="orgfc6a804"><span class="section-number-4">2.2.4</span> Step 4: Check your result in Matlab</h4>
+<div id="outline-container-org1729109" class="outline-4">
+<h4 id="org1729109"><span class="section-number-4">2.2.4</span> Step 4: Check your result in Matlab</h4>
 <div class="outline-text-4" id="text-2-2-4">
 <div class="org-src-container">
 <pre class="src src-ipython">num = [10];
@@ -926,8 +926,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgeec1859" class="outline-3">
-<h3 id="orgeec1859"><span class="section-number-3">2.3</span> Example 3</h3>
+<div id="outline-container-orgd9ef2c3" class="outline-3">
+<h3 id="orgd9ef2c3"><span class="section-number-3">2.3</span> Example 3</h3>
 <div class="outline-text-3" id="text-2-3">
 \begin{align}
 G(s) &= \frac{2500(s+10)}{s(s+2)(s^2+30+2500)}\\
@@ -978,7 +978,7 @@ G(s) &= \frac{2500(s+10)}{s(s+2)(s^2+30+2500)}\\
 <ul class="org-ul">
 <li>Magnitude
 <ul class="org-ul">
-<li>Lower Frequency: Draw a straight line passing through \((1,0dB)\) with slope -20. Shift this line up by \(20\log(5)=14dB\).</li>
+<li>Low Frequency: Draw a straight line passing through \((1,0dB)\) with slope -20. Shift this line up by \(20\log(5)=14dB\).</li>
 <li>Adding the first and second order term. Add \(-20\log(0.6) = 4.4dB\) correction at 50.</li>
 </ul></li>
 </ul>
