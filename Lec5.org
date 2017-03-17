@@ -1,0 +1,63 @@
+#+BEGIN_SRC ipython :session :exports none
+import numpy as np
+from numpy import log10 as log
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Arial']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+import control
+from control.matlab import *
+from control import bode_plot as bode
+
+%load_ext tikzmagic
+
+%matplotlib inline
+%config InlineBackend.figure_format = 'svg'
+#+END_SRC
+
+#+RESULTS:
+
+** Review
+- Frequency response
+- Bode plot
+- Frequency domain modeling
+
+#+BEGIN_SRC ipython :session :file assets/Lec5Feedback.svg :exports results
+%%tikz -l matrix,arrows,shapes -s 400,100 -f svg -S assets/Lec5Feedback.svg
+\tikzstyle{point} = [coordinate]
+\tikzstyle{box} = [rectangle, draw, semithick]
+\matrix[row sep = 7mm, column sep = 10mm]{
+%first row
+\node (p1) [] {$R(s)$};&
+\node (p2) [circle,draw,inner sep=4pt] {};&
+\node (plant) [box] {$G(s)$};&
+\node (p3) [point] {};&
+\node (p4) [] {$Y(s)$};\\
+%second row
+&
+\node (p5) [point] {};&
+\node (control) [box] {$H(s)$};&
+\node (p6) [point] {};&\\
+};
+\draw [semithick,->] (p1)--node[near end, above]{\scriptsize{$+$}} (p2);
+\draw [semithick,->] (p2)--(plant);
+\draw [semithick,->] (plant)--(p3)--(p4);
+\draw [semithick,->] (p3)--(p6)--(control);
+\draw [semithick,->] (control)--(p5)--node[near end, left]{\scriptsize{$-$}}(p2);
+\draw [semithick] (p2.north east)--(p2.south west);
+\draw [semithick] (p2.south east)--(p2.north west);
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec5Feedback.svg]]
+
+- One Fundamental Question: Given transfer functions $G(s),\,H(s)$, how to determine if the system is closed-loop stable?
+  * Time Domain: Routh-Hurwitz stability criterion, Root Locus
+  * Frequency Domain: Nyquist Plot + Nyquist Stability Criterion
+
+
+* Nyquist Plot
+* Nyquist Stability Criterion
