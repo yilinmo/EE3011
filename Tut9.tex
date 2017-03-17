@@ -1,0 +1,79 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{nicefrac}
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usetikzlibrary{matrix,shapes,arrows}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\usepackage[a4paper, margin=1in]{geometry}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\newtheorem{assumption}{Assumption}
+
+\newlength\figureheight
+\newlength\figurewidth
+\setlength\figureheight{14cm}
+\setlength\figurewidth{14cm}
+
+\newcommand{\tikzdir}[1]{tikz/#1.tikz}
+\newcommand{\inputtikz}[1]{\input{\tikzdir{#1}}}
+
+\DeclareMathOperator*{\argmin}{arg\; min}     % argmin
+\DeclareMathOperator*{\argmax}{arg\; max}     % argmax
+\DeclareMathOperator*{\tr}{tr}     % trace
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\logdet}{log\;det}
+
+\title{EE3011 Modeling and Control\\Tutorial 9: Frequency Domain Modeling}
+\date{}
+\begin{document} \maketitle
+
+\begin{enumerate}
+\item The Bode magnitude plot of a minimum phase system is shown in Figure~\ref{fig:1}. Determine an approximate mathematical model in the form of transfer function for the system.
+  \begin{figure}[ht]
+    \centering
+    \inputtikz{Tut91}
+    \caption{Magnitude Plot\label{fig:1}}
+  \end{figure}
+  \newpage
+\item The Bode magnitude plot of a minimum phase system whose transfer function is of the form
+  \begin{align*}
+    G(s) = \frac{K(s+a)}{s^N(s+0.5)(s^2+2\zeta\omega_n s+\omega_n^2)}.
+  \end{align*}
+  Estimate $G(s)$.
+
+
+  \begin{figure}[ht]
+    \centering
+    \inputtikz{Tut92}
+    \caption{Magnitude Plot\label{fig:2}}
+  \end{figure}
+\end{enumerate}
+\newpage
+
+\section*{Answers:}
+\begin{enumerate}
+\item
+  \begin{align*}
+    G(s)=\frac{5(s/9+1)}{(s+1)\left[(s/80)^2+0.5s/80+1\right]}.
+  \end{align*}
+\item
+  \begin{align*}
+    G(s) = \frac{64(s+2)}{s(s+0.5)(s^2+3.2 s+64)}.
+  \end{align*}
+\end{enumerate}
+
+\end{document}
+%%% Local Variables:
+%%% TeX-command-default: "Latexmk"
+%%% End:
