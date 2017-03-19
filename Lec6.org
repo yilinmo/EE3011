@@ -170,7 +170,7 @@ f.close()
 - We can find the gain and phase crossover frequency and get the stability margins from Bode plot.
 - For most of the systems, we can find the stability margins from the Bode plot.
 - However, the Bode plot interpretation of the gain and phase margins can be incorrect. (Need to look at Nyquist Plot)
-#+BEGIN_SRC ipython :session :file Lec6Bode.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec6Bode.svg :exports results
 num = [4];
 den = [0.01,0.11,1.1,1];
 sys = tf(num, den);
@@ -216,7 +216,7 @@ plt.show()
 [[file:Lec6Bode.svg]]
 
 ** Unstable System
-#+BEGIN_SRC ipython :session :file Lec6BodeUnstable.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec6BodeUnstable.svg :exports results
 num = [20];
 den = [0.01,0.11,1.1,1];
 sys = tf(num, den);
@@ -389,7 +389,7 @@ f.close()
 #+RESULTS:
 [[file:assets/Lec6NyquistPoor.svg]]
 
-#+BEGIN_SRC ipython :session :file Lec6BodePoor.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec6BodePoor.svg :exports results
 num = [0.38,0.038,0.209];
 den = [1.0, 1.06, 0.56, 0.5, 0.0];
 sys = tf(num, den);
@@ -434,7 +434,7 @@ $$G(s)H(s) = \frac{K}{s(s+1)(s+5)}.$$
 Derive the stability margins of the system for $K = 10$ and $K = 100$.
 *** $K=10$
 For $K=10$, $\phi_m = 21^\circ$ and $K_g=8 dB$. The system is stable.
-#+BEGIN_SRC ipython :session :file Lec6BodeK10.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec6BodeK10.svg :exports results
 num = [10];
 den = [1,6,5,0];
 sys = tf(num, den);
@@ -482,7 +482,7 @@ plt.show()
 
 *** $K=100$
 For $K=100$, $\phi_m = -30^\circ$ and $K_g=-12 dB$. The system is unstable.
-#+BEGIN_SRC ipython :session :file Lec6BodeK100.svg :exports results
+#+BEGIN_SRC ipython :session :file assets/Lec6BodeK100.svg :exports results
 num = [100];
 den = [1,6,5,0];
 sys = tf(num, den);
