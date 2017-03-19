@@ -11,6 +11,7 @@ rc('text', usetex=True)
 import control
 from control.matlab import *
 from control import bode_plot as bode
+from control import nyquist
 
 %load_ext tikzmagic
 
@@ -20,6 +21,70 @@ from control import bode_plot as bode
 
 #+RESULTS:
 
+#+BEGIN_SRC ipython :session :exports none
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.collections import LineCollection
+from matplotlib.colors import ListedColormap, BoundaryNorm
+
+
+# Data manipulation:
+from matplotlib.collections import LineCollection
+from matplotlib.colors import ListedColormap, BoundaryNorm
+
+def make_segments(x, y):
+    '''
+    Create list of line segments from x and y coordinates, in the correct format for LineCollection:
+    an array of the form   numlines x (points per line) x 2 (x and y) array
+    '''
+
+    points = np.array([x, y]).T.reshape(-1, 1, 2)
+    segments = np.concatenate([points[:-1], points[1:]], axis=1)
+    
+    return segments
+
+
+# Interface to LineCollection:
+
+def colorline(x, y, z=None, cmap=plt.get_cmap('copper'), norm=plt.Normalize(0.0, 1.0), linewidth=3, alpha=1.0):
+    '''
+    Plot a colored line with coordinates x and y
+    Optionally specify colors in the array z
+    Optionally specify a colormap, a norm function and a line width
+    '''
+    
+    # Default colors equally spaced on [0,1]:
+    if z is None:
+        z = np.linspace(0.0, 1.0, len(x))
+           
+    # Special case if a single number:
+    if not hasattr(z, "__iter__"):  # to check for numerical input -- this is a hack
+        z = np.array([z])
+        
+    z = np.asarray(z)
+    
+    segments = make_segments(x, y)
+    lc = LineCollection(segments, array=z, cmap=cmap, norm=norm, linewidth=linewidth, alpha=alpha)
+    
+    ax = plt.gca()
+    ax.add_collection(lc)
+    
+    return lc
+    
+def clear_frame(ax=None): 
+    # Taken from a post by Tony S Yu
+    if ax is None: 
+        ax = plt.gca() 
+    ax.xaxis.set_visible(False) 
+    ax.yaxis.set_visible(False) 
+    for spine in ax.spines.itervalues(): 
+        spine.set_visible(False) 
+#+END_SRC
+
+
+#+RESULTS:
+
+* Nyquist Stability Criterion
 ** Review
 - Frequency response
 - Bode plot
@@ -58,6 +123,840 @@ from control import bode_plot as bode
   * Time Domain: Routh-Hurwitz stability criterion, Root Locus
   * Frequency Domain: Nyquist Plot + Nyquist Stability Criterion
 
+** Contour and Plot
+- $G(s)H(s)$ is the open-loop transfer function
+- $G(s)H(s)$ is a mapping from complex \(s\)-plane to complex \(GH\)-plane.
+- A closed-path (contour) on \(s\)-plane will be mapped to $w = G(s)H(s)$ to a closed path (plot) on \(GH\)-plane.
+#+BEGIN_SRC ipython :session :file assets/Lec51.svg  :exports results
+# plot
 
-* Nyquist Plot
-* Nyquist Stability Criterion
+plt.subplot(121)
+theta = np.linspace(0, -2*np.pi, 200)
+x = 2*np.cos(theta)
+y = 2*np.sin(theta)
+colorline(x,y,linewidth=1)
+plt.gcf().set_facecolor('white')    
+plt.axis('equal')
+ax = plt.gca()
+ax.set_xlim(-3.5,3.5)
+ax.set_ylim(-3.5,3.5)
+ax.set_xticks([]) 
+ax.set_yticks([]) 
+ax.set_xbound(-3.5,3.5)
+ax.set_ybound(-3.5,3.5)
+
+ax.spines['right'].set_color('none')
+ax.spines['left'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.spines['bottom'].set_color('none')
+
+plt.annotate('Re', xy=(-2,0), xytext=(2.5,0),
+            arrowprops=dict(arrowstyle='<|-'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+
+plt.annotate('Im', xy=(0,-3), xytext=(0,3),
+            arrowprops=dict(arrowstyle='<|-'),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+plt.xlabel('s-Plane Contour')
+
+plt.subplot(122,sharey=ax)
+s = x + y*1j
+w = s/(s**2+2*s+2)
+colorline(w.real,w.imag,linewidth=1)
+plt.gcf().set_facecolor('white')    
+plt.axis('equal')
+ax = plt.gca()
+ax.set_xlim(-3.5,3.5)
+ax.set_ylim(-3.5,3.5)
+ax.spines['right'].set_color('none')
+ax.set_xticks([]) 
+ax.set_yticks([]) 
+ax.set_xbound(-3.5,3.5)
+ax.set_ybound(-3.5,3.5)
+ax.spines['left'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.spines['bottom'].set_color('none')
+
+plt.annotate('Re', xy=(-2,0), xytext=(2,0),
+            arrowprops=dict(arrowstyle='<|-'),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+
+plt.annotate('Im', xy=(0,-3), xytext=(0,3),
+            arrowprops=dict(arrowstyle='<|-'),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+plt.xlabel('G-Plane Plot')
+
+plt.show()
+
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec51.svg]]
+
+** Zeros and Poles
+Consider the following transfer function
+$$G(s) = \frac{s}{s^2+2s+2} = \frac{s}{(s+1+j)(s+1-j)}.$$
+[[file:assets/Lec5Cauchy.svg]]
+
+** Observation
+- If a clockwise contour does not encircle zeros nor poles, then the plot will not encircle the origin. 
+- If a clockwise contour encircles a zero, then the plot will encircle the origin clockwise once.
+- If a clockwise contour encircles a pole, then the plot will encircle the origin counterclockwise once.
+- *Cauchy's Argument Principle:* If a clockwise contour encircles $Z$ zeros and $P$ poles, then the number of clockwise encirclements of the origin $N$, is given by
+$$N = Z - P\Rightarrow Z = N+P.$$
+
+** Counting Closed-Loop Poles using Argument Principle
+[[file:assets/Lec5Feedback.svg]]
+- The closed-loop transfer function is given by
+$$\frac{G(s)}{1+G(s)H(s)}$$
+- Define $F(s) = 1+G(s)H(s)$, we notice that
+  + The poles of $F(s)$ is the poles of $G(s)H(s)$
+  + The zeros of $F(s)$ will be poles for the close loop transfer function.
+** Counting Closed-Loop Poles using Argument Principle
+- By *Cauchy's Argument Principle*, for a clockwise contour $\Gamma$ on the \(s\)-plane:
+$$Z = N+P$$
+  + $Z$ is the number of zeros of $F$, i.e., number of closed-loop poles in the contour
+  + $P$ is the number of poles of $F$, i.e., number of open-loop poles in the contour
+  + $N$ is the number of clockwise encirclements of the origin for the plot $F(\Gamma)$
+  + $N$ is also the number of clockwise encirclements of $-1$ for the plot $G\circ H(\Gamma)$.
+ 
+
+** Example 
+
+- Consider the following transfer function:
+$$ G(s)H(s) = \frac{s}{s^2+2s+2}.$$
+- It has two open-loop poles at $-1\pm j$.
+- $$F(s) = (s^2+3s+2)/(s^2+2s+2)$$ has two zeros (close-loop poles) at $-1$ and $-2$. 
+- The contour encircles 2 poles and 1 zeros. $Z = 1, P = 2$.
+- The \(F\)-plot encircles origin counterclockwise once. $N = -1$.
+#+BEGIN_SRC ipython :session :file assets/Lec52.svg  :exports results
+# plot
+
+plt.subplot(121)
+theta = np.linspace(0, -2*np.pi, 200)
+x = 1.7*np.cos(theta)
+y = 1.7*np.sin(theta)
+colorline(x,y,linewidth=1)
+plt.plot([-1,-2],[0,0],'ro')
+plt.plot([-1,-1],[1,-1],'rx')
+plt.gcf().set_facecolor('white')    
+plt.axis('equal')
+ax = plt.gca()
+ax.set_xlim(-3.5,3.5)
+ax.set_ylim(-3.5,3.5)
+ax.set_xticks([]) 
+ax.set_yticks([]) 
+ax.set_xbound(-3.5,3.5)
+ax.set_ybound(-3.5,3.5)
+
+ax.spines['right'].set_color('none')
+ax.spines['left'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.spines['bottom'].set_color('none')
+
+plt.annotate('Re', xy=(-2,0), xytext=(2.5,0),
+            arrowprops=dict(arrowstyle='<|-'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+
+plt.annotate('Im', xy=(0,-3), xytext=(0,3),
+            arrowprops=dict(arrowstyle='<|-'),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+plt.xlabel('s-Plane Plot')
+
+plt.subplot(122,sharey=ax)
+s = x + y*1j
+w = s/(s**2+2*s+2)
+colorline(w.real+1,w.imag,linewidth=1)
+plt.gcf().set_facecolor('white')    
+plt.axis('equal')
+ax = plt.gca()
+ax.set_xlim(-3.5,3.5)
+ax.set_ylim(-3.5,3.5)
+ax.spines['right'].set_color('none')
+ax.set_yticks([]) 
+ax.set_xticks([]) 
+ax.set_xbound(-3.5,3.5)
+ax.set_ybound(-3.5,3.5)
+ax.spines['left'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.spines['bottom'].set_color('none')
+
+plt.annotate('Re', xy=(-2,0), xytext=(2,0),
+            arrowprops=dict(arrowstyle='<|-'),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+
+plt.annotate('Im', xy=(0,-3), xytext=(0,3),
+            arrowprops=dict(arrowstyle='<|-'),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+plt.annotate('$F(\Gamma)$', xy=(0,0), xytext=(-1,-1),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+
+plt.xlabel('F-Plane Plot')
+
+plt.show()
+
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec52.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Lec53.svg  :exports results
+# plot
+
+plt.subplot(121)
+theta = np.linspace(0, -2*np.pi, 200)
+x = 1.7*np.cos(theta)
+y = 1.7*np.sin(theta)
+colorline(x,y,linewidth=1)
+plt.plot([-1,-2],[0,0],'ro')
+plt.plot([-1,-1],[1,-1],'rx')
+plt.gcf().set_facecolor('white')    
+plt.axis('equal')
+ax = plt.gca()
+ax.set_xlim(-3.5,3.5)
+ax.set_ylim(-3.5,3.5)
+ax.set_xticks([]) 
+ax.set_yticks([]) 
+ax.set_xbound(-3.5,3.5)
+ax.set_ybound(-3.5,3.5)
+
+ax.spines['right'].set_color('none')
+ax.spines['left'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.spines['bottom'].set_color('none')
+
+plt.annotate('Re', xy=(-2,0), xytext=(2.5,0),
+            arrowprops=dict(arrowstyle='<|-'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+
+plt.annotate('Im', xy=(0,-3), xytext=(0,3),
+            arrowprops=dict(arrowstyle='<|-'),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+plt.xlabel('s-Plane Plot')
+
+plt.subplot(122,sharey=ax)
+s = x + y*1j
+w = s/(s**2+2*s+2)
+colorline(w.real,w.imag,linewidth=1)
+plt.gcf().set_facecolor('white')    
+plt.axis('equal')
+ax = plt.gca()
+ax.set_xlim(-3.5,3.5)
+ax.set_ylim(-3.5,3.5)
+ax.spines['right'].set_color('none')
+ax.set_yticks([]) 
+ax.set_xticks([-1]) 
+ax.set_xbound(-3.5,3.5)
+ax.set_ybound(-3.5,3.5)
+ax.spines['left'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.spines['bottom'].set_color('none')
+ax.spines['top'].set_position('center')
+ax.tick_params(bottom=False, top=True, labelbottom=False, labeltop=True)
+plt.annotate('Re', xy=(-2,0), xytext=(2,0),
+            arrowprops=dict(arrowstyle='<|-'),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+
+plt.annotate('Im', xy=(0,-3), xytext=(0,3),
+            arrowprops=dict(arrowstyle='<|-'),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+plt.annotate('$G\circ H(\Gamma)$', xy=(0,0), xytext=(-2,-1),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+
+plt.xlabel('$GH$-Plane Plot')
+
+plt.show()
+
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec53.svg]]
+
+
+** Nyquist Contour $\Gamma_n$
+- The stability of system is related to whether there exists any closed-loop poles (or zeros of $F(s)$) on the Right Half Plane (RHP).
+- We select a contour (Nyquist contour) consisting of
+  - Segment 1: The imaginary axis from 0 to $+j\infty$.
+  - Segment 2: A semicircle of infinite radius that encloses the entire right half \(s\)-plane.
+  - Segment 3: The imaginary axis from $-j\infty$ to $0$.
+- The Nyquist Contour is a ‘big’ semicircle that encloses the RHP. The direction of the encirclement is clockwise.
+
+#+BEGIN_SRC ipython :session :file assets/Lec5NyquistContour.svg :exports results
+%%tikz -l matrix,arrows,shapes -s 400,400 -f svg -S assets/Lec5NyquistContour.svg
+\draw [semithick, -latex, black!70] (-5,0)--node[at end,below]{Re} (5,0);
+\draw [semithick, -latex, black!70] (0,-5)--node[at end,left]{Im} node[at start,below]{$s$-Plane} (0,5);
+\draw [thick, -latex, red] (0,0)--(0,2);
+\draw [thick, red] (0,2)--(0,4.5);
+\draw [thick, -latex, black] (0,4.5) arc(90:0:4.5);
+\draw [thick, black] (4.5,0) arc(0:-90:4.5);
+\draw [thick, blue,-latex] (0,-4.5)--(0,-2);
+\draw [thick, blue,] (0,-2)--(0,0);
+\draw [semithick,black,-latex] (0,0)--node[fill=white]{$\infty$}(45:4.5);
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec5NyquistContour.svg]]
+
+
+** Nyquist Stability Criterion
+- By the Cauchy’s Principle of Argument: $$Z = N+P.$$
+  + $Z$ is the number of unstable closed-loop poles (zeros of $F$)
+  + $P$ is the number of unstable open-loop poles (poles of $F$)
+  + $N$ is the number of clockwise encirclements of $-1$ on the \(GH\)-plane for the plot $G\circ H(\Gamma)$.
+- The closed-loop system is stable, i.e. $Z = 0$, when $N = -P$.
+
+** Nyquist Stability Criterion
+- A feedback system is stable if and only if $N=-P$, i.e. the number of the counterclockwise encirclements of $–1$ point by the Nyquist plot in the \(GH\)-plane is equal to the number of the unstable poles of the open-loop transfer function.
+
+** Implication of Nyquist Stability Criterion
+- If the open-loop system is stable($P=0$), the closed-loop system is stable if and only if the Nyquist plot does not encircle $–1$ point
+- If the open-loop system has $P$ unstable poles, the closed-loop system is stable if and only if the Nyquist plot encircles $–1$ point $P$ times counterclockwise.
+- If the Nyquist plot passes through $-1$, then the system has a closed-loop pole on the imaginary axis (critically stable).
+
+
+** Procedure for Determining Stability using Nyquist Stability Criterion
+- Draw the Nyquist Plot
+- Determine the clockwise encirclement $N$.
+- From the open-loop transfer function, find the number of unstable open-loop poles ($P$)
+- Stable if $N = -P$.
+
+
+*** How to Sketch the Nyquist Plot
+Nyquist Contour consists of 3 segments:
+- Segment 1: The imaginary axis from 0 to $+j\infty$.
+- Segment 2: A semicircle of infinite radius that encloses the entire right half \(s\)-plane.
+- Segment 3: The imaginary axis from $-j\infty$ to $0$.
+[[file:assets/Lec5NyquistContour.svg]] 
+**** Segment 1:
+- We use Bode plot to help us sketch the first segment.
+- We need to find 4 types of point:
+  - $\omega = 0$;
+  - Real intersection: Phase = $180N^\circ$;
+  - Imaginary intersection: Phase = $180N+90^\circ$;
+  - $\omega = +\infty$;
+- We can also deduce the trend of the plot around those points:
+  - If the phase is decreasing, the plot goes clockwise
+  - If the phase is increasing, the plot goes counterclockwise
+- Plot those points on the \(GH\)-plane and draw a smooth line to connect them.
+**** Segment 2:
+- Consider the following open-loop transfer function:
+$$G(s)H(s) = \begin{cases}\frac{s}{s^2+2s+2}&\text{strictly proper}\\\frac{s-1}{s+1}&\text{proper}\\s&\text{non-proper}\end{cases}$$
+- For strictly proper function, the order of the denominator is greater than the order of the numerator:
+$$\lim_{s\rightarrow\infty}\frac{s}{s^2+2s+2} = \lim_{s\rightarrow\infty}\frac{s}{s^2} = 0$$
+- For proper function, the order of the denominator is no less than the order of the numerator:
+$$\lim_{s\rightarrow\infty}\frac{s-1}{s+1} = \lim_{s\rightarrow\infty}\frac{s}{s} = 1$$
+- Segment 2 is the origin point for strictly proper function. It is a constant for proper function.
+- Non-proper transfer functions are not physically realizable.
+**** Segment 3:
+- From the property of Laplace transform:
+$$G(s) = \overline{G(-s)}.$$
+- Therefore, segment 3 is the mirror reflection of segment 1 around the imaginary axis.
+
+** Example 1
+Consider the system with open-loop transfer function:
+$$G(s)H(s) = \frac{1}{(s+1)(0.1s+1)}.$$
+Determine the stability of the closed-loop system using the Nyquist stability criterion.
+
+*** Sketch Nyquist Plot
+#+BEGIN_SRC ipython :session :file assets/Lec5Example1Bode.svg :exports results
+num = [1];
+den = [0.1,1.1,1];
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-1,3,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $1/(s+1)(0.1s+1)$")
+plt.semilogx(omega, mag, 'b')
+yticks = np.linspace(-100, 0, 6) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(0, -180, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec5Example1Bode.svg]]
+- Segment 1:
+  - When $\omega \rightarrow 0$, $G(j\omega)H(j\omega)\rightarrow 1$.
+  - There is no real intersection for $0 < \omega < \infty$.
+  - There is a imaginary intersection when $\omega \approx 3$. The intersection is around $0.3\angle -90^\circ$. ($0.3\approx -10dB$)
+  - More precisely, the intersection is at $0.287\angle -90^\circ$ and the corresponding frequency is $\omega = \sqrt{10}$.
+  - When $\omega \rightarrow \infty$, $G(j\omega)H(j\omega)\rightarrow 0$.
+  - The phase is always decreasing, therefore the plot goes clockwise.
+- Segment 2: Since the system is strictly proper, Segment 2 is the origin.
+- Segment 3: Mirror reflection of segment 1.
+
+#+BEGIN_SRC ipython :session :file assets/Lec5Example1Nyquist.svg :exports results
+num = [1];
+den = [0.1,1.1,1];
+sys = tf(num, den);
+real, imag, omega = nyquist(sys, Plot=False, omega=np.logspace(-2,3,200));
+
+
+plt.title("Nyquist Plot of $1/(s+1)(0.1s+1)$")
+plt.plot(real, imag, 'b')
+for index in [50,75,90]:
+    plt.arrow(real[index], imag[index], real[index+1]-real[index], imag[index+1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.05)
+
+imag = -1*imag;
+plt.plot(real, imag, 'b--')
+for index in [50,75,90]:
+    plt.arrow(real[index], imag[index], real[index-1]-real[index], imag[index-1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.05)
+
+plt.plot([-1],[0], 'rx')
+plt.plot([1,0,0],[0,-0.287,0], 'ro')
+plt.grid(b=True, which='both')
+
+plt.annotate('$\omega=0$', xy=(1,0), xytext=(0.5,0),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+plt.annotate('$-0.287j$', xy=(0,-0.287), xytext=(-0.5,-0.287),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+plt.annotate('$\omega=\infty$', xy=(0,0), xytext=(-0.5,0),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+plt.xlabel('$GH$-Plane')
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec5Example1Nyquist.svg]]
+
+*** Finding $N$ and $P$
+- The Nyquist plot does not encircle $-1$. Therefore $N = 0$.
+- The open-loop poles are $-1$, $-10$. Therefore $P = 0$.
+- $Z = N + P = 0$. The closed-loop system is stable.
+
+** Example 2
+Consider a feedback system with open-loop transfer function
+$$G(s)H(s) = \frac{K(s-1)}{s^2+s+4},\,K>0$$
+Determine the range of $K$ such that the feedback system is stable.
+
+
+*** Nyquist Plot 
+Assume $K=1$ first.
+#+BEGIN_SRC ipython :session :file assets/Lec5Example2Bode.svg :exports results
+num = [1,-1];
+den = [1,1,4];
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-1,3,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $(s-1)/(s^2+s+4)$")
+plt.semilogx(omega, mag, 'b')
+yticks = np.linspace(-100, 0, 6) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(180, -90, 7) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec5Example2Bode.svg]]
+
+- Segment 1:
+  - When $\omega \rightarrow 0$, $G(j\omega)H(j\omega)\rightarrow -0.25$.
+  - There is a imaginary intersection when $1<\omega <2$. The intersection is between $0.1j$ and $j$.
+  - There is a real intersection when $\omega \approx 2$. The intersection is around $1$. 
+  - When $\omega \rightarrow \infty$, $G(j\omega)H(j\omega)\rightarrow 0$.
+  - The phase is always decreasing. Therefore the plot goes clockwise.
+- Segment 2: Since the system is strictly proper, Segment 2 is the origin.
+- Segment 3: Mirror reflection of segment 1.
+
+#+BEGIN_SRC ipython :session :file assets/Lec5Example2Nyquist.svg :exports results
+num = [1,-1];
+den = [1,1,4];
+sys = tf(num, den);
+real, imag, omega = nyquist(sys, Plot=False, omega=np.logspace(-2,2,400));
+
+
+plt.title("Nyquist Plot of $(s-1)/(s^2+s+4)$")
+plt.plot(real, imag, 'b')
+for index in [200,225,250]:
+    plt.arrow(real[index], imag[index], real[index+1]-real[index], imag[index+1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.05)
+
+imag = -1*imag;
+plt.plot(real, imag, 'b--')
+for index in [200,225,250]:
+    plt.arrow(real[index], imag[index], real[index-1]-real[index], imag[index-1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.05)
+
+
+plt.plot([-1],[0], 'rx')
+plt.plot([-0.25,0,1,0],[0,0.707,0,0], 'ro')
+plt.grid(b=True, which='both')
+
+plt.annotate('$\omega=0$', xy=(-0.25,0), xytext=(-0.5,0),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+plt.annotate('$0.707j$', xy=(0,0.707), xytext=(-0.5,0.707),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+plt.annotate('$\omega=\infty$', xy=(0,0), xytext=(0.45,0),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='right',
+            verticalalignment='center', 
+            )
+
+plt.annotate('$1$', xy=(1,0), xytext=(0.55,0),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+plt.xlabel('$GH$-Plane')
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec5Example2Nyquist.svg]]
+*** Determine $N$ and $P$
+- For the open-loop system, the poles are at $-0.5\pm 1.94j$. Therefore, $P = 0$
+- If $K < 4$, then $-0.25K > -1$, the Nyquist plot does not encircle $-1$. Therefore $N = 0$ and the system is closed-loop stable.
+- If $K > 4$, then $-0.25K < -1$, the Nyquist plot encircle $-1$ clockwise once. Therefore $N = 1$ and $Z = 1$. There is one unstable pole for the closed-loop system.
+
+** Example 3
+Consider the two loops feedback system:
+#+BEGIN_SRC ipython :session :file assets/Lec5Example3Diagram.svg :exports results
+%%tikz -l matrix,arrows,shapes -s 800,200 -f svg -S assets/Lec5Example3Diagram.svg
+\tikzstyle{point} = [coordinate]
+\tikzstyle{box} = [rectangle, draw, semithick]
+\matrix[row sep = 7mm, column sep = 10mm]{
+%first row
+\node (p1) [] {$R(s)$};&
+\node (p2) [circle,draw,inner sep=4pt] {};&
+\node (outer) [box] {$K(s+0.5)$};&
+\node (p3) [circle,draw,inner sep=4pt] {};&
+\node (inner) [box] {$1/(s^3+s^2)$};&
+\node (p4) [point] {};&
+\node (p5) [point] {};&
+\node (p6) [] {$Y(s)$};\\
+%second row
+&
+&
+&
+\node (p7) [point] {};&
+&
+\node (p8) [point] {};&
+&
+\\
+%third row
+&
+\node (p9) [point] {};&
+&
+&
+&
+&
+\node (p10) [point] {};&
+\\
+};
+\draw [semithick,->] (p1)--node[near end, above]{\scriptsize{$+$}} (p2);
+\draw [semithick,->] (p2)--(outer);
+\draw [semithick,->] (outer)--node[near end, above]{\scriptsize{$+$}} (p3);
+\draw [semithick,->] (p3)--(inner);
+\draw [semithick,->] (inner)--(p4)--(p5)--(p6);
+\draw [semithick,->] (p4)--(p8)--node[below]{$G_2(s)$}(p7)--node[near end, left]{\scriptsize{$-$}} (p3);
+\draw [semithick,->] (p5)--(p10)--(p9)--node[near end, left]{\scriptsize{$-$}} (p2);
+\draw [semithick] (p2.north east)--(p2.south west);
+\draw [semithick] (p2.south east)--(p2.north west);
+\draw [semithick] (p3.north east)--(p3.south west);
+\draw [semithick] (p3.south east)--(p3.north west);
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec5Example3Diagram.svg]]
+
+Determine the range of gain $K$ for stability of the system using Nyquist stability criterion.
+
+*** Sketch Nyquist Plot
+- We first compute the closed-loop transfer function of the inner loop.
+$$G_2(s) = \frac{1/(s^3+s^2)}{1+1/(s^3+s^2)} = \frac{1}{s^3+s^2+1}.$$
+- The open-loop transfer function is
+$$ G(s) = \frac{K(s+0.5)
+#+BEGIN_SRC ipython :session :file assets/Lec5Example3Diagram2.svg :exports results
+%%tikz -l matrix,arrows,shapes -s 800,200 -f svg -S assets/Lec5Example3Diagrama.svg
+\tikzstyle{point} = [coordinate]
+\tikzstyle{box} = [rectangle, draw, semithick]
+\matrix[row sep = 7mm, column sep = 10mm]{
+%first row
+\node (p1) [] {$R(s)$};&
+\node (p2) [circle,draw,inner sep=4pt] {};&
+\node (outer) [box] {$K(s+0.5)$};&
+\node (p3) [point] {};&
+\node (inner) [box] {$1/(s^3+s^2+1)$};&
+\node (p4) [point] {};&
+\node (p5) [point] {};&
+\node (p6) [] {$Y(s)$};\\
+%third row
+&
+\node (p9) [point] {};&
+&
+&
+&
+&
+\node (p10) [point] {};&
+\\
+};
+\draw [semithick,->] (p1)--node[near end, above]{\scriptsize{$+$}} (p2);
+\draw [semithick,->] (p2)--(outer);
+\draw [semithick,->] (outer)--(p3)--(inner);
+\draw [semithick,->] (inner)--(p4)--(p5)--(p6);
+\draw [semithick,->] (p5)--(p10)--(p9)--node[near end, left]{\scriptsize{$-$}} (p2);
+\draw [semithick] (p2.north east)--(p2.south west);
+\draw [semithick] (p2.south east)--(p2.north west);
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec5Example3Diagram2.svg]]
+#+BEGIN_SRC ipython :session :file assets/Lec5Example3Bode.svg :exports results
+num = [1,0.5];
+den = [1,1,0,1];
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-2,2,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $(s+0.5)/(s^3+s^2+1)$")
+plt.semilogx(omega, mag, 'b')
+yticks = np.linspace(-100, 0, 6) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase-360,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-180, -360, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec5Example3Bode.svg]]
+
+- Segment 1:
+  - When $\omega \rightarrow 0$, $G(j\omega)H(j\omega)\rightarrow 0.5K$.
+  - There is a imaginary intersection when $\omega \approx 0.7 $. The intersection is between $0.1j$ and $j$.
+  - There is a real intersection when $1 <\omega < 2$. Calculation shows that the exact frequency is $\omega = \sqrt{2}$ and the crossing is at $0.5K\angle -180^\circ$.
+  - When $\omega \rightarrow \infty$, $G(j\omega)H(j\omega)\rightarrow 0$. Calculation shows that the exact frequency is $\omega = 1/\sqrt{2}$ and the crossing is at $\sqrt{2}K\angle -270^\circ$.
+  - The phase is increasing around above points. Therefore the plot goes counterclockwise around the above points.
+- Segment 2: Since the system is strictly proper, Segment 2 is the origin.
+- Segment 3: Mirror reflection of segment 1.
+
+#+BEGIN_SRC ipython :session :file assets/Lec5Example3Nyquist.svg :exports results
+num = [1,0.5];
+den = [1,1,0,1];
+sys = tf(num, den);
+real, imag, omega = nyquist(sys, Plot=False, omega=np.logspace(-2,2,400));
+
+plt.title("Nyquist Plot of $(s+0.5)/(s^3+s^2+1)$")
+plt.plot(real, imag, 'b')
+for index in [150,180,190]:
+    plt.arrow(real[index], imag[index], real[index+1]-real[index], imag[index+1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.05)
+
+imag = -1*imag;
+plt.plot(real, imag, 'b--')
+for index in [150,180,190]:
+    plt.arrow(real[index], imag[index], real[index-1]-real[index], imag[index-1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.05)
+
+plt.plot([-1],[0], 'rx')
+plt.plot([0.5,0,-0.5,0],[0,1.414,0,0], 'ro')
+plt.grid(b=True, which='both')
+
+plt.annotate('$\omega=0$', xy=(0.5,0), xytext=(0.4,0.5),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='right',
+            verticalalignment='center', 
+            )
+plt.annotate('$1.414j$', xy=(0,1.414), xytext=(0,1),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+plt.annotate('$-0.5$', xy=(-0.5,0), xytext=(-0.5,0.5),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+plt.annotate('$\omega=\infty$', xy=(0,0), xytext=(0,-0.5),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='center',
+            verticalalignment='center', 
+            )
+plt.xlabel('$GH$-Plane')
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec5Example3Nyquist.svg]]
+
+
+*** Determine $N$ and $P$
+- For the open-loop system, the poles are at $-1.47,\,0.23\pm0.79j$. Therefore, $P = 2$
+- If $K < 2$, then $-0.5K > -1$, the Nyquist plot does not encircle $-1$. Therefore $N = 0,\,Z = 2$. The system has 2 unstable poles.
+- If $K > 2$, then $-0.5K < -1$, the Nyquist plot encircle $-1$ counterclockwise twice. Therefore $N = -2$ and $Z = 0$. The system is stable.
+
+
+** Example 4
+Consider a feedback system with open-loop transfer function
+$$G(s)H(s) = \frac{K}{(s-1)(s+2)},\,K>0$$
+Determine the range of $K$ such that the feedback system is stable.
+
+*** Sketch Nyquist Plot
+#+BEGIN_SRC ipython :session :file assets/Lec5Example4Bode.svg :exports results
+num = [1];
+den = [1,1,-2];
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-2,2,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $1/(s^2+s-2)$")
+plt.semilogx(omega, mag, 'b')
+yticks = np.linspace(-100, 0, 6) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-180, -135, 2) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec5Example4Bode.svg]]
+- Segment 1:
+  - When $\omega \rightarrow 0$, $G(j\omega)H(j\omega)\rightarrow -K/2$.
+  - There is no real intersection for $0 < \omega < \infty$.
+  - There is no imaginary intersection for $0 < \omega < \infty$.
+  - When $\omega \rightarrow \infty$, $G(j\omega)H(j\omega)\rightarrow 0$.
+  - The phase is always increasing at $\omega = 0$, therefore the plot goes counterclockwise at $-K/2$.
+- Segment 2: Since the system is strictly proper, Segment 2 is the origin.
+- Segment 3: Mirror reflection of segment 1.
+
+#+BEGIN_SRC ipython :session :file assets/Lec5Example4Nyquist.svg :exports results
+num = [1];
+den = [1,1,-2];
+sys = tf(num, den);
+real, imag, omega = nyquist(sys, Plot=False, omega=np.logspace(-2,2,400));
+
+plt.title("Nyquist Plot of $1/(s^2+s-2)$")
+plt.plot(real, imag, 'b')
+for index in [200]:
+    plt.arrow(real[index], imag[index], real[index+1]-real[index], imag[index+1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.015)
+
+imag = -1*imag;
+plt.plot(real, imag, 'b--')
+for index in [200]:
+    plt.arrow(real[index], imag[index], real[index-1]-real[index], imag[index-1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.015)
+
+plt.plot([-1],[0], 'rx')
+plt.plot([-0.5,0],[0,0], 'ro')
+plt.grid(b=True, which='both')
+
+plt.annotate('$\omega=0$', xy=(-0.5,0), xytext=(-0.6,0),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='right',
+            verticalalignment='center', 
+            )
+plt.annotate('$\omega=\infty$', xy=(0,0), xytext=(-0.1,0),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='right',
+            verticalalignment='center', 
+            )
+plt.xlabel('$GH$-Plane')
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec5Example4Nyquist.svg]]
+
+
+*** Determine $N$ and $P$
+- For the open-loop system, the poles are at $1,\,-2$. Therefore, $P = 1$
+- If $K < 2$, then $-0.5K > -1$, the Nyquist plot does not encircle $-1$. Therefore $N = 0,\,Z = 1$. The system has 1 unstable poles.
+- If $K > 2$, then $-0.5K < -1$, the Nyquist plot encircle $-1$ counterclockwise once. Therefore $N = -1$ and $Z = 0$. The system is stable.
+
+** Summary
+- Cauchy's Argument Principle: $Z = N+P$.
+- Nyquist Stability Criterion: Closed-loop system is stable if and only if $$N+P = 0.$$
+- Sketch Nyquist plot from Bode plot
+- Determine stability of the closed-loop system using Nyquist stability criterion.
