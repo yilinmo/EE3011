@@ -478,7 +478,7 @@ $$\lim_{s\rightarrow\infty}\frac{s-1}{s+1} = \lim_{s\rightarrow\infty}\frac{s}{s
 **** Segment 3:
 - From the property of Laplace transform:
 $$G(s) = \overline{G(-s)}.$$
-- Therefore, segment 3 is the mirror reflection of segment 1 around the imaginary axis.
+- Therefore, segment 3 is the mirror reflection of segment 1 around the real axis.
 
 ** Example 1
 Consider the system with open-loop transfer function:
@@ -960,3 +960,4 @@ plt.show()
 - Nyquist Stability Criterion: Closed-loop system is stable if and only if $$N+P = 0.$$
 - Sketch Nyquist plot from Bode plot
 - Determine stability of the closed-loop system using Nyquist stability criterion.
+  

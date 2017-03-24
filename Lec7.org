@@ -1,0 +1,78 @@
+#+BEGIN_SRC ipython :session :exports none
+import numpy as np
+from numpy import log10 as log
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Arial']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+import control
+from control.matlab import *
+from control import bode_plot as bode
+from control import nyquist, margin
+
+%load_ext tikzmagic
+
+%matplotlib inline
+%config InlineBackend.figure_format = 'svg'
+#+END_SRC
+
+#+RESULTS:
+
+* Lead Compensator
+** Loop Shaping
+#+BEGIN_SRC ipython :session :file assets/Lec5Example3Diagram2.svg :exports results
+%%tikz -l matrix,arrows,shapes -s 400,200 -f svg -S assets/Lec5Example3Diagrama.svg
+\tikzstyle{point} = [coordinate]
+\tikzstyle{box} = [rectangle, draw, semithick]
+\matrix[row sep = 7mm, column sep = 10mm]{
+%first row
+\node (p1) [] {$R(s)$};&
+\node (p2) [circle,draw,inner sep=4pt] {};&
+\node (outer) [box] {$C(s)$};&
+\node (p3) [point] {};&
+\node (inner) [box] {$G(s)$};&
+\node (p5) [point] {};&
+\node (p6) [] {$Y(s)$};\\
+%third row
+&
+\node (p9) [point] {};&
+&
+&
+&
+\node (p10) [point] {};&
+\\
+};
+\draw [semithick,->] (p1)--node[near end, above]{\scriptsize{$+$}} (p2);
+\draw [semithick,->] (p2)--(outer);
+\draw [semithick,->] (outer)--(p3)--(inner);
+\draw [semithick,->] (inner)--(p5)--(p6);
+\draw [semithick,->] (p5)--(p10)--(p9)--node[near end, left]{\scriptsize{$-$}} (p2);
+\draw [semithick] (p2.north east)--(p2.south west);
+\draw [semithick] (p2.south east)--(p2.north west);
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec5Example3Diagram2.svg]]
+- Nyquist Stability Criterion tells us the stability of the closed-loop system depends on the open-loop transfer function $C(s)G(s)$.
+- Loop shaping means to choose a compensator(controller) $C(s)$ to give the open-loop transfer function $C(s)G(s)$ a desired shape.
+
+** 
+
+** Desirable Shape: Low Frequency
+- In the low frequency, the gain should be high to have good steady state accuracy.
+  * For type-0 system, the position error constant is $G(0)$.
+  * For type-1 system, the position error constant is $0$ and the velocity error constant is $\lim_{s\rightarrow 0} sG(s)$.
+  * For type-2 system, the position and velocity error constant is $0$ and the acceleration error constant is $\lim_{s\rightarrow 0} s^2G(s)$.
+
+** Desirable Shape: Mid Frequency
+- *Bode's Relation* For a minimum phase system, if the magnitude plot is a straight line with slope $20N$, then the phase will be $90N^\circ$.
+- Around the gain crossover frequency, the slope of the magnitude plot should be about $-20$ and extend over a sufficient range of frequency
+- The phase will then be $\approx -90^\circ$ with a stability margin $\approx 90^\circ$
+** Desirable Shape: High Frequency
+- In the high frequency, the gain must be small in order to have good noise attenuation and robustness against model uncertainty.
+- The choice of gain crossover frequency is a compromise among steady-state error, rejection of noise and robustness.
+
+** Desirable Shape
