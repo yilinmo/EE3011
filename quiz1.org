@@ -1,0 +1,112 @@
+#+BEGIN_SRC ipython :session :exports none
+import matplotlib
+import numpy as np
+from numpy import log10 as log
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Arial']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+import control
+from control.matlab import *
+from control import bode_plot as bode
+
+%load_ext tikzmagic
+
+%matplotlib inline
+%config InlineBackend.figure_format = 'svg'
+
+from matplotlib2tikz import save as tikz_save
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC ipython :session :file assets/Quiz12.svg :exports results
+num = [10,500];
+den = [1,5,0];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-2,3,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+
+freqs = [1e-2,5,50,1e3];
+slopes = [-20,-40,-20];
+mags = [80,0,0,0];
+for i in range(1, len(freqs)):
+    mags[i] = mags[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+
+plt.semilogx(omega,mag, 'b')
+plt.semilogx(freqs,mags, 'r--')
+
+plt.subplot(212)
+freqs = [1e-2,0.5,5,50,500,1e3]
+slopes = [0,-45,0,45,0]
+phases = [-90,0,0,0,0,0]
+for i in range(1, len(freqs)):
+    phases[i] = phases[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+
+plt.semilogx(omega,phase, 'b')
+plt.semilogx(freqs, phases, 'r--')
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+tikz_save(
+    'tikz/Quiz12.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+
+plt.show()
+#+END_SRC 
+
+#+RESULTS:
+[[file:assets/Quiz12.svg]]
+
+
+#+BEGIN_SRC ipython :session :file assets/Quiz14.svg :exports results
+num = [5,100];
+den = [1,0,0];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(0,3,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+
+freqs = [1e0,20,1e3];
+slopes = [-40,-20];
+mags = [40,0,0];
+for i in range(1, len(freqs)):
+    mags[i] = mags[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+
+plt.semilogx(omega,mag, 'b')
+plt.semilogx(freqs,mags, 'r--')
+
+plt.subplot(212)
+freqs = [1e0,2,200,1e3];
+slopes = [0,45,0]
+phases = [-180,0,0,0]
+for i in range(1, len(freqs)):
+    phases[i] = phases[i-1] + slopes[i-1]*(log(freqs[i])-log(freqs[i-1]))
+
+plt.semilogx(omega,phase, 'b')
+plt.semilogx(freqs, phases, 'r--')
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+tikz_save(
+    'tikz/Quiz14.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+
+plt.show()
+#+END_SRC 
+
+#+RESULTS:
+[[file:assets/Quiz14.svg]]
