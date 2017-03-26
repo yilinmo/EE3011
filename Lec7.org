@@ -153,7 +153,7 @@ plt.show()
 [[file:assets/Lec7IdealStepResponse.svg]]
 
 * Lead Compensator
-- The transfer function of a lead compensator is $$C(s) = K\frac{Ts+1}{\alpha Ts+1},\,0<\alpha<1.$
+- The transfer function of a lead compensator is $$C(s) = K\frac{Ts+1}{\alpha Ts+1},\,0<\alpha<1.$$
 #+BEGIN_SRC ipython :session :file assets/Lec7Lead.svg :exports results
 num = [10,10];
 den = [0.1,1];
@@ -186,10 +186,224 @@ plt.show()
 #+RESULTS:
 [[file:assets/Lec7Lead.svg]]
 ** Observations
-- The low frequency gain is increased by $20\log K$. (smaller steady state error)
+- The low frequency gain is changed by $20\log K$.
+  * $K$ can be chosen to satisfy specification on steady-state error.
 - The phase is always positive, which is why it is called a lead compensator
   * The phase margin will be increased
   * Smaller overshot
 - The system's gain crossover frequency will also be increased, resulting in faster response (but the system will be more susceptible to noise)
 
-** 
+** Analysis
+- The phase response of the lead compensator is given by $$\angle C(j\omega) = \tan^{-1}(\omega T) - \tan^{-1}(\alpha\omega T).$$
+- The maximum phase lead occurs when $$ \frac{d\angle C(j\omega)}{d\omega} = \frac{T}{1+\omega^2T^2}-\frac{\alpha T}{1+\alpha^2\omega^2T^2} = 0,$$which implies that $\omega = 1/\sqrt{\alpha}T$.
+- The maximum lead is $$\tan^{-1}\left(1/\sqrt{\alpha} \right)- \tan^{-1}\sqrt{\alpha} = \sin^{-1}\frac{1-\alpha}{1+\alpha}.$$
+- Therefore, to achieve $\phi$ maximum phase lead, we need to choose $$\alpha = \frac{1-\sin \phi}{1+\sin\phi}.$$
+- The corresponding magnitude increase is $$K\left|\frac{jT\omega+1}{j\alpha T\omega + 1}\right| = K\frac{\sqrt{1+1/\alpha}}{\sqrt{1+\alpha}} = K\alpha^{-1/2} = 20\log K-10\log \alpha (\text{dB}).$$
+#+BEGIN_SRC ipython :session :file assets/Lec7LeadAnalysis.svg :exports results
+T = 1;
+alpha = 0.1
+K = 10;
+Wm = 1/np.sqrt(alpha)/T;
+num = [K*T,K];
+den = [alpha*T,1];
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-1.5,2.5,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Lead Compensator: $10(s+1)/(0.1s+1)$")
+plt.semilogx(omega, mag, 'b')
+plt.semilogx([Wm, Wm], [20*log(K), 20*log(K)-10*log(alpha)], 'r')
+plt.annotate('$20\log K - 10\log a$', xy=(Wm,20*log(K)), 
+            xytext=(2*Wm,20*log(K)-5*log(alpha)),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+yticks = np.linspace(20, 40, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([Wm, Wm], [0, np.arcsin((1-alpha)/(1+alpha))*180/np.pi], 'r')
+plt.annotate('$\sin^{-1}[(1-a)/(1+a)]$', xy=(Wm,0), 
+            xytext=(Wm,np.arcsin((1-alpha)/(1+alpha))*180/np.pi),
+            horizontalalignment='center',
+            verticalalignment='bottom', 
+            )
+yticks = np.linspace(20, 40, 3) 
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(0, 90, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec7LeadAnalysis.svg]]
+
+** Design Procedure
+- Determine the gain $K$ to satisfy the steady state error requirement. For example, for type-0 system: $$e_{ss} = \frac{1}{1+K_p},\text{ and }K_p = \lim_{s\rightarrow 0} C(s)G(s) = KG(0).$$
+- Draw the Bode plots of $KG(s)$, derive the phase margin $\phi_0$.
+- From $\phi_0$ and the required phase margin $PM$, determine the phase lead $\phi$: $$\phi = PM - \phi_0 + 5^\circ\sim 10^\circ.$$
+- Derive $$\alpha = \frac{1-\sin \phi}{1+\sin \phi}.$$
+- To achieve the maximum phase lead, place the gain crossover frequency $\omega_g$ at $1/\sqrt{\alpha}T$. Therefore, $$20\log|G(j\omega_g)| + 20\log K = 10\log \alpha,$$ and we can derive $\omega_g$.
+- Choose $$T = \frac{1}{\sqrt{\alpha}\omega_g}.$$
+- Verify the result using Matlab.
+
+** Example
+In a solar tracking system, the control objective is to drive the solar panel which is attached to motor shaft in order to track the light source. The transfer function of the system is given by 
+$$G(s) = \frac{10}{s(s+1)}.$$
+Design a lead compensator such that
+$$K_v \geq 100,\,\phi_m \geq 40^\circ,\, K_g \geq 10\text{dB}.$$
+
+*** Determine $K$
+- The lead compensator is of the form $$C(s) = K\frac{Ts+1}{\alpha Ts+1}.$$
+- The velocity error constant is defined as $$K_v = \lim_{s\rightarrow 0}sC(s)G(s) = 10K = 100.$$
+- Hence, we should choose $K = 10$.
+
+*** Sketch the Bode Plots of $KG(s)$
+We will use the straight line approximation:
+#+BEGIN_SRC ipython :session :file assets/Lec7ExampleBodeSketch.svg :exports results
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+
+yticks = np.linspace(-80, 80, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.title("Straight Line Approximation of $100/s(s+1)$")
+plt.semilogx([1e-2,1e0,1e3], [80,40,-80], 'r--')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx([1e-2,1e-1,1e1,1e3], [-90,-90,-180,-180], 'r--')
+yticks = np.linspace(-90, -180, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec7ExampleBodeSketch.svg]]
+
+*** Determine $\alpha$
+- From the straight line approximation, the phase margin is $\approx 0^\circ$.
+- In order to achieve $40^\circ$ phase margin, we will choose the maximum phase lead of the compensator to be $$\phi = 40^\circ - 0^\circ + 5^\circ = 45^\circ.$$
+- The corresponding $$\alpha = \frac{1-\sin 45^\circ}{1+\sin 45^\circ} = 0.1716.$$
+
+*** Determine $T$
+- Using the straight line approximation, we know that $$20\log|KG(j\omega)|\approx = 40-40\log(\omega).$$
+- The gain crossover frequency $\omega_g$ of $C(s)G(s)$ satisfies $$40-40\log(\omega_g) -10\log(\alpha) = 0.$$
+- Therefore, $\omega_g \approx 15.54$ and $$T = \frac{1}{\sqrt{\alpha}\omega_g} = 0.1554.$$
+- The compensator is obtained as $$C(s) = 10\frac{0.1554s+1}{0.0267s+1}.$$
+
+*** Verification
+- The phase margin is $48.7^\circ$ and the gain margin is $\infty$.
+#+BEGIN_SRC ipython :session :file assets/Lec7ExampleBode.svg :exports results
+K = 10;
+num = [10];
+den = [1,1,0];
+sys = tf(num, den);
+
+mag1, phase1, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-2,3,200));
+
+phi = 45/180*np.pi;
+alpha = -1 + 2/(1+np.sin(phi));
+
+wg = 10*np.power(alpha,-0.25);
+T = 1/np.sqrt(alpha)/wg;
+num = [K*T,K];
+den = [alpha*T,1];
+ctrl = tf(num,den);
+
+mag2, phase2, omega = bode(control.series(ctrl,sys), dB=True, Plot=False, omega=np.logspace(-2,3,200));
+
+Kg, pm, Wg, Wp = margin(control.series(ctrl,sys))
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $C(s)G(s)$")
+plt.semilogx(omega, mag1, 'b--')
+plt.semilogx(omega, mag2, 'r')
+yticks = np.linspace(-80, 80, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase1, 'b--')
+plt.semilogx(omega, phase2, 'r')
+plt.semilogx([Wg,Wg], [pm-180, -180],'r')
+plt.annotate('$\phi_m$=%.1f' % pm, xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+yticks = np.linspace(-90, -180, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec7ExampleBode.svg]]
+
+*** Step Response
+- After the compensation, the system responses faster and has less overshoot.
+#+BEGIN_SRC ipython :session :file assets/Lec7ExampleStep.svg :exports results
+num = [10];
+den = [1,1,0];
+sys = tf(num, den);
+
+K = 10;
+phi = 45/180*np.pi;
+alpha = -1 + 2/(1+np.sin(phi));
+wg = 10*np.power(alpha,-0.25);
+T = 1/np.sqrt(alpha)/wg;
+num = [K*T,K];
+den = [alpha*T,1];
+ctrl = tf(num,den);
+
+cl = control.feedback(control.series(ctrl,sys))
+T, yout = control.step_response(cl, T=np.linspace(0,6,200));
+
+plt.title("Step Response")
+plt.plot(T, yout, 'r')
+
+cl = control.feedback(sys)
+T, yout = control.step_response(cl, T=np.linspace(0,6,200));
+
+plt.plot(T, yout, 'b--')
+plt.grid(b=True, which='both')
+plt.ylim(0,1.6)
+plt.xlim(0,6)
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec7ExampleStep.svg]]
+
+** Remarks
+- The lead compensator improves the phase margin and thus the transient performance (overshoot) of the system.
+- The gain crossover frequency is increased. Thus, the speed of the system response is improved.
+- However, the lead compensator increases the high frequency gain of the system. This makes the system more susceptible to noise signals.
