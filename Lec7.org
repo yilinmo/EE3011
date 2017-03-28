@@ -103,7 +103,7 @@ plt.yticks(yticks, ylabels)
 plt.ylabel('Magnitude(dB)')
 plt.semilogx([1e-1,1e0,1e2,1e3],[60,20,-20,-80], 'r--')
 plt.semilogx([Wp,Wp], [-20*log(Kg), 0],'r')
-plt.annotate('$K_g$=%.1fdB' % (-20*log(Kg)), xy=(Wp,-20*log(Kg)), xytext=(Wp/2,-20*log(Kg)-20),
+plt.annotate('$K_g$=%.1fdB' % (20*log(Kg)), xy=(Wp,-20*log(Kg)), xytext=(Wp/2,-20*log(Kg)-20),
             arrowprops=dict(arrowstyle='-|>'),
             horizontalalignment='right',
             verticalalignment='center', 
