@@ -21,67 +21,6 @@ from control import nyquist, margin
 
 #+RESULTS:
 
-#+BEGIN_SRC ipython :session :exports none
-from matplotlib.collections import LineCollection
-from matplotlib.colors import ListedColormap, BoundaryNorm
-
-
-# Data manipulation:
-from matplotlib.collections import LineCollection
-from matplotlib.colors import ListedColormap, BoundaryNorm
-
-def make_segments(x, y):
-    '''
-    Create list of line segments from x and y coordinates, in the correct format for LineCollection:
-    an array of the form   numlines x (points per line) x 2 (x and y) array
-    '''
-
-    points = np.array([x, y]).T.reshape(-1, 1, 2)
-    segments = np.concatenate([points[:-1], points[1:]], axis=1)
-    
-    return segments
-
-
-# Interface to LineCollection:
-
-def colorline(x, y, z=None, cmap=plt.get_cmap('copper'), norm=plt.Normalize(0.0, 1.0), linewidth=3, alpha=1.0):
-    '''
-    Plot a colored line with coordinates x and y
-    Optionally specify colors in the array z
-    Optionally specify a colormap, a norm function and a line width
-    '''
-    
-    # Default colors equally spaced on [0,1]:
-    if z is None:
-        z = np.linspace(0.0, 1.0, len(x))
-           
-    # Special case if a single number:
-    if not hasattr(z, "__iter__"):  # to check for numerical input -- this is a hack
-        z = np.array([z])
-        
-    z = np.asarray(z)
-    
-    segments = make_segments(x, y)
-    lc = LineCollection(segments, array=z, cmap=cmap, norm=norm, linewidth=linewidth, alpha=alpha)
-    
-    ax = plt.gca()
-    ax.add_collection(lc)
-    
-    return lc
-    
-def clear_frame(ax=None): 
-    # Taken from a post by Tony S Yu
-    if ax is None: 
-        ax = plt.gca() 
-    ax.xaxis.set_visible(False) 
-    ax.yaxis.set_visible(False) 
-    for spine in ax.spines.itervalues(): 
-        spine.set_visible(False) 
-#+END_SRC
-
-
-#+RESULTS:
-
 * Relative Stability Analysis
 ** Motivation
 - In practice it is not enough that a system is stable due to modelling uncertainties.
@@ -142,7 +81,7 @@ f.close()
 - In general, it is expected that the closer the Nyquist plot is to the critical point, the larger the maximum overshoot and the longer the settling time will be (worse performance).
 
 ** Gain Margin 
-- The gain margin $K_g$ of a system is defined as the smallest amount that the open loop gain can be increased before the closed loop system goes unstable.
+- The gain margin $K_g$ of a system is defined as the largest amount that the open loop gain can be increased before the closed loop system goes unstable.
 - Define $\omega_{\phi}$ to be the smallest frequency, where the phase of the open-loop transfer function is $-180^\circ$.
 - $\omega_{\phi}$ is called the phase crossover frequency.
 - If the open loop minimum-phase transfer function satisfies the following conditions:
@@ -160,7 +99,7 @@ f.close()
   - The phase starts at 0 or -90.
   - The phase is monotonically decreasing
   - The magnitude is monotonically decreasing
-- Then the gain margin for the system is given by $$\phi_m = 180^\circ+\angle G(j\omega_g)H(\omega_g).$$
+- Then the phase margin for the system is given by $$\phi_m = 180^\circ+\angle G(j\omega_g)H(\omega_g).$$
 
 ** Gain and Phase Margin on Bode Plot 
 - Suppose the open loop minimum-phase transfer function satisfies the following conditions:
@@ -183,7 +122,8 @@ plt.subplot(211)
 plt.title("Bode Plot of $4/(s+1)(0.01s^2+0.1s+1)$")
 plt.semilogx(omega, mag, 'b')
 plt.semilogx([Wp,Wp], [-20*log(Kg), 0],'r')
-plt.annotate('$K_g$', xy=(Wp,-20*log(Kg)), xytext=(2*Wp,-20*log(Kg)),
+plt.annotate('({:.1f}, {:.1f}dB)'.format(Wp, -20*log(Kg)), 
+            xy=(Wp,-20*log(Kg)), xytext=(2*Wp,-20*log(Kg)),
             arrowprops=dict(arrowstyle='-|>'),
             horizontalalignment='left',
             verticalalignment='center', 
@@ -197,7 +137,8 @@ plt.grid(b=True, which='both')
 plt.subplot(212)
 plt.semilogx(omega, phase,'b')
 plt.semilogx([Wg,Wg], [pm-180, -180],'r')
-plt.annotate('$\phi_m$', xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
+plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-180), 
+            xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
             arrowprops=dict(arrowstyle='-|>'),
             horizontalalignment='left',
             verticalalignment='center', 
@@ -213,7 +154,7 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec6Bode.svg]]
+[[file:assets/Lec6Bode.svg]]
 
 ** Unstable System
 #+BEGIN_SRC ipython :session :file assets/Lec6BodeUnstable.svg :exports results
@@ -229,7 +170,9 @@ plt.subplot(211)
 plt.title("Bode Plot of $20/(s+1)(0.01s^2+0.1s+1)$")
 plt.semilogx(omega, mag, 'b')
 plt.semilogx([Wp,Wp], [-20*log(Kg), 0],'r')
-plt.annotate('$K_g$', xy=(Wp,-20*log(Kg)), xytext=(2*Wp,-20*log(Kg)),
+
+plt.annotate('({:.1f}, {:.1f}dB)'.format(Wp, -20*log(Kg)), 
+            xy=(Wp,-20*log(Kg)), xytext=(2*Wp,-20*log(Kg)),
             arrowprops=dict(arrowstyle='-|>'),
             horizontalalignment='left',
             verticalalignment='center', 
@@ -243,7 +186,9 @@ plt.grid(b=True, which='both')
 plt.subplot(212)
 plt.semilogx(omega, phase,'b')
 plt.semilogx([Wg,Wg], [pm-540, -180],'r')
-plt.annotate('$\phi_m$', xy=(Wg,pm-540), xytext=(2*Wg,pm-540),
+
+plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-540), 
+            xy=(Wg,pm-540), xytext=(2*Wg,pm-540),
             arrowprops=dict(arrowstyle='-|>'),
             horizontalalignment='left',
             verticalalignment='center', 
@@ -259,7 +204,7 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec6BodeUnstable.svg]]
+[[file:assets/Lec6BodeUnstable.svg]]
 #+BEGIN_SRC ipython :session :file tmp.svg :exports none
 num = [20];
 den = [0.01,0.11,1.1,1];
@@ -338,7 +283,7 @@ f.close()
 \draw [semithick] (p2.south east)--(p2.north west);
 #+END_SRC
 
-- The closed-loop transfer function is given by $$\frac{Y(s)}{R(s)} = \frac{1}{(s/\omega_n)^2+2\zeta s/\omega_n +1}$$.
+- The closed-loop transfer function is given by $$\frac{Y(s)}{R(s)} = \frac{1}{(s/\omega_n)^2+2\zeta s/\omega_n +1}.$$
 - The phase margin is related to the damping ratio by $$\phi_m=\tan^{-1}\frac{2\zeta}{\sqrt{\sqrt{1+4\zeta^4}-2\zeta^2}}.$$
 - The large the phase margin, the larger the damping ratio. In particular, for $0\leq \zeta\leq 0.6$, $\zeta \approx \phi_m/100$.
 - For more complicated higher order systems, good stability margins may not be enough to guarantee good performance.
@@ -410,7 +355,9 @@ plt.grid(b=True, which='both')
 plt.subplot(212)
 plt.semilogx(omega, phase,'b')
 plt.semilogx([Wg,Wg], [pm-180, -180],'r')
-plt.annotate('$\phi_m$', xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
+
+plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-180), 
+            xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
             arrowprops=dict(arrowstyle='-|>'),
             horizontalalignment='left',
             verticalalignment='center', 
@@ -426,14 +373,14 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec6BodePoor.svg]]
+[[file:assets/Lec6BodePoor.svg]]
 
 ** Example
 Consider an open-loop transfer function
 $$G(s)H(s) = \frac{K}{s(s+1)(s+5)}.$$
 Derive the stability margins of the system for $K = 10$ and $K = 100$.
 *** $K=10$
-For $K=10$, $\phi_m = 21^\circ$ and $K_g=8 dB$. The system is stable.
+For $K=10$, $\phi_m = 25^\circ$ and $K_g=9.5 dB$. The system is stable.
 #+BEGIN_SRC ipython :session :file assets/Lec6BodeK10.svg :exports results
 num = [10];
 den = [1,6,5,0];
@@ -444,10 +391,12 @@ Kg, pm, Wg, Wp = margin(sys)
 plt.subplots_adjust(hspace=0.4)
 
 plt.subplot(211)
-plt.title("Bode Plot of $4/(s+1)(0.01s^2+0.1s+1)$")
+plt.title("Bode Plot of $10/s(s+1)(s+5)$")
 plt.semilogx(omega, mag, 'b')
 plt.semilogx([Wp,Wp], [-20*log(Kg), 0],'r')
-plt.annotate('$K_g$', xy=(Wp,-20*log(Kg)), xytext=(2*Wp,-20*log(Kg)),
+
+plt.annotate('({:.1f}, {:.1f}dB)'.format(Wp, -20*log(Kg)), 
+            xy=(Wp,-20*log(Kg)), xytext=(2*Wp,-20*log(Kg)),
             arrowprops=dict(arrowstyle='-|>'),
             horizontalalignment='left',
             verticalalignment='center', 
@@ -461,7 +410,9 @@ plt.grid(b=True, which='both')
 plt.subplot(212)
 plt.semilogx(omega, phase,'b')
 plt.semilogx([Wg,Wg], [pm-180, -180],'r')
-plt.annotate('$\phi_m$', xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
+
+plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-180), 
+            xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
             arrowprops=dict(arrowstyle='-|>'),
             horizontalalignment='left',
             verticalalignment='center', 
@@ -477,11 +428,11 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec6BodeK10.svg]]
+[[file:assets/Lec6BodeK10.svg]]
 
 
 *** $K=100$
-For $K=100$, $\phi_m = -30^\circ$ and $K_g=-12 dB$. The system is unstable.
+For $K=100$, $\phi_m = -23^\circ$ and $K_g=-10.5 dB$. The system is unstable.
 #+BEGIN_SRC ipython :session :file assets/Lec6BodeK100.svg :exports results
 num = [100];
 den = [1,6,5,0];
@@ -492,10 +443,12 @@ Kg, pm, Wg, Wp = margin(sys)
 plt.subplots_adjust(hspace=0.4)
 
 plt.subplot(211)
-plt.title("Bode Plot of $4/(s+1)(0.01s^2+0.1s+1)$")
+plt.title("Bode Plot of $100/s(s+1)(s+5)$")
 plt.semilogx(omega, mag, 'b')
 plt.semilogx([Wp,Wp], [-20*log(Kg), 0],'r')
-plt.annotate('$K_g$', xy=(Wp,-20*log(Kg)), xytext=(2*Wp,-20*log(Kg)),
+
+plt.annotate('({:.1f}, {:.1f}dB)'.format(Wp, -20*log(Kg)), 
+            xy=(Wp,-20*log(Kg)), xytext=(2*Wp,-20*log(Kg)),
             arrowprops=dict(arrowstyle='-|>'),
             horizontalalignment='left',
             verticalalignment='center', 
@@ -509,7 +462,9 @@ plt.grid(b=True, which='both')
 plt.subplot(212)
 plt.semilogx(omega, phase,'b')
 plt.semilogx([Wg,Wg], [pm-540, -180],'r')
-plt.annotate('$\phi_m$', xy=(Wg,pm-540), xytext=(2*Wg,pm-540),
+
+plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-540), 
+            xy=(Wg,pm-540), xytext=(2*Wg,pm-540),
             arrowprops=dict(arrowstyle='-|>'),
             horizontalalignment='left',
             verticalalignment='center', 
@@ -525,4 +480,4 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec6BodeK100.svg]]
+[[file:assets/Lec6BodeK100.svg]]

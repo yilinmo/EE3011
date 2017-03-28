@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-03-20 Mon 01:16 -->
+<!-- 2017-03-28 Tue 11:44 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title></title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="yilin" />
+<meta name="author" content="Yilin" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -254,21 +254,21 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org14c28db">1. Relative Stability Analysis</a>
+<li><a href="#org2f18f1b">1. Relative Stability Analysis</a>
 <ul>
-<li><a href="#org15cc3ab">1.1. Motivation</a></li>
-<li><a href="#org3c8c43e">1.2. Example</a></li>
-<li><a href="#org56b5a6d">1.3. Gain Margin</a></li>
-<li><a href="#orgea1d42f">1.4. Phase Margin</a></li>
-<li><a href="#org1775f2e">1.5. Gain and Phase Margin on Bode Plot</a></li>
-<li><a href="#orgfcb7ddd">1.6. Unstable System</a></li>
-<li><a href="#org3909258">1.7. Stability Margins and Closed-Loop Stability</a></li>
-<li><a href="#org734a4a6">1.8. Stability Margins and System Performance</a></li>
-<li><a href="#org08fefe3">1.9. Example: System with Good Stability Margins but Poor Performance</a></li>
-<li><a href="#org514f4b0">1.10. Example</a>
+<li><a href="#org3a56b66">1.1. Motivation</a></li>
+<li><a href="#org56ff321">1.2. Example</a></li>
+<li><a href="#org577dba2">1.3. Gain Margin</a></li>
+<li><a href="#org74b88a5">1.4. Phase Margin</a></li>
+<li><a href="#orge887414">1.5. Gain and Phase Margin on Bode Plot</a></li>
+<li><a href="#org78e5d62">1.6. Unstable System</a></li>
+<li><a href="#orgca900d6">1.7. Stability Margins and Closed-Loop Stability</a></li>
+<li><a href="#org1c3bc5d">1.8. Stability Margins and System Performance</a></li>
+<li><a href="#orgff08e0c">1.9. Example: System with Good Stability Margins but Poor Performance</a></li>
+<li><a href="#org439a5da">1.10. Example</a>
 <ul>
-<li><a href="#orgc1d985e">1.10.1. \(K=10\)</a></li>
-<li><a href="#orga47e30d">1.10.2. \(K=100\)</a></li>
+<li><a href="#orgb9bd392">1.10.1. \(K=10\)</a></li>
+<li><a href="#orgc412aec">1.10.2. \(K=100\)</a></li>
 </ul>
 </li>
 </ul>
@@ -276,11 +276,11 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
-<div id="outline-container-org14c28db" class="outline-2">
-<h2 id="org14c28db"><span class="section-number-2">1</span> Relative Stability Analysis</h2>
+<div id="outline-container-org2f18f1b" class="outline-2">
+<h2 id="org2f18f1b"><span class="section-number-2">1</span> Relative Stability Analysis</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-org15cc3ab" class="outline-3">
-<h3 id="org15cc3ab"><span class="section-number-3">1.1</span> Motivation</h3>
+</div><div id="outline-container-org3a56b66" class="outline-3">
+<h3 id="org3a56b66"><span class="section-number-3">1.1</span> Motivation</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>In practice it is not enough that a system is stable due to modelling uncertainties.</li>
@@ -292,8 +292,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org3c8c43e" class="outline-3">
-<h3 id="org3c8c43e"><span class="section-number-3">1.2</span> Example</h3>
+<div id="outline-container-org56ff321" class="outline-3">
+<h3 id="org56ff321"><span class="section-number-3">1.2</span> Example</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>Let us consider the following close-loop transfer function \[G(s)H(s) = \frac{K}{(s+1)\left[(s/10)^2+s/10+1\right]}\].</li>
@@ -314,11 +314,11 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org56b5a6d" class="outline-3">
-<h3 id="org56b5a6d"><span class="section-number-3">1.3</span> Gain Margin</h3>
+<div id="outline-container-org577dba2" class="outline-3">
+<h3 id="org577dba2"><span class="section-number-3">1.3</span> Gain Margin</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
-<li>The gain margin \(K_g\) of a system is defined as the smallest amount that the open loop gain can be increased before the closed loop system goes unstable.</li>
+<li>The gain margin \(K_g\) of a system is defined as the largest amount that the open loop gain can be increased before the closed loop system goes unstable.</li>
 <li>Define \(\omega_{\phi}\) to be the smallest frequency, where the phase of the open-loop transfer function is \(-180^\circ\).</li>
 <li>\(\omega_{\phi}\) is called the phase crossover frequency.</li>
 <li>If the open loop minimum-phase transfer function satisfies the following conditions:
@@ -333,8 +333,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgea1d42f" class="outline-3">
-<h3 id="orgea1d42f"><span class="section-number-3">1.4</span> Phase Margin</h3>
+<div id="outline-container-org74b88a5" class="outline-3">
+<h3 id="org74b88a5"><span class="section-number-3">1.4</span> Phase Margin</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
 <li>The phase margin \(\phi_m\) is the amount of phase lag required to reach the stability limit.</li>
@@ -346,13 +346,13 @@ Sorry, your browser does not support SVG.</object>
 <li>The phase is monotonically decreasing</li>
 <li>The magnitude is monotonically decreasing</li>
 </ul></li>
-<li>Then the gain margin for the system is given by \[\phi_m = 180^\circ+\angle G(j\omega_g)H(\omega_g).\]</li>
+<li>Then the phase margin for the system is given by \[\phi_m = 180^\circ+\angle G(j\omega_g)H(\omega_g).\]</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org1775f2e" class="outline-3">
-<h3 id="org1775f2e"><span class="section-number-3">1.5</span> Gain and Phase Margin on Bode Plot</h3>
+<div id="outline-container-orge887414" class="outline-3">
+<h3 id="orge887414"><span class="section-number-3">1.5</span> Gain and Phase Margin on Bode Plot</h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
 <li>Suppose the open loop minimum-phase transfer function satisfies the following conditions:
@@ -374,8 +374,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgfcb7ddd" class="outline-3">
-<h3 id="orgfcb7ddd"><span class="section-number-3">1.6</span> Unstable System</h3>
+<div id="outline-container-org78e5d62" class="outline-3">
+<h3 id="org78e5d62"><span class="section-number-3">1.6</span> Unstable System</h3>
 <div class="outline-text-3" id="text-1-6">
 
 <div class="figure">
@@ -392,8 +392,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org3909258" class="outline-3">
-<h3 id="org3909258"><span class="section-number-3">1.7</span> Stability Margins and Closed-Loop Stability</h3>
+<div id="outline-container-orgca900d6" class="outline-3">
+<h3 id="orgca900d6"><span class="section-number-3">1.7</span> Stability Margins and Closed-Loop Stability</h3>
 <div class="outline-text-3" id="text-1-7">
 <ul class="org-ul">
 <li>Unstable closed-loop system has negative gain and phase margin</li>
@@ -403,8 +403,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org734a4a6" class="outline-3">
-<h3 id="org734a4a6"><span class="section-number-3">1.8</span> Stability Margins and System Performance</h3>
+<div id="outline-container-org1c3bc5d" class="outline-3">
+<h3 id="org1c3bc5d"><span class="section-number-3">1.8</span> Stability Margins and System Performance</h3>
 <div class="outline-text-3" id="text-1-8">
 <ul class="org-ul">
 <li>For minimum phase systems, to have satisfactory performance, the phase margin should be between \(30^\circ\) and \(70^\circ\) and gain margin should be greater than \(6dB\).</li>
@@ -418,7 +418,7 @@ Sorry, your browser does not support SVG.</object>
 </div>
 
 <ul class="org-ul">
-<li>The closed-loop transfer function is given by \[\frac{Y(s)}{R(s)} = \frac{1}{(s/\omega_n)^2+2\zeta s/\omega_n +1}\].</li>
+<li>The closed-loop transfer function is given by \[\frac{Y(s)}{R(s)} = \frac{1}{(s/\omega_n)^2+2\zeta s/\omega_n +1}.\]</li>
 <li>The phase margin is related to the damping ratio by \[\phi_m=\tan^{-1}\frac{2\zeta}{\sqrt{\sqrt{1+4\zeta^4}-2\zeta^2}}.\]</li>
 <li>The large the phase margin, the larger the damping ratio. In particular, for \(0\leq \zeta\leq 0.6\), \(\zeta \approx \phi_m/100\).</li>
 <li>For more complicated higher order systems, good stability margins may not be enough to guarantee good performance.</li>
@@ -426,8 +426,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org08fefe3" class="outline-3">
-<h3 id="org08fefe3"><span class="section-number-3">1.9</span> Example: System with Good Stability Margins but Poor Performance</h3>
+<div id="outline-container-orgff08e0c" class="outline-3">
+<h3 id="orgff08e0c"><span class="section-number-3">1.9</span> Example: System with Good Stability Margins but Poor Performance</h3>
 <div class="outline-text-3" id="text-1-9">
 <ul class="org-ul">
 <li>Consider the following open-loop transfer function \[G(s)H(s) = \frac{0.38(s^2+0.1s+0.55)}{s(s+1)(s^2+0.06s+0.5)}.\]</li>
@@ -450,8 +450,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org514f4b0" class="outline-3">
-<h3 id="org514f4b0"><span class="section-number-3">1.10</span> Example</h3>
+<div id="outline-container-org439a5da" class="outline-3">
+<h3 id="org439a5da"><span class="section-number-3">1.10</span> Example</h3>
 <div class="outline-text-3" id="text-1-10">
 <p>
 Consider an open-loop transfer function
@@ -459,11 +459,11 @@ Consider an open-loop transfer function
 Derive the stability margins of the system for \(K = 10\) and \(K = 100\).
 </p>
 </div>
-<div id="outline-container-orgc1d985e" class="outline-4">
-<h4 id="orgc1d985e"><span class="section-number-4">1.10.1</span> \(K=10\)</h4>
+<div id="outline-container-orgb9bd392" class="outline-4">
+<h4 id="orgb9bd392"><span class="section-number-4">1.10.1</span> \(K=10\)</h4>
 <div class="outline-text-4" id="text-1-10-1">
 <p>
-For \(K=10\), \(\phi_m = 21^\circ\) and \(K_g=8 dB\). The system is stable.
+For \(K=10\), \(\phi_m = 25^\circ\) and \(K_g=9.5 dB\). The system is stable.
 </p>
 
 <div class="figure">
@@ -475,11 +475,11 @@ Sorry, your browser does not support SVG.</object>
 </div>
 
 
-<div id="outline-container-orga47e30d" class="outline-4">
-<h4 id="orga47e30d"><span class="section-number-4">1.10.2</span> \(K=100\)</h4>
+<div id="outline-container-orgc412aec" class="outline-4">
+<h4 id="orgc412aec"><span class="section-number-4">1.10.2</span> \(K=100\)</h4>
 <div class="outline-text-4" id="text-1-10-2">
 <p>
-For \(K=100\), \(\phi_m = -30^\circ\) and \(K_g=-12 dB\). The system is unstable.
+For \(K=100\), \(\phi_m = -23^\circ\) and \(K_g=-10.5 dB\). The system is unstable.
 </p>
 
 <div class="figure">
