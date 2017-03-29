@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-03-26 Sun 23:15 -->
+<!-- 2017-03-29 Wed 16:06 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title></title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="yilin" />
+<meta name="author" content="MO Yilin (Asst Prof)" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -254,43 +254,43 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgaf102ff">1. Loop Shaping</a>
+<li><a href="#orgce94bed">1. Loop Shaping</a>
 <ul>
-<li><a href="#org4168572">1.1. Introduction</a></li>
-<li><a href="#org2f32e24">1.2. Desirable Shape: Low Frequency</a></li>
-<li><a href="#org02a0ea5">1.3. Desirable Shape: Mid Frequency</a></li>
-<li><a href="#org4fa1285">1.4. Desirable Shape: High Frequency</a></li>
-<li><a href="#org5d8c974">1.5. Desirable Shape: Implications in the Time Domain</a></li>
-<li><a href="#org9150fed">1.6. Desirable Shape: Example</a></li>
-<li><a href="#org4164345">1.7. Desirable Shape: Example</a></li>
+<li><a href="#org01d4572">1.1. Introduction</a></li>
+<li><a href="#orgff98976">1.2. Desirable Shape: Low Frequency</a></li>
+<li><a href="#org1c9477d">1.3. Desirable Shape: Mid Frequency</a></li>
+<li><a href="#orgb871439">1.4. Desirable Shape: High Frequency</a></li>
+<li><a href="#orgf5b5d06">1.5. Desirable Shape: Implications in the Time Domain</a></li>
+<li><a href="#org41af393">1.6. Desirable Shape: Example</a></li>
+<li><a href="#orgd58c8d2">1.7. Desirable Shape: Example</a></li>
 </ul>
 </li>
-<li><a href="#org07d64ca">2. Lead Compensator</a>
+<li><a href="#org659a334">2. Lead Compensator</a>
 <ul>
-<li><a href="#org818ae26">2.1. Observations</a></li>
-<li><a href="#org380f1f3">2.2. Analysis</a></li>
-<li><a href="#orgd36df35">2.3. Design Procedure</a></li>
-<li><a href="#orga3ba326">2.4. Example</a>
+<li><a href="#org9549355">2.1. Observations</a></li>
+<li><a href="#org1e326d4">2.2. Analysis</a></li>
+<li><a href="#org6325aa7">2.3. Design Procedure</a></li>
+<li><a href="#orgb8a5003">2.4. Example</a>
 <ul>
-<li><a href="#org1a17c29">2.4.1. Determine \(K\)</a></li>
-<li><a href="#org46e2921">2.4.2. Sketch the Bode Plots of \(KG(s)\)</a></li>
-<li><a href="#org2e07ee1">2.4.3. Determine \(\alpha\)</a></li>
-<li><a href="#org16029b4">2.4.4. Determine \(T\)</a></li>
-<li><a href="#org8fd46a4">2.4.5. Verification</a></li>
-<li><a href="#org35fb278">2.4.6. Step Response</a></li>
+<li><a href="#orgce7f5cb">2.4.1. Determine \(K\)</a></li>
+<li><a href="#orgb1d5922">2.4.2. Sketch the Bode Plots of \(KG(s)\)</a></li>
+<li><a href="#org70eda2f">2.4.3. Determine \(\alpha\)</a></li>
+<li><a href="#orge45d981">2.4.4. Determine \(T\)</a></li>
+<li><a href="#orgff55a44">2.4.5. Verification</a></li>
+<li><a href="#org336449d">2.4.6. Step Response</a></li>
 </ul>
 </li>
-<li><a href="#orgb58a129">2.5. Remarks</a></li>
+<li><a href="#org2cb2173">2.5. Remarks</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgaf102ff" class="outline-2">
-<h2 id="orgaf102ff"><span class="section-number-2">1</span> Loop Shaping</h2>
+<div id="outline-container-orgce94bed" class="outline-2">
+<h2 id="orgce94bed"><span class="section-number-2">1</span> Loop Shaping</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-org4168572" class="outline-3">
-<h3 id="org4168572"><span class="section-number-3">1.1</span> Introduction</h3>
+</div><div id="outline-container-org01d4572" class="outline-3">
+<h3 id="org01d4572"><span class="section-number-3">1.1</span> Introduction</h3>
 <div class="outline-text-3" id="text-1-1">
 
 <div class="figure">
@@ -306,8 +306,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org2f32e24" class="outline-3">
-<h3 id="org2f32e24"><span class="section-number-3">1.2</span> Desirable Shape: Low Frequency</h3>
+<div id="outline-container-orgff98976" class="outline-3">
+<h3 id="orgff98976"><span class="section-number-3">1.2</span> Desirable Shape: Low Frequency</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>In the low frequency, the gain should be high to have good steady state accuracy.
@@ -320,8 +320,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org02a0ea5" class="outline-3">
-<h3 id="org02a0ea5"><span class="section-number-3">1.3</span> Desirable Shape: Mid Frequency</h3>
+<div id="outline-container-org1c9477d" class="outline-3">
+<h3 id="org1c9477d"><span class="section-number-3">1.3</span> Desirable Shape: Mid Frequency</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li><b>Bode's Relation</b> For a minimum phase system, if the magnitude plot is a straight line with slope \(20N\), then the phase will be \(90N^\circ\).</li>
@@ -331,8 +331,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org4fa1285" class="outline-3">
-<h3 id="org4fa1285"><span class="section-number-3">1.4</span> Desirable Shape: High Frequency</h3>
+<div id="outline-container-orgb871439" class="outline-3">
+<h3 id="orgb871439"><span class="section-number-3">1.4</span> Desirable Shape: High Frequency</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
 <li>In the high frequency, the gain must be small in order to have good noise attenuation and robustness against model uncertainty.</li>
@@ -341,8 +341,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org5d8c974" class="outline-3">
-<h3 id="org5d8c974"><span class="section-number-3">1.5</span> Desirable Shape: Implications in the Time Domain</h3>
+<div id="outline-container-orgf5b5d06" class="outline-3">
+<h3 id="orgf5b5d06"><span class="section-number-3">1.5</span> Desirable Shape: Implications in the Time Domain</h3>
 <div class="outline-text-3" id="text-1-5">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -371,15 +371,15 @@ Sorry, your browser does not support SVG.</object>
 
 <tr>
 <td class="org-left">Low frequency gain\(\uparrow\)</td>
-<td class="org-left">steady state error\(\uparrow\)</td>
+<td class="org-left">steady state error\(\downarrow\)</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 
-<div id="outline-container-org9150fed" class="outline-3">
-<h3 id="org9150fed"><span class="section-number-3">1.6</span> Desirable Shape: Example</h3>
+<div id="outline-container-org41af393" class="outline-3">
+<h3 id="org41af393"><span class="section-number-3">1.6</span> Desirable Shape: Example</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
 Consider the following open-loop transfer function
@@ -395,8 +395,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 
 
-<div id="outline-container-org4164345" class="outline-3">
-<h3 id="org4164345"><span class="section-number-3">1.7</span> Desirable Shape: Example</h3>
+<div id="outline-container-orgd58c8d2" class="outline-3">
+<h3 id="orgd58c8d2"><span class="section-number-3">1.7</span> Desirable Shape: Example</h3>
 <div class="outline-text-3" id="text-1-7">
 <p>
 The closed-loop transfer function is
@@ -412,8 +412,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org07d64ca" class="outline-2">
-<h2 id="org07d64ca"><span class="section-number-2">2</span> Lead Compensator</h2>
+<div id="outline-container-org659a334" class="outline-2">
+<h2 id="org659a334"><span class="section-number-2">2</span> Lead Compensator</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>The transfer function of a lead compensator is \[C(s) = K\frac{Ts+1}{\alpha Ts+1},\,0<\alpha<1.\]</li>
@@ -425,8 +425,8 @@ Sorry, your browser does not support SVG.</object>
 </p>
 </div>
 </div>
-<div id="outline-container-org818ae26" class="outline-3">
-<h3 id="org818ae26"><span class="section-number-3">2.1</span> Observations</h3>
+<div id="outline-container-org9549355" class="outline-3">
+<h3 id="org9549355"><span class="section-number-3">2.1</span> Observations</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>The low frequency gain is changed by \(20\log K\).
@@ -443,8 +443,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org380f1f3" class="outline-3">
-<h3 id="org380f1f3"><span class="section-number-3">2.2</span> Analysis</h3>
+<div id="outline-container-org1e326d4" class="outline-3">
+<h3 id="org1e326d4"><span class="section-number-3">2.2</span> Analysis</h3>
 <div class="outline-text-3" id="text-2-2">
 <ul class="org-ul">
 <li>The phase response of the lead compensator is given by \[\angle C(j\omega) = \tan^{-1}(\omega T) - \tan^{-1}(\alpha\omega T).\]</li>
@@ -462,8 +462,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgd36df35" class="outline-3">
-<h3 id="orgd36df35"><span class="section-number-3">2.3</span> Design Procedure</h3>
+<div id="outline-container-org6325aa7" class="outline-3">
+<h3 id="org6325aa7"><span class="section-number-3">2.3</span> Design Procedure</h3>
 <div class="outline-text-3" id="text-2-3">
 <ul class="org-ul">
 <li>Determine the gain \(K\) to satisfy the steady state error requirement. For example, for type-0 system: \[e_{ss} = \frac{1}{1+K_p},\text{ and }K_p = \lim_{s\rightarrow 0} C(s)G(s) = KG(0).\]</li>
@@ -477,8 +477,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orga3ba326" class="outline-3">
-<h3 id="orga3ba326"><span class="section-number-3">2.4</span> Example</h3>
+<div id="outline-container-orgb8a5003" class="outline-3">
+<h3 id="orgb8a5003"><span class="section-number-3">2.4</span> Example</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 In a solar tracking system, the control objective is to drive the solar panel which is attached to motor shaft in order to track the light source. The transfer function of the system is given by 
@@ -488,8 +488,8 @@ Design a lead compensator such that
 </p>
 </div>
 
-<div id="outline-container-org1a17c29" class="outline-4">
-<h4 id="org1a17c29"><span class="section-number-4">2.4.1</span> Determine \(K\)</h4>
+<div id="outline-container-orgce7f5cb" class="outline-4">
+<h4 id="orgce7f5cb"><span class="section-number-4">2.4.1</span> Determine \(K\)</h4>
 <div class="outline-text-4" id="text-2-4-1">
 <ul class="org-ul">
 <li>The lead compensator is of the form \[C(s) = K\frac{Ts+1}{\alpha Ts+1}.\]</li>
@@ -499,8 +499,8 @@ Design a lead compensator such that
 </div>
 </div>
 
-<div id="outline-container-org46e2921" class="outline-4">
-<h4 id="org46e2921"><span class="section-number-4">2.4.2</span> Sketch the Bode Plots of \(KG(s)\)</h4>
+<div id="outline-container-orgb1d5922" class="outline-4">
+<h4 id="orgb1d5922"><span class="section-number-4">2.4.2</span> Sketch the Bode Plots of \(KG(s)\)</h4>
 <div class="outline-text-4" id="text-2-4-2">
 <p>
 We will use the straight line approximation:
@@ -514,8 +514,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org2e07ee1" class="outline-4">
-<h4 id="org2e07ee1"><span class="section-number-4">2.4.3</span> Determine \(\alpha\)</h4>
+<div id="outline-container-org70eda2f" class="outline-4">
+<h4 id="org70eda2f"><span class="section-number-4">2.4.3</span> Determine \(\alpha\)</h4>
 <div class="outline-text-4" id="text-2-4-3">
 <ul class="org-ul">
 <li>From the straight line approximation, the phase margin is \(\approx 0^\circ\).</li>
@@ -525,8 +525,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org16029b4" class="outline-4">
-<h4 id="org16029b4"><span class="section-number-4">2.4.4</span> Determine \(T\)</h4>
+<div id="outline-container-orge45d981" class="outline-4">
+<h4 id="orge45d981"><span class="section-number-4">2.4.4</span> Determine \(T\)</h4>
 <div class="outline-text-4" id="text-2-4-4">
 <ul class="org-ul">
 <li>Using the straight line approximation, we know that \[20\log|KG(j\omega)|\approx = 40-40\log(\omega).\]</li>
@@ -537,8 +537,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org8fd46a4" class="outline-4">
-<h4 id="org8fd46a4"><span class="section-number-4">2.4.5</span> Verification</h4>
+<div id="outline-container-orgff55a44" class="outline-4">
+<h4 id="orgff55a44"><span class="section-number-4">2.4.5</span> Verification</h4>
 <div class="outline-text-4" id="text-2-4-5">
 <ul class="org-ul">
 <li>The phase margin is \(48.7^\circ\) and the gain margin is \(\infty\).</li>
@@ -552,8 +552,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org35fb278" class="outline-4">
-<h4 id="org35fb278"><span class="section-number-4">2.4.6</span> Step Response</h4>
+<div id="outline-container-org336449d" class="outline-4">
+<h4 id="org336449d"><span class="section-number-4">2.4.6</span> Step Response</h4>
 <div class="outline-text-4" id="text-2-4-6">
 <ul class="org-ul">
 <li>After the compensation, the system responses faster and has less overshoot.</li>
@@ -568,8 +568,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgb58a129" class="outline-3">
-<h3 id="orgb58a129"><span class="section-number-3">2.5</span> Remarks</h3>
+<div id="outline-container-org2cb2173" class="outline-3">
+<h3 id="org2cb2173"><span class="section-number-3">2.5</span> Remarks</h3>
 <div class="outline-text-3" id="text-2-5">
 <ul class="org-ul">
 <li>The lead compensator improves the phase margin and thus the transient performance (overshoot) of the system.</li>

@@ -24,7 +24,7 @@ from control import nyquist, margin
 * Loop Shaping
 ** Introduction
 #+BEGIN_SRC ipython :session :file assets/Lec7Diagram.svg :exports results
-%%tikz -l matrix,arrows,shapes -s 400,200 -f svg -S assets/Lec7Diagrama.svg
+%%tikz -l matrix,arrows,shapes -s 400,100 -f svg -S assets/Lec7Diagrama.svg
 \tikzstyle{point} = [coordinate]
 \tikzstyle{box} = [rectangle, draw, semithick]
 \matrix[row sep = 7mm, column sep = 10mm]{
@@ -78,9 +78,9 @@ from control import nyquist, margin
 ** Desirable Shape: Implications in the Time Domain
 | Freq. Domain                       | Time Domain                                     |
 |------------------------------------+-------------------------------------------------|
-| Phase margin$\uparrow$             | damping ratio$\uparrow$ overshot$\downarrow$   |
+| Phase margin$\uparrow$             | damping ratio$\uparrow$ overshot$\downarrow$    |
 | Gain crossover frequency$\uparrow$ | rise time$\downarrow$ settling time$\downarrow$ |
-| Low frequency gain$\uparrow$       | steady state error$\uparrow$                    |
+| Low frequency gain$\uparrow$       | steady state error$\downarrow$                  |
 
 ** Desirable Shape: Example
 Consider the following open-loop transfer function
