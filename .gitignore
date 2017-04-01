@@ -3,6 +3,9 @@
 !assets
 !assets/
 !assets/*
+!tikz
+!tikz/
+!tikz/*
 !*.ipynb
 !*.org
 !*.tex
