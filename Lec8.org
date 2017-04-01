@@ -1,0 +1,213 @@
+#+BEGIN_SRC ipython :session :exports none
+import numpy as np
+from numpy import log10 as log
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Arial']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+import control
+from control.matlab import *
+from control import bode_plot as bode
+from control import nyquist, margin
+
+%load_ext tikzmagic
+
+%matplotlib inline
+%config InlineBackend.figure_format = 'svg'
+#+END_SRC
+
+#+RESULTS:
+
+* Lag Compensator
+** Transfer Function of Lag Compensator
+- The transfer function of a lag compensator is $$C(s) = K\frac{Ts+1}{\beta Ts+1},\,\beta>1.$$
+#+BEGIN_SRC ipython :session :file assets/Lec8Lag.svg :exports results
+num = [2,2];
+den = [10,1];
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-2,2,100));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Lead Compensator: $2(s+1)/(10s+1)$")
+plt.semilogx(omega, mag, 'b')
+yticks = np.linspace(20, -20, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+plt.subplot(212)
+g2, = plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(0, -90, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec8Lag.svg]]
+
+** Observations
+- Lag compensator applies its attenuation property to shift down the Bode magnitude plot at mid and high frequencies.
+- In the meantime, Lag compensator can increase the low frequency gain and hence reduce steady state error.
+- The phase is always negative, that is why it is called a lag compensator.
+
+** Analysis
+- At low frequency, $$C(j0) = K = 20\log K (dB).$$
+- At high frequency (when $\omega \gg 1/T$), $$C(j\omega) = K/\beta = 20\log K-20\log \beta (dB).$$
+
+** Design Procedure
+- Determine the compensator gain $K$ to meet the steady state error requirement.
+- Draw the Bode plots of $KG(s)$.
+- From the Bode plots, find the frequency $\omega_g$ at which the phase of $KG(s)$ is $$\angle KG(\omega_g) = PM -180^\circ + 5^\circ\sim 10^\circ.$$
+- Calculate $\beta$ to make $\omega_g$ the gain crossover frequency, $$20\log\beta = 20\log K + 20\log |G(j\omega_g)|.$$
+- Choose $T$ to be much greater than $1/\omega_g$, for example, $T = 10/\omega_g$.
+- Verify the results using matlab.
+
+
+** Example
+Consider again the solar tracking system, The transfer function of the system is given by 
+$$G(s) = \frac{10}{s(s+1)}.$$
+Design a lag compensator such that
+$$K_v \geq 100,\,\phi_m \geq 40^\circ,\, K_g \geq 10\text{dB}.$$
+
+*** Determine $K$
+- The lag compensator is of the form $$C(s) = K\frac{Ts+1}{\beta Ts+1}.$$
+- The velocity error constant is defined as $$K_v = \lim_{s\rightarrow 0}sC(s)G(s) = 10K = 100.$$
+- Hence, we should choose $K = 10$.
+
+*** Sketch the Bode Plots of $KG(s)$
+We will use the straight line approximation:
+
+[[file:assets/Lec7ExampleBodeSketch.svg]]
+
+*** Determine $\beta$
+- The required phase margin is $40^\circ$.
+- We need to find a frequency $\omega_g$, where the phase is $$40^\circ - 180^\circ + 5^\circ = -135^\circ.$$
+- From the straight line approximation, $\omega_g = 1$.
+- To make $\omega_g$ the gain crossover frequency, we need to solve $$20\log\beta = 20\log K + 20\log |G(1j)|$$.
+- Using the straight line approximation $20\log|KG(1j)|\approx 40dB$, therefore \(\beta = 100.\)
+
+*** Determine $T$
+- We choose \(T = 10/\omega_g = 10.\)
+
+*** Verification
+- The phase margin is $44.5^\circ$ and the gain margin is $\infty$.
+#+BEGIN_SRC ipython :session :file assets/Lec8ExampleBode.svg :exports results
+K = 10;
+num = [10];
+den = [1,1,0];
+sys = tf(num, den);
+
+mag1, phase1, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-4,1,200));
+
+T = 10;
+beta = 100;
+num = [K*T,K];
+den = [beta*T,1];
+ctrl = tf(num,den);
+
+mag2, phase2, omega = bode(control.series(ctrl,sys), dB=True, Plot=False, omega=np.logspace(-4,1,200));
+
+Kg, pm, Wg, Wp = margin(control.series(ctrl,sys))
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode Plot of $C(s)G(s)$")
+plt.semilogx(omega, mag1, 'b--')
+plt.semilogx(omega, mag2, 'r')
+yticks = np.linspace(-40, 120, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase1, 'b--')
+plt.semilogx(omega, phase2, 'r')
+plt.semilogx([Wg,Wg], [pm-180, -180],'r')
+plt.annotate('$\phi_m$=%.1f' % pm, xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+yticks = np.linspace(-90, -180, 4) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec8ExampleBode.svg]]
+
+*** Step Response
+- After the compensation, the system responses slower, but has less overshoot. Also the system is more robust to noise.
+#+BEGIN_SRC ipython :session :file assets/Lec8ExampleStep.svg :exports results
+num = [10];
+den = [1,1,0];
+sys = tf(num, den);
+
+K = 10;
+T = 10;
+beta = 100;
+num = [K*T,K];
+den = [beta*T,1];
+ctrl = tf(num,den);
+
+cl = control.feedback(control.series(ctrl,sys))
+T, yout = control.step_response(cl, T=np.linspace(0,10,200));
+
+plt.title("Step Response")
+plt.plot(T, yout, 'r')
+
+K = 10;
+phi = 45/180*np.pi;
+alpha = -1 + 2/(1+np.sin(phi));
+wg = 10*np.power(alpha,-0.25);
+T = 1/np.sqrt(alpha)/wg;
+num = [K*T,K];
+den = [alpha*T,1];
+ctrl = tf(num,den);
+
+cl = control.feedback(control.series(ctrl,sys))
+T, yout = control.step_response(cl, T=np.linspace(0,10,200));
+plt.plot(T, yout, 'r--')
+
+cl = control.feedback(sys)
+T, yout = control.step_response(cl, T=np.linspace(0,10,200));
+
+plt.plot(T, yout, 'b--')
+plt.grid(b=True, which='both')
+plt.ylim(0,1.6)
+plt.xlim(0,10)
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec8ExampleStep.svg]]
+** Remarks
+- Lag compensators allow a high gain at low frequencies and thus improve the steady state error.
+- Lag compensators reduce the gain crossover frequency of the system. Thus, the system response becomes slower.
+- Lag compensators reduce the high frequency gain of the system. Hence, the high frequency noise attenuation becomes better.
+- The time constant $T$ of the lag compensator should not be unnecessarily large. Otherwise, the system's response will be too slow.
+
+** Comparison between Lead and Lag Compensator
+- If the design specifications are given in terms of steady state error and phase margin, either the lead or the lag compensator may be able to meet the requirement.
+- However, if specification on rise time or gain crossover frequency is also to be met, then only one of the two compensators would be able to do the job. Or we need to combine lag and lead compensator.
+|                          | Lead Compensator | Lag Compensator |
+| Rise Time                |  $\downarrow$    |  $\uparrow$     |
+| Gain Crossover Frequency |  $\uparrow$      |    $\downarrow$ |
