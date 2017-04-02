@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-04-02 Sun 12:22 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Yilin" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org8555b0a">1. PID Control Schemes</a>
+<ul>
+<li><a href="#org2938670">1.1. Motivation</a></li>
+<li><a href="#org5a6a1ad">1.2. PID Controller</a></li>
+<li><a href="#orgc26b032">1.3. Ziegler-Nichols Rules</a></li>
+<li><a href="#org2a34bd4">1.4. Step Response Method</a>
+<ul>
+<li><a href="#orge604ea4">1.4.1. Example</a></li>
+</ul>
+</li>
+<li><a href="#orgeb5b794">1.5. Self-Oscillation Method</a>
+<ul>
+<li><a href="#orgd7ac087">1.5.1. Example</a></li>
+</ul>
+</li>
+<li><a href="#org862c515">1.6. Remarks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org8555b0a" class="outline-2">
+<h2 id="org8555b0a"><span class="section-number-2">1</span> PID Control Schemes</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-org2938670" class="outline-3">
+<h3 id="org2938670"><span class="section-number-3">1.1</span> Motivation</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>So far, we design controller/compensator based on models of plants(transfer function, Bode plot).</li>
+<li>However, in many practical situations, we deal with very complicated plants whose mathematical models are difficult to obtain. Hence, the analytical approach of designing a controller is not possible.</li>
+<li>In this chapter, we shall introduce tuning rules for basic PID controllers.</li>
+<li>More than half of industrial plants today still employ PID control schemes.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5a6a1ad" class="outline-3">
+<h3 id="org5a6a1ad"><span class="section-number-3">1.2</span> PID Controller</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec9Diagram.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+<ul class="org-ul">
+<li>The standard form of PID controller is \[C(s) = K_p\left(1+\frac{1}{T_is}+T_ds\right) = K_p+\frac{K_I}{s}+K_Ds.\]</li>
+<li><b>P(Proportional) action</b>: P-action provides an action which depends on the instantaneous value of the control error. It can be used to improve speed of response and steady-state error but with limited performance.</li>
+<li><b>I (Integral) action</b>: I-action gives a controller output that is proportional to the accumulated error, which implies that it is a slow reaction control mode. It is used to achieve zero-steady error in the presence of a step reference and/or disturbance. The shortcomings are: its pole at the origin is detrimental to loop stability and undesirable effect in the presence of actuator saturation, known as <i>wind-up</i>.</li>
+<li><b>D (Derivative) action</b>: It acts on the changing rate of the control error, sometimes referred to as a predictive mode. Its limitation is the tendency to yield large control signals in response to high frequency control errors such as error induced by set-point changes or measurement noises.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc26b032" class="outline-3">
+<h3 id="orgc26b032"><span class="section-number-3">1.3</span> Ziegler-Nichols Rules</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>The process of selecting the controller parameters \(K_p\), \(T_i\) and \(T_d\) is known as PID Tuning.</li>
+<li>Two classical methods for determining the parameters of PID controllers were presented by Ziegler-Nichols in 1942.
+<ul class="org-ul">
+<li>Step response method</li>
+<li>Self-oscillation method</li>
+</ul></li>
+<li>\(K_p\), \(T_i\) and \(T_d\) from Ziegler-Nichols rule often serve as the starting point for tuning procedures used by manufacturers and process industry.</li>
+<li>It typically yields an aggressive gain and overshoot. Further tuning is needed if minimizing overshoot is desirable.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2a34bd4" class="outline-3">
+<h3 id="org2a34bd4"><span class="section-number-3">1.4</span> Step Response Method</h3>
+<div class="outline-text-3" id="text-1-4">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec9Sshape.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+<ul class="org-ul">
+<li>Many plants, particularly those in the process industries has step response of S-shape (reaction curve):
+<ul class="org-ul">
+<li>open-loop stable</li>
+<li>no integrator</li>
+<li>no dominant complex poles</li>
+</ul></li>
+<li>An experiment for deriving step response can be designed as
+<ul class="org-ul">
+<li>With the plant in open-loop, let the plant run at normal operating condition with constant input \(u_0\) and steady state output \(y_0\) .</li>
+<li>At the initial time \(t_0\) , apply a step change to the plant, from \(u_0\) to \(u_\infty\) (in the range of 10 to 20% of full scale).</li>
+<li>Record the output response to get the reaction curve. In the figure, the m.s.t. stands for the maximum slope tangent.</li>
+<li>Compute \[K = \frac{y_\infty-y_0}{u_\infty-u_0},\,L=t_1-t_0,T = t_2-t_1.\] \(K\) is the system gain. \(L\) and \(T\) are often called the apparent dead time and the apparent time constant.</li>
+</ul></li>
+<li>The PID parameters are then chosen according to the table</li>
+</ul>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Controller</th>
+<th scope="col" class="org-left">\(K_p\)</th>
+<th scope="col" class="org-left">\(T_i\)</th>
+<th scope="col" class="org-left">\(T_d\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">P</td>
+<td class="org-left">\(T/KL\)</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">PI</td>
+<td class="org-left">\(0.9T/KL\)</td>
+<td class="org-left">\(3L\)</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">PID</td>
+<td class="org-left">\(1.2T/KL\)</td>
+<td class="org-left">\(2L\)</td>
+<td class="org-left">\(0.5L\)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-orge604ea4" class="outline-4">
+<h4 id="orge604ea4"><span class="section-number-4">1.4.1</span> Example</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<p>
+Consider a plant with transfer function \[G(s) = \frac{5}{(s+1)^3}.\]
+</p>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec9Step.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<ul class="org-ul">
+<li>From the unit step response, it is known that \[K = 5/1 = 5,\,L = 0.8,\,T = 4.5-0.8 = 3.7.\]</li>
+<li>The PID parameters given by Ziegler-Nichols tuning rule is \[K_p = 1.11,\,T_i = 1.60,\,T_d = 0.40.\]</li>
+</ul>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec9ClosedLoop.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgeb5b794" class="outline-3">
+<h3 id="orgeb5b794"><span class="section-number-3">1.5</span> Self-Oscillation Method</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>Set the integrator and derivative gain to \(0\).</li>
+<li>Increase the proportional gain \(K_p\) from \(0\), until the closed-loop system starts oscillation.</li>
+<li>Record the critical propotional gain \(K_{cr}\) and the oscillation period \(P_{cr}\).</li>
+<li>Notice that if the open-loop transfer function of the plant is given, then
+<ul class="org-ul">
+<li>The critical gain is the gain margin, i.e., \(K_{cr} = K_g\).</li>
+<li>The critical oscillation period is related to the phase crossover frequency: \[P_{cr} = 2\pi/\omega_\phi.\]</li>
+</ul></li>
+<li>Set the PID controller according to</li>
+</ul>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Controller</th>
+<th scope="col" class="org-left">\(K_p\)</th>
+<th scope="col" class="org-left">\(T_i\)</th>
+<th scope="col" class="org-left">\(T_d\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">P</td>
+<td class="org-left">\(0.5K_{cr}\)</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">PI</td>
+<td class="org-left">\(0.45K_{cr}\)</td>
+<td class="org-left">\(P_{cr}/1.2\)</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">PID</td>
+<td class="org-left">\(0.6K_{cr}\)</td>
+<td class="org-left">\(0.5P_{cr}\)</td>
+<td class="org-left">\(0.125P_{cr}\)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-orgd7ac087" class="outline-4">
+<h4 id="orgd7ac087"><span class="section-number-4">1.5.1</span> Example</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<ul class="org-ul">
+<li>Consider the same plant with transfer function \[G(s) = \frac{5}{(s+1)^3}.\]</li>
+<li>The phase crossover happens when \(\angle G(j\omega_\phi) = -180^\circ\), which implies that \[\angle 1+j\omega_\phi = 60^\circ\Rightarrow\omega_\phi = \sqrt{3}.\]</li>
+<li>The corresponding magnitude is \(|G(j\sqrt{3})| = 5/8\) and hence the gain margin/critical gain is \(1.6\).</li>
+<li>The critical period is \(2\pi/\sqrt{3} = 3.63\).</li>
+<li>The PID parameters according to Ziegler-Nichols rule is \[K_p = 0.96,\, T_i=1.81,\,T_d = 0.453.\]</li>
+</ul>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec9ClosedLoop2.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org862c515" class="outline-3">
+<h3 id="org862c515"><span class="section-number-3">1.6</span> Remarks</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li>Ziegler-Nichols tuning typically yields an aggressive gain and overshoot, which may be unacceptable in some applications.</li>
+<li>However, it can serve as a starting point for finer tuning.</li>
+<li>For example, by increasing \(T_i\) and \(T_d\), we can expect the overshoot will be reduced.</li>
+<li>However, for certain applications where the measurement noise is significant, we need to be extra careful when increasing \(T_d\).</li>
+<li>Ziegler-Nichols tuning rules have been widely used in process control where the plant dynamics are unknown. When the plant model is available, other controller design methods exists.</li>
+<li>Generally, to apply the step response method, one needs to obtain the S-shape response. Plants with complicated dynamics but no integrators are usually the cases.</li>
+<li>The self-oscillation method requires the plant to be forced into oscillation. This can be expensive and dangerous.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
