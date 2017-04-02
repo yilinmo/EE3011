@@ -1,0 +1,124 @@
+#+BEGIN_SRC ipython :session :exports none
+import numpy as np
+from numpy import log10 as log
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Arial']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+import control
+from control.matlab import *
+from control import bode_plot as bode
+from control import nyquist, margin
+
+%load_ext tikzmagic
+
+%matplotlib inline
+%config InlineBackend.figure_format = 'svg'
+#+END_SRC
+
+#+RESULTS:
+
+* PID Control Schemes
+** Motivation
+- So far, we design controller/compensator based on models of plants(transfer function, Bode plot).
+- However, in many practical situations, we deal with very complicated plants whose mathematical models are difficult to obtain. Hence, the analytical approach of designing a controller is not possible.
+- In this chapter, we shall introduce tuning rules for basic PID controllers.
+- More than half of industrial plants today still employ PID control schemes.
+
+** PID Controller
+#+BEGIN_SRC ipython :session :file assets/Lec9Diagram.svg :exports results
+%%tikz -l matrix,arrows,shapes -s 400,50 -f svg -S assets/Lec9Diagrama.svg
+\tikzstyle{point} = [coordinate]
+\tikzstyle{box} = [rectangle, draw, semithick]
+\matrix[row sep = 7mm, column sep = 10mm]{
+%first row
+\node (p1) [] {$R(s)$};&
+\node (p2) [circle,draw,inner sep=4pt] {};&
+\node (outer) [box] {PID};&
+\node (p3) [point] {};&
+\node (inner) [box] {Plant};&
+\node (p5) [point] {};&
+\node (p6) [] {$Y(s)$};\\
+%third row
+&
+\node (p9) [point] {};&
+&
+&
+&
+\node (p10) [point] {};&
+\\
+};
+\draw [semithick,->] (p1)--node[near end, above]{\scriptsize{$+$}} (p2);
+\draw [semithick,->] (p2)--(outer);
+\draw [semithick,->] (outer)--(p3)--(inner);
+\draw [semithick,->] (inner)--(p5)--(p6);
+\draw [semithick,->] (p5)--(p10)--(p9)--node[near end, left]{\scriptsize{$-$}} (p2);
+\draw [semithick] (p2.north east)--(p2.south west);
+\draw [semithick] (p2.south east)--(p2.north west);
+#+END_SRC
+
+
+- The standard form of PID controller is $$C(s) = K_p\left(1+\frac{1}{T_is}+T_ds\right) = K_p+\frac{K_I}{s}+K_Ds.$$
+- *P(Proportional) action*: P-action provides an action which depends on the instantaneous value of the control error. It can be used to improve speed of response and steady-state error but with limited performance.
+- *I (Integral) action*: I-action gives a controller output that is proportional to the accumulated error, which implies that it is a slow reaction control mode. It is used to achieve zero-steady error in the presence of a step reference and/or disturbance. The shortcomings are: its pole at the origin is detrimental to
+loop stability and undesirable effect in the presence of actuator saturation, known as /wind-up/.
+- *D (Derivative) action*: It acts on the changing rate of the control error, sometimes referred to as a predictive mode. Its limitation is the tendency to yield large control signals in response to high frequency control errors such as error induced by set-point changes or measurement noises.
+
+** Ziegler-Nichols Rules
+- The process of selecting the controller parameters $K_p$, $T_i$ and $T_d$ is known as PID Tuning.
+- Two classical methods for determining the parameters of PID controllers were presented by Ziegler-Nichols in 1942.
+  - Step response method
+  - Self-oscillation method
+- $K_p$, $T_i$ and $T_d$ from Ziegler-Nichols rule often serve as the starting point for tuning procedures used by manufacturers and process industry.
+- It typically yields an aggressive gain and overshoot. Further tuning is needed if minimizing overshoot is desirable.
+
+** Step Response Method
+- Many plants, particularly those in the process industries has step response of S-shape (reaction curve):
+  - open-loop stable
+  - no integrator
+  - no dominant complex poles
+- An experiment for deriving step response can be designed as
+  + With the plant in open-loop, let the plant run at normal operating condition with constant input $u_0$ and steady state output $y_0$ .
+  + At the initial time $t_0$ , apply a step change to the plant, from $u_0$ to $u_\infty$ (in the range of 10 to 20% of full scale).
+  + Record the output response to get the reaction curve. In the figure, the m.s.t. stands for the maximum slope tangent.
+  + Compute $$K = \frac{y_\infty-y_0}{u_\infty-u_0},\,L=t_1-t_0,T = t_2-t_1.$$ $K$ is the system gain. $L$ and $T$ are often called the apparent dead time and the apparent time constant.
+- The PID parameters are then chosen according to the table
+| Controller | \(K_p\)     | \(T_i\) | \(T_d\)  |
+| P          | \(T/KL\)    |         |          |
+| PI         | \(0.9T/KL\) | \(3L\)  |          |
+| PID        | \(1.2T/KL\) | \(2L\)  | \(0.5L\) |
+
+*** Example
+Consider a plant with transfer function $$G(s) = \frac{5}{(s+1)^3}.$$
+
+#+BEGIN_SRC ipython :session :file assets/Lec9Step.svg :exports results
+num = [5];
+den = [1,3,3,1];
+sys = tf(num, den);
+
+T, yout = control.step_response(sys, T=np.linspace(0,10,200));
+
+dy = yout[1:len(yout)]-yout[0:-1];
+index = np.argmax(dy);
+
+x0 = T(index);
+x1 = T(index+1);
+y0 = yout(index);
+y1 = yout(index+1);
+
+
+
+plt.plot(T, yout, 'b')
+plt.title('Unit Step Response')
+plt.grid(b=True, which='both')
+plt.ylim(0,5)
+plt.xlim(0,10)
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec9Step.svg]]
+
