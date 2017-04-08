@@ -22,7 +22,7 @@ from numpy import convolve as conv
 
 #+RESULTS:
 
-** Further Examples on Controller Design
+* Further Examples on Controller Design
 ** Example 1
 Consider a position control system:
 #+BEGIN_SRC ipython :session :file assets/Lec10Example1Diagram.svg :exports results
@@ -72,18 +72,18 @@ Consider a position control system:
 
 
 Design a lag or lead compensator $C(s)$ such that the following specifications are met:
-- The steady-state error due to a unit-step disturbance input $D(s)$ is less that or equal to $5%$.
+- The steady-state error due to a unit-step disturbance input $D(s)$ is less that or equal to $5\%$.
 - The gain crossover frequency is at least $12$ rad/s.
 - The phase margin is no less than $50^\circ$.
 
-** Designing $K$
+*** Designing $K$
 - The transfer function of the compensator is $$C(s) = K\frac{Ts+1}{\gamma Ts+1},\,\gamma > 0$$
 - The transfer function for the disturbance is (assuming \(R(s)=0\)) $$\frac{Y(s)}{D(s)}=\frac{G(s)}{1+C(s)G(s)} = \frac{\gamma T s+1}{s(1+0.1s)(1+0.02s)(\gamma Ts+1)+K(Ts+1)}.$$
 - If the disturbance is a unit step input, then $$Y(s) =\frac{G(s)}{s(1+C(s)G(s))}.$$
 - The steady-state error is given by $$e_{ss}=-y(\infty) = -\lim_{s\rightarrow 0}sY(s) = -\frac{1}{K}$$
-- To ensure that the error caused by disturbance is less than $5%$, we choose $K = 1/0.05 = 20$.
+- To ensure that the error caused by disturbance is less than $5\%$, we choose $K = 1/0.05 = 20$.
 
-** Draw the Bode Plot of $KG(s)$
+*** Draw the Bode Plot of $KG(s)$
 #+BEGIN_SRC ipython :session :file assets/Lec10Example1Bode.svg :exports results
 num = [20];
 den = conv([0.1,1], [0.02,1])
@@ -128,21 +128,21 @@ plt.show()
 
 #+RESULTS:
 [[file:assets/Lec10Example1Bode.svg]]
-** Select Compensator
+*** Select Compensator
 - The gain crossover frequency of $KG(s)$ is $12.3$ rad/s and the phase margin is $-154.6+180 = 25.4^\circ$.
 - Since a lag compensator will result in a smaller gain crossover frequency, to meet the gain crossover frequency requirement, we shall adopt a lead compensator.
 
-** Design $\alpha$ 
+*** Design $\alpha$ 
 - The maximum phase lead we need is $$\phi = 50^\circ - 25.4^\circ + 10^\circ = 34.6^\circ.$$
 - $\alpha$ can be derived from $$\alpha = \frac{1-\sin 34.6^\circ}{1+\sin 34.6^\circ} = 0.2756.$$
 
-** Design $T$
+*** Design $T$
 - Using the straight line approximation, we know that between $\omega = 10$ and $\omega = 50$, the magnitude plot can be approximated by $$20\log 2+40-40 \log \omega.$$
 - The new gain crossover frequency is $$20\log 2+40 - 40 \log \omega_g =10\log \alpha \Rightarrow \omega_g = 19.52.$$
 - $T$ can be computed as $$T = \frac{1}{\sqrt{\alpha}\omega_g} = 0.0976.$$
 - The (lead) compensator is $$C(s) = 20 \frac{0.0976 s + 1}{0.0267s+1}.$$
 
-** Verification
+*** Verification
 #+BEGIN_SRC ipython :session :file assets/Lec10Example1Bode2.svg :exports results
 num = [20];
 den = conv([0.1,1], [0.02,1])
@@ -200,10 +200,10 @@ plt.show()
 
 #+RESULTS:
 [[file:assets/Lec10Example1Bode2.svg]]
-- The phase margin is only $-133.7+180 = 46.7^\circ$, which is less than desired.
+- The phase margin is only $-133.7+180 = 46.7^\circ$, which is less than desired margin.
 - This is because the phase goes down significantly when the gain crossover frequency is increased. Need to increase the phase lead.
 
-** Step Response
+*** Step Response
 #+BEGIN_SRC ipython :session :file assets/Lec10Example1Step.svg :exports results
 num = [1];
 den = conv([0.1,1], [0.02,1])
@@ -239,8 +239,8 @@ plt.show()
 #+RESULTS:
 [[file:assets/Lec10Example1Step.svg]]
 - The original system response is very slow.
-- After changing $K$ to $20$, the system response faster (also the steady state error is reduced). However, the overshoot is $50%$.
-- By adding the lead-compensator, we can reduce the overshoot to $20%$.
+- After changing $K$ to $20$, the system response faster (also the steady state error is reduced). However, the overshoot is $50\%$.
+- By adding the lead-compensator, we can reduce the overshoot to $20\%$.
 
 ** Example 2
 Consider a control system
@@ -291,18 +291,18 @@ Consider a control system
 [[file:assets/Lec10Example2Diagram.svg]]
 
 Design a lead of lag compensator so that the following specifications are satisfied:
-- The steady-state error due to a unit step disturbance is no more than $1%$.
+- The steady-state error due to a unit step disturbance is no more than $1\%$.
 - The phase margin is no less than $50^\circ$.
 - The gain crossover frequency is between $4$ and $10$ rad/s.
 
-** Designing $K$
+*** Designing $K$
 - The transfer function of the compensator is $$C(s) = K\frac{Ts+1}{\gamma Ts+1},\,\gamma > 0$$
 - The transfer function for the disturbance is (assuming \(R(s)=0\)) $$\frac{Y(s)}{D(s)}=\frac{G(s)}{1+C(s)G(s)}.$$
 - If the disturbance is a unit step input, then $$Y(s) =\frac{G(s)}{s(1+C(s)G(s))}.$$
-- The steady-state error is given by $$e_{ss}=-y(\infty) = -\lim_{s\rightarrow 0}sY(s) = -\frac{1}{K}$$
-- To ensure that the error caused by disturbance is less than $5%$, we choose $K = 1/0.01 = 100$.
+- The steady-state error is given by $$e_{ss}=-y(\infty) = -\lim_{s\rightarrow 0}sY(s) = -\frac{1}{K}.$$
+- To ensure that the error caused by disturbance is less than $1\%$, we choose $K = 1/0.01 = 100$.
 
-** Draw the Bode Plot of $KG(s)$
+*** Draw the Bode Plot of $KG(s)$
 #+BEGIN_SRC ipython :session :file assets/Lec10Example2Bode.svg :exports results
 num = [100000];
 den = [1,60,500, 0]
@@ -346,20 +346,20 @@ plt.show()
 
 #+RESULTS:
 [[file:assets/Lec10Example2Bode.svg]]
-** Select Compensator
+*** Select Compensator
 - The gain crossover frequency of $KG(s)$ is $\approx 40$ rad/s.
 - Since a lead compensator will result in a larger gain crossover frequency, to meet the gain crossover frequency requirement, we shall adopt a lag compensator.
 
-** Design $\beta$ 
+*** Design $\beta$ 
 - We need to find a frequency $\omega_g$ where the phase is $50-180+5= 125^\circ$.
 - From the phase plot, we choose $\omega_g = 5$ rad/s. 
 - Using the straight line approximation, we know that when $\omega < 10$ and $\omega = 50$, the magnitude plot can be approximated by $$20\log 200-20 \log \omega.$$
 - $\beta$ can be calculated as $$20\log\beta =20\log 200-20\log \omega \Rightarrow \beta = 40. $$
 
-** Design $T$
+*** Design $T$
 - We choose $T = 10/\omega_g = 2$.
 
-** Verification
+*** Verification
 #+BEGIN_SRC ipython :session :file assets/Lec10Example2Bode2.svg :exports results
 num = [100000];
 den = [1,60,500, 0]
@@ -419,7 +419,7 @@ plt.show()
 [[file:assets/Lec10Example2Bode2.svg]]
 - The phase margin is only $-125.8+180 = 54.2^\circ$, which satisfies the specification.
 
-** Step Response
+*** Step Response
 #+BEGIN_SRC ipython :session :file assets/Lec10Example2Step.svg :exports results
 num = [1000];
 den = [1,60,500, 0]
@@ -450,4 +450,143 @@ plt.show()
 
 #+RESULTS:
 [[file:assets/Lec10Example2Step.svg]]
+
+** Example 3
+Consider the plant as shown in the figure. Determine the values of PID parameters using the Ziegler-Nichols rules. Make fine tuning to achieve the maximum overshoot of $25\%$.
+#+BEGIN_SRC ipython :session :file assets/Lec10Example3Diagram.svg :exports results
+  %%tikz -l matrix,arrows,shapes -s 400,100 -f svg -S assets/Lec10Example3Diagram.svg
+  \tikzstyle{point} = [coordinate]
+  \tikzstyle{box} = [rectangle, draw, semithick]
+  \matrix[row sep = 7mm, column sep = 10mm]{
+  \node (p1) [] {$R(s)$};&
+  \node (p2) [circle,draw,inner sep=4pt] {};&
+  \node (outer) [box] {$C(s)$};&
+  \node (p3) [point] {};&
+  \node (inner) [box] {$\frac{1}{s(s+1)(s+5)}$};&
+  \node (p5) [point] {};&
+  \node (p6) [] {$Y(s)$};\\
+  %third row
+  &
+  \node (p9) [point] {};&
+  &
+  &
+  &
+  \node (p10) [point] {};&
+  \\
+  };
+  \draw [semithick,->] (p1)--node[near end, above]{\scriptsize{$+$}} (p2);
+  \draw [semithick,->] (p2)--(outer);
+  \draw [semithick,->] (outer)--(p3)--(inner);
+  \draw [semithick,->] (inner)--(p5)--(p6);
+  \draw [semithick,->] (p5)--(p10)--(p9)--node[near end, left]{\scriptsize{$-$}} (p2);
+  \draw [semithick] (p2.north east)--(p2.south west);
+  \draw [semithick] (p2.south east)--(p2.north west);
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec10Example3Diagram.svg]]
+
+*** Self-Oscillation Method
+- Since there is an integrator in the plant, the first method is not applicable (the open-loop step response will not plateau)
+- The transfer function of the plant is given, we need to find the gain margin and phase crossover frequency: $$\angle\frac{1}{j\omega_\phi(j\omega_\phi+1)(j\omega_\phi+5)} = -180^\circ $$
+- Using the property of complex numbers: $$\angle \left(5-\omega_\phi^2 + 6\omega_\phi j\right)  = 90^\circ \Rightarrow \omega_\phi = \sqrt{5}.$$
+- The critical period is $$P_{cr} = 2\pi/\sqrt{5} = 2.8099.$$
+- The gain margin (critical gain) is $$K_{cr} =\sqrt{5}\times \sqrt{6}\times \sqrt{30} = 30.$$
+
+*** Bode Plot
+#+BEGIN_SRC ipython :session :file assets/Lec10Example3Bode.svg :exports results
+num = [1]
+den = [1,6,5,0]
+sys = tf(num, den)
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-1,2,200))
+Kg, pm, Wg, Wp = margin(sys)
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("$1/s(s+1)(s+5)$")
+plt.semilogx(omega, mag, 'b')
+
+plt.semilogx([Wp,Wp], [-120, 20],'r--')
+plt.annotate('({:.1f}, {:.1f}dB)'.format(Wp, -20.*log(Kg)), 
+            xy=(Wp,-20.*log(Kg)), xytext=(2*Wp,-20.*log(Kg)),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+
+yticks = np.linspace(-100, 40, 8) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([Wp,Wp], [-90, -270],'r--')
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-270, -90, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec10Example3Bode.svg]]
+
+*** PID Tuning
+- From the table of Ziegler-Nichols methods, we have $$K_p = 0.6K_{cr} = 18,\,T_i = 0.5P_{cr} = 1.405,\,T_d = 0.125 P_{cr} = 0.351.$$
+- The step response of the closed-loop system with the designed PID is shown as the blue line. The maximum overshoot is $60\%$.
+- To reduce the maximum overshoot, we *increase* $T_i$ and $T_d$, for example:
+  - Red Line: \(K_p = 18,\,T_i =2.81 ,\,T_d =  0.702.\)
+  - Black Line: \(K_p = 18,\,T_i =4.215 ,\,T_d =  1.053.\)
+
+*** Step Response
+#+BEGIN_SRC ipython :session :file assets/Lec10Example3Step.svg :exports results
+  num = [1]
+  den = [1,6,5,0]
+  sys = tf(num, den)
+
+  Kg, pm, Wg, Wp = margin(sys)
+
+  Kcr = Kg
+  Pcr = 2*np.pi/Wp
+
+  Pctrl = tf(0.6*Kcr,[1])
+  Ictrl = tf(Kcr,[0.5*Pcr,0])
+  Dctrl = tf([0.125*Kcr*Pcr,0],[1])
+
+  T = np.linspace(0,10,400)
+
+  PIDctrl = control.parallel(control.parallel(Pctrl, Ictrl), Dctrl)
+  cl = control.feedback(control.series(PIDctrl,sys))
+  _, yout = control.step_response(cl, T=T);
+  plt.plot(T, yout, 'b')
+
+  PIDctrl = control.parallel(control.parallel(Pctrl, Ictrl/2), Dctrl*2)
+  cl = control.feedback(control.series(PIDctrl,sys))
+  _, yout = control.step_response(cl, T=T);
+  plt.plot(T, yout, 'r')
+
+
+  PIDctrl = control.parallel(control.parallel(Pctrl, Ictrl/3), Dctrl*3)
+  cl = control.feedback(control.series(PIDctrl,sys))
+  _, yout = control.step_response(cl, T=T);
+  plt.plot(T, yout, 'k')
+
+  plt.title("Step Response")
+
+  plt.grid(b=True, which='both')
+  plt.ylim(0,1.6)
+  plt.xlim(0,10)
+
+  plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec10Example3Step.svg]]
 
