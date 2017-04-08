@@ -1,0 +1,453 @@
+#+BEGIN_SRC ipython :session :exports none
+import numpy as np
+from numpy import log10 as log
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Arial']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+import control
+from control.matlab import *
+from control import bode_plot as bode
+from control import nyquist, margin
+from numpy import convolve as conv
+
+%load_ext tikzmagic
+
+%matplotlib inline
+%config InlineBackend.figure_format = 'svg'
+#+END_SRC
+
+#+RESULTS:
+
+** Further Examples on Controller Design
+** Example 1
+Consider a position control system:
+#+BEGIN_SRC ipython :session :file assets/Lec10Example1Diagram.svg :exports results
+  %%tikz -l matrix,arrows,shapes -s 400,100 -f svg -S assets/Lec10Example1Diagram.svg
+  \tikzstyle{point} = [coordinate]
+  \tikzstyle{box} = [rectangle, draw, semithick]
+  \matrix[row sep = 7mm, column sep = 10mm]{
+  &
+  &
+  &
+  \node (d) {$D(s)$};&
+  &
+  &
+  \\
+  %first row
+  \node (p1) [] {$R(s)$};&
+  \node (p2) [circle,draw,inner sep=4pt] {};&
+  \node (outer) [box] {$C(s)$};&
+  \node (p3) [circle,draw,inner sep=4pt] {};&
+  \node (inner) [box] {$\frac{1}{s(0.1s+1)(0.02s+1)}$};&
+  \node (p5) [point] {};&
+  \node (p6) [] {$Y(s)$};\\
+  %third row
+  &
+  \node (p9) [point] {};&
+  &
+  &
+  &
+  \node (p10) [point] {};&
+  \\
+  };
+  \draw [semithick,->] (p1)--node[near end, above]{\scriptsize{$+$}} (p2);
+  \draw [semithick,->] (p2)--(outer);
+  \draw [semithick,->] (outer)--node[near end,above]{\scriptsize{$+$}} (p3);
+  \draw [semithick,->] (p3)--(inner);
+  \draw [semithick,->] (d)--node[near end,right]{\scriptsize{$+$}} (p3);
+  \draw [semithick,->] (inner)--(p5)--(p6);
+  \draw [semithick,->] (p5)--(p10)--(p9)--node[near end, left]{\scriptsize{$-$}} (p2);
+  \draw [semithick] (p2.north east)--(p2.south west);
+  \draw [semithick] (p2.south east)--(p2.north west);
+  \draw [semithick] (p3.north east)--(p3.south west);
+  \draw [semithick] (p3.south east)--(p3.north west);
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec10Example1Diagram.svg]]
+
+
+Design a lag or lead compensator $C(s)$ such that the following specifications are met:
+- The steady-state error due to a unit-step disturbance input $D(s)$ is less that or equal to $5%$.
+- The gain crossover frequency is at least $12$ rad/s.
+- The phase margin is no less than $50^\circ$.
+
+** Designing $K$
+- The transfer function of the compensator is $$C(s) = K\frac{Ts+1}{\gamma Ts+1},\,\gamma > 0$$
+- The transfer function for the disturbance is (assuming \(R(s)=0\)) $$\frac{Y(s)}{D(s)}=\frac{G(s)}{1+C(s)G(s)} = \frac{\gamma T s+1}{s(1+0.1s)(1+0.02s)(\gamma Ts+1)+K(Ts+1)}.$$
+- If the disturbance is a unit step input, then $$Y(s) =\frac{G(s)}{s(1+C(s)G(s))}.$$
+- The steady-state error is given by $$e_{ss}=-y(\infty) = -\lim_{s\rightarrow 0}sY(s) = -\frac{1}{K}$$
+- To ensure that the error caused by disturbance is less than $5%$, we choose $K = 1/0.05 = 20$.
+
+** Draw the Bode Plot of $KG(s)$
+#+BEGIN_SRC ipython :session :file assets/Lec10Example1Bode.svg :exports results
+num = [20];
+den = conv([0.1,1], [0.02,1])
+den = conv([1,0], den)
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-1,3,200));
+Kg, pm, Wg, Wp = margin(sys)
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("$20/s(0.1s+1)(0.02s+1)$")
+plt.semilogx(omega, mag, 'b')
+
+plt.semilogx([Wg,Wg], [-100, 40],'r--')
+
+yticks = np.linspace(-100, 40, 8) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([Wg,Wg], [-90, -270],'r--')
+plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-180), 
+            xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-270, -90, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec10Example1Bode.svg]]
+** Select Compensator
+- The gain crossover frequency of $KG(s)$ is $12.3$ rad/s and the phase margin is $-154.6+180 = 25.4^\circ$.
+- Since a lag compensator will result in a smaller gain crossover frequency, to meet the gain crossover frequency requirement, we shall adopt a lead compensator.
+
+** Design $\alpha$ 
+- The maximum phase lead we need is $$\phi = 50^\circ - 25.4^\circ + 10^\circ = 34.6^\circ.$$
+- $\alpha$ can be derived from $$\alpha = \frac{1-\sin 34.6^\circ}{1+\sin 34.6^\circ} = 0.2756.$$
+
+** Design $T$
+- Using the straight line approximation, we know that between $\omega = 10$ and $\omega = 50$, the magnitude plot can be approximated by $$20\log 2+40-40 \log \omega.$$
+- The new gain crossover frequency is $$20\log 2+40 - 40 \log \omega_g =10\log \alpha \Rightarrow \omega_g = 19.52.$$
+- $T$ can be computed as $$T = \frac{1}{\sqrt{\alpha}\omega_g} = 0.0976.$$
+- The (lead) compensator is $$C(s) = 20 \frac{0.0976 s + 1}{0.0267s+1}.$$
+
+** Verification
+#+BEGIN_SRC ipython :session :file assets/Lec10Example1Bode2.svg :exports results
+num = [20];
+den = conv([0.1,1], [0.02,1])
+den = conv([1,0], den)
+sys = tf(num, den)
+omega = np.logspace(-1,3,200)
+mag, phase, _ = bode(sys, dB=True, Plot=False, omega=omega);
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.semilogx(omega, mag, 'b--')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b--')
+
+num = [0.0976,1]
+den = [0.0267,1]
+ctrl = tf(num,den)
+
+mag, phase, _ = bode(control.series(ctrl,sys), dB=True, Plot=False, omega=omega);
+Kg, pm, Wg, Wp = margin(control.series(sys,ctrl))
+
+plt.subplot(211)
+plt.semilogx(omega, mag, 'r')
+
+plt.semilogx([Wg,Wg], [-100, 40],'r--')
+
+yticks = np.linspace(-100, 40, 8) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([Wg,Wg], [-90, -270],'r--')
+plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-180), 
+            xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-270, -90, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec10Example1Bode2.svg]]
+- The phase margin is only $-133.7+180 = 46.7^\circ$, which is less than desired.
+- This is because the phase goes down significantly when the gain crossover frequency is increased. Need to increase the phase lead.
+
+** Step Response
+#+BEGIN_SRC ipython :session :file assets/Lec10Example1Step.svg :exports results
+num = [1];
+den = conv([0.1,1], [0.02,1])
+den = conv([1,0], den)
+sys = tf(num, den)
+sys20 = tf([20],den)
+
+num = np.array([0.0976,1])*20
+den = [0.0267,1]
+ctrl = tf(num,den)
+
+cl = control.feedback(control.series(ctrl,sys))
+T, yout = control.step_response(cl, T=np.linspace(0,4,200));
+
+plt.title("Step Response")
+plt.plot(T, yout, 'r')
+
+cl = control.feedback(sys)
+T, yout = control.step_response(cl, T=np.linspace(0,4,200));
+
+plt.plot(T, yout, 'b')
+
+cl = control.feedback(sys20)
+T, yout = control.step_response(cl, T=np.linspace(0,4,200));
+plt.plot(T, yout, 'b--')
+
+plt.grid(b=True, which='both')
+plt.ylim(0,1.6)
+plt.xlim(0,4)
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec10Example1Step.svg]]
+- The original system response is very slow.
+- After changing $K$ to $20$, the system response faster (also the steady state error is reduced). However, the overshoot is $50%$.
+- By adding the lead-compensator, we can reduce the overshoot to $20%$.
+
+** Example 2
+Consider a control system
+
+#+BEGIN_SRC ipython :session :file assets/Lec10Example2Diagram.svg :exports results
+%%tikz -l matrix,arrows,shapes -s 400,100 -f svg -S assets/Lec10Example2Diagram.svg
+\tikzstyle{point} = [coordinate]
+\tikzstyle{box} = [rectangle, draw, semithick]
+\matrix[row sep = 7mm, column sep = 10mm]{
+&
+&
+&
+\node (d) {$D(s)$};&
+&
+&
+\\
+%first row
+\node (p1) [] {$R(s)$};&
+\node (p2) [circle,draw,inner sep=4pt] {};&
+\node (outer) [box] {$C(s)$};&
+\node (p3) [circle,draw,inner sep=4pt] {};&
+\node (inner) [box] {$\frac{1000}{s(s+10)(s+50)}$};&
+\node (p5) [point] {};&
+\node (p6) [] {$Y(s)$};\\
+%third row
+&
+\node (p9) [point] {};&
+&
+&
+&
+\node (p10) [point] {};&
+\\
+};
+\draw [semithick,->] (p1)--node[near end, above]{\scriptsize{$+$}} (p2);
+\draw [semithick,->] (p2)--(outer);
+\draw [semithick,->] (outer)--node[near end,above]{\scriptsize{$+$}} (p3);
+\draw [semithick,->] (p3)--(inner);
+\draw [semithick,->] (d)--node[near end,right]{\scriptsize{$+$}} (p3);
+\draw [semithick,->] (inner)--(p5)--(p6);
+\draw [semithick,->] (p5)--(p10)--(p9)--node[near end, left]{\scriptsize{$-$}} (p2);
+\draw [semithick] (p2.north east)--(p2.south west);
+\draw [semithick] (p2.south east)--(p2.north west);
+\draw [semithick] (p3.north east)--(p3.south west);
+\draw [semithick] (p3.south east)--(p3.north west);
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec10Example2Diagram.svg]]
+
+Design a lead of lag compensator so that the following specifications are satisfied:
+- The steady-state error due to a unit step disturbance is no more than $1%$.
+- The phase margin is no less than $50^\circ$.
+- The gain crossover frequency is between $4$ and $10$ rad/s.
+
+** Designing $K$
+- The transfer function of the compensator is $$C(s) = K\frac{Ts+1}{\gamma Ts+1},\,\gamma > 0$$
+- The transfer function for the disturbance is (assuming \(R(s)=0\)) $$\frac{Y(s)}{D(s)}=\frac{G(s)}{1+C(s)G(s)}.$$
+- If the disturbance is a unit step input, then $$Y(s) =\frac{G(s)}{s(1+C(s)G(s))}.$$
+- The steady-state error is given by $$e_{ss}=-y(\infty) = -\lim_{s\rightarrow 0}sY(s) = -\frac{1}{K}$$
+- To ensure that the error caused by disturbance is less than $5%$, we choose $K = 1/0.01 = 100$.
+
+** Draw the Bode Plot of $KG(s)$
+#+BEGIN_SRC ipython :session :file assets/Lec10Example2Bode.svg :exports results
+num = [100000];
+den = [1,60,500, 0]
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-1,3,200));
+Kg, pm, Wg, Wp = margin(sys)
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("$10^5/s(s+10)(s+50)$")
+plt.semilogx(omega, mag, 'b')
+
+plt.semilogx([Wg,Wg], [-100, 60],'r--')
+
+yticks = np.linspace(-100, 60, 9) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([Wg,Wg], [-90, -270],'r--')
+plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-180), 
+            xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-270, -90, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec10Example2Bode.svg]]
+** Select Compensator
+- The gain crossover frequency of $KG(s)$ is $\approx 40$ rad/s.
+- Since a lead compensator will result in a larger gain crossover frequency, to meet the gain crossover frequency requirement, we shall adopt a lag compensator.
+
+** Design $\beta$ 
+- We need to find a frequency $\omega_g$ where the phase is $50-180+5= 125^\circ$.
+- From the phase plot, we choose $\omega_g = 5$ rad/s. 
+- Using the straight line approximation, we know that when $\omega < 10$ and $\omega = 50$, the magnitude plot can be approximated by $$20\log 200-20 \log \omega.$$
+- $\beta$ can be calculated as $$20\log\beta =20\log 200-20\log \omega \Rightarrow \beta = 40. $$
+
+** Design $T$
+- We choose $T = 10/\omega_g = 2$.
+
+** Verification
+#+BEGIN_SRC ipython :session :file assets/Lec10Example2Bode2.svg :exports results
+num = [100000];
+den = [1,60,500, 0]
+sys = tf(num, den);
+
+omega = np.logspace(-3,3,400)
+mag, phase, _ = bode(sys, dB=True, Plot=False, omega=omega);
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.semilogx(omega, mag, 'b--')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b--')
+
+num = [2,1]
+den = [80,1]
+ctrl = tf(num,den)
+
+mag, phase, _ = bode(control.series(ctrl,sys), dB=True, Plot=False, omega=omega);
+Kg, pm, Wg, Wp = margin(control.series(sys,ctrl))
+
+plt.subplot(211)
+plt.semilogx(omega, mag, 'r')
+
+plt.semilogx([Wg,Wg], [-100, 100],'r--')
+
+yticks = np.linspace(-100, 100, 11) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+plt.semilogx([Wg,Wg], [-90, -270],'r--')
+plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-180), 
+            xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
+            arrowprops=dict(arrowstyle='-|>'),
+            horizontalalignment='left',
+            verticalalignment='center', 
+            )
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-270, -90, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec10Example2Bode2.svg]]
+- The phase margin is only $-125.8+180 = 54.2^\circ$, which satisfies the specification.
+
+** Step Response
+#+BEGIN_SRC ipython :session :file assets/Lec10Example2Step.svg :exports results
+num = [1000];
+den = [1,60,500, 0]
+sys = tf(num, den);
+
+
+num = [200,100]
+den = [80,1]
+ctrl = tf(num,den)
+
+cl = control.feedback(control.series(ctrl,sys))
+T, yout = control.step_response(cl, T=np.linspace(0,4,200));
+
+plt.title("Step Response")
+plt.plot(T, yout, 'r')
+
+cl = control.feedback(sys)
+T, yout = control.step_response(cl, T=np.linspace(0,4,200));
+
+plt.plot(T, yout, 'b')
+
+
+plt.grid(b=True, which='both')
+plt.ylim(0,1.6)
+plt.xlim(0,4)
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec10Example2Step.svg]]
+
