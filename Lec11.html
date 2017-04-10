@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-04-10 Mon 23:30 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="yilin" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgcb564f9">1. Review</a>
+<ul>
+<li><a href="#org2675fcf">1.1. Complex Numbers</a></li>
+<li><a href="#org2131118">1.2. Bode Plots</a></li>
+<li><a href="#org0e685f1">1.3. Basic Factors</a></li>
+<li><a href="#org549d475">1.4. Constant K</a></li>
+<li><a href="#org853a6a9">1.5. Integrator \(1/s\)</a></li>
+<li><a href="#org105ff28">1.6. First Order \(1/(\tau s+1)\)</a></li>
+<li><a href="#org044df8c">1.7. Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</a></li>
+<li><a href="#orgad2fcf0">1.8. Bode Plots of Complex Function</a></li>
+<li><a href="#org174322f">1.9. Frequency Domain Modeling</a></li>
+<li><a href="#org9ff227b">1.10. Nyquist Contour and Plot</a></li>
+<li><a href="#org5a29efb">1.11. Nyquist Stability Criterion</a></li>
+<li><a href="#org8f84142">1.12. Sketch Nyquist Plot (Segment 1)</a></li>
+<li><a href="#org1e4a50d">1.13. Sketch Nyquist Plot (Segment 2&amp;3)</a></li>
+<li><a href="#orgd5505ed">1.14. Gain Margin</a></li>
+<li><a href="#org03aba06">1.15. Phase Margin</a></li>
+<li><a href="#org04df359">1.16. Stable System</a></li>
+<li><a href="#org20f8a47">1.17. Unstable System</a></li>
+<li><a href="#orge24cccc">1.18. Loop Shaping</a></li>
+<li><a href="#orgeab79b3">1.19. Desirable Magnitude Plot Shape</a></li>
+<li><a href="#org1eceba5">1.20. Lead and Lag Compensator</a></li>
+<li><a href="#orge85da08">1.21. Lead Compensator Design Procedure</a></li>
+<li><a href="#orgd5687c8">1.22. Lead Compensator Example</a></li>
+<li><a href="#org5769cf1">1.23. Lag Compensator Design Procedure</a></li>
+<li><a href="#org7237870">1.24. Lag Compensator Example</a></li>
+<li><a href="#org142ddc9">1.25. PID Controller</a></li>
+<li><a href="#org104e91e">1.26. Step Response Method</a></li>
+<li><a href="#orga33e9af">1.27. Self-Oscillation Method</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgcb564f9" class="outline-2">
+<h2 id="orgcb564f9"><span class="section-number-2">1</span> Review</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-org2675fcf" class="outline-3">
+<h3 id="org2675fcf"><span class="section-number-3">1.1</span> Complex Numbers</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>\(a+bi = r\angle \phi\).</li>
+<li>\(r = \sqrt{a^2+b^2}\) and \[\phi=\begin{cases}\tan^{-1}(b/a)&a > 0\\ \tan^{-1}(b/a) + \pi &a <0\\ \pi/2& a=0,\,b>0\\ -\pi/2 &a=0,b<0 \\indeterminate &a=b=0\end{cases}.\]</li>
+<li>\((a+bi)^n = r^n\angle n\phi\). (This is true even when \(n\) is negative.)</li>
+<li>\[\frac{1}{a+bi} = \frac{a-bi}{a^2+b^2}.\]</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2131118" class="outline-3">
+<h3 id="org2131118"><span class="section-number-3">1.2</span> Bode Plots</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>Bode plots of a transfer function \(G(s)\) include two graphs:
+<ul class="org-ul">
+<li>Magnitude plot: \(20\log_{10}|G(j\omega)|\) (dB) in linear scale v.s. \(\omega\) in log scale.</li>
+<li>Phase plot: \(\angle G(j\omega)\) (degree) in linear scale v.s. \(\omega\) in log-scale.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0e685f1" class="outline-3">
+<h3 id="org0e685f1"><span class="section-number-3">1.3</span> Basic Factors</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>A complex polynomial can always be factorized in to basic terms 
+<ul class="org-ul">
+<li>\(K\)</li>
+<li>\(s\)</li>
+<li>\(\tau s + 1\)</li>
+<li>\[\left(\frac{s}{\omega_n}\right)^2 + 2\zeta \left(\frac{s}{\omega_n}\right) + 1.\]</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org549d475" class="outline-3">
+<h3 id="org549d475"><span class="section-number-3">1.4</span> Constant K</h3>
+<div class="outline-text-3" id="text-1-4">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec2BodeConstant.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org853a6a9" class="outline-3">
+<h3 id="org853a6a9"><span class="section-number-3">1.5</span> Integrator \(1/s\)</h3>
+<div class="outline-text-3" id="text-1-5">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec2BodeIntegrators.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org105ff28" class="outline-3">
+<h3 id="org105ff28"><span class="section-number-3">1.6</span> First Order \(1/(\tau s+1)\)</h3>
+<div class="outline-text-3" id="text-1-6">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec2BodeFirstOrder.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org044df8c" class="outline-3">
+<h3 id="org044df8c"><span class="section-number-3">1.7</span> Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</h3>
+<div class="outline-text-3" id="text-1-7">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec2BodeSecondOrder.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgad2fcf0" class="outline-3">
+<h3 id="orgad2fcf0"><span class="section-number-3">1.8</span> Bode Plots of Complex Function</h3>
+<div class="outline-text-3" id="text-1-8">
+<ul class="org-ul">
+<li>Decompose the Transfer Function into Basic Factors</li>
+<li>Determine the Plot at the Low Frequency</li>
+<li>Add First and Second Order Terms</li>
+<li>Verify the results in Matlab</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org174322f" class="outline-3">
+<h3 id="org174322f"><span class="section-number-3">1.9</span> Frequency Domain Modeling</h3>
+<div class="outline-text-3" id="text-1-9">
+<ul class="org-ul">
+<li>Determine an asymptotic magnitude plot by approximating the actual gain plot by a sequence of straight lines with slopes of \(20N\).</li>
+<li>From the low frequency plot, determine the number of integrator \(1/s^N\) and the constant term \(K\).</li>
+<li>Determine the corner frequency from the intersection of two consecutive lines.</li>
+<li>From the change of slopes of the consecutive lines, determine the associated basic factor.</li>
+<li>Determine the damping ratio for second order zeros and poles.</li>
+<li>The phase plot can be used to verify your results.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9ff227b" class="outline-3">
+<h3 id="org9ff227b"><span class="section-number-3">1.10</span> Nyquist Contour and Plot</h3>
+<div class="outline-text-3" id="text-1-10">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec11Nyquist.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5a29efb" class="outline-3">
+<h3 id="org5a29efb"><span class="section-number-3">1.11</span> Nyquist Stability Criterion</h3>
+<div class="outline-text-3" id="text-1-11">
+<p>
+A feedback system is stable if and only if \(N=-P\), i.e. the number of the counterclockwise encirclements of \(–1\) point by the Nyquist plot in the \(G\)-plane is equal to the number of the unstable poles of the open-loop transfer function.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8f84142" class="outline-3">
+<h3 id="org8f84142"><span class="section-number-3">1.12</span> Sketch Nyquist Plot (Segment 1)</h3>
+<div class="outline-text-3" id="text-1-12">
+<ul class="org-ul">
+<li>We need to find 4 types of point from the Bode plots:
+<ul class="org-ul">
+<li>\(\omega = 0\);</li>
+<li>Real intersection: Phase = \(180N^\circ\);</li>
+<li>Imaginary intersection: Phase = \(180N+90^\circ\);</li>
+<li>\(\omega = +\infty\);</li>
+</ul></li>
+<li>We can also deduce the trend of the plot around those points:
+<ul class="org-ul">
+<li>If the phase is decreasing, the plot goes clockwise</li>
+<li>If the phase is increasing, the plot goes counterclockwise</li>
+</ul></li>
+<li>Plot those points on the \(G\)-plane and draw a smooth line to connect them.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org1e4a50d" class="outline-3">
+<h3 id="org1e4a50d"><span class="section-number-3">1.13</span> Sketch Nyquist Plot (Segment 2&amp;3)</h3>
+<div class="outline-text-3" id="text-1-13">
+<ul class="org-ul">
+<li>Segment 2 is the origin point for strictly proper function. It is a constant for proper function.</li>
+<li>Segment 3 is the mirror reflection of segment 1 around the real axis.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd5505ed" class="outline-3">
+<h3 id="orgd5505ed"><span class="section-number-3">1.14</span> Gain Margin</h3>
+<div class="outline-text-3" id="text-1-14">
+<ul class="org-ul">
+<li>Define \(\omega_{\phi}\) to be the smallest frequency, where the phase of the open-loop transfer function is \(-180^\circ\).</li>
+<li>\(\omega_{\phi}\) is called the phase crossover frequency.</li>
+<li>For most minimum phase system, the gain margin for the system is given by \[K_g = \frac{1}{|G(j\omega_\phi)H(\omega_\phi)|}.\]</li>
+<li>In terms of decibles,\[K_g(dB) = -20\log|G(j\omega_\phi)H(\omega_\phi)|.\]</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org03aba06" class="outline-3">
+<h3 id="org03aba06"><span class="section-number-3">1.15</span> Phase Margin</h3>
+<div class="outline-text-3" id="text-1-15">
+<ul class="org-ul">
+<li>Define \(\omega_{g}\) to be the smallest frequency, where the magnitude of the open-loop transfer function is \(1\) or \(0dB\).</li>
+<li>\(\omega_{g}\) is called the gain crossover frequency.</li>
+<li>For most minimum phase system, the phase margin for the system is given by \[\phi_m = 180^\circ+\angle G(j\omega_g)H(\omega_g).\]</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org04df359" class="outline-3">
+<h3 id="org04df359"><span class="section-number-3">1.16</span> Stable System</h3>
+<div class="outline-text-3" id="text-1-16">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec6Bode.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org20f8a47" class="outline-3">
+<h3 id="org20f8a47"><span class="section-number-3">1.17</span> Unstable System</h3>
+<div class="outline-text-3" id="text-1-17">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec6BodeUnstable.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge24cccc" class="outline-3">
+<h3 id="orge24cccc"><span class="section-number-3">1.18</span> Loop Shaping</h3>
+<div class="outline-text-3" id="text-1-18">
+<ul class="org-ul">
+<li>In the low frequency, the gain should be high to have good steady state accuracy.</li>
+<li>Around the gain crossover frequency, the slope of the magnitude plot should be about \(-20\) and extend over a sufficient range of frequency</li>
+<li>In the high frequency, the gain must be small in order to have good noise attenuation and robustness against model uncertainty.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgeab79b3" class="outline-3">
+<h3 id="orgeab79b3"><span class="section-number-3">1.19</span> Desirable Magnitude Plot Shape</h3>
+<div class="outline-text-3" id="text-1-19">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec7IdealShape.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1eceba5" class="outline-3">
+<h3 id="org1eceba5"><span class="section-number-3">1.20</span> Lead and Lag Compensator</h3>
+<div class="outline-text-3" id="text-1-20">
+<ul class="org-ul">
+<li>The transfer function of a lead compensator is \[C(s) = K\frac{Ts+1}{\alpha Ts+1},\,0<\alpha<1.\]</li>
+<li>The transfer function of a lag compensator is \[C(s) = K\frac{Ts+1}{\beta Ts+1},\,\beta > 1.\]</li>
+</ul>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec11LeadLag.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge85da08" class="outline-3">
+<h3 id="orge85da08"><span class="section-number-3">1.21</span> Lead Compensator Design Procedure</h3>
+<div class="outline-text-3" id="text-1-21">
+<ul class="org-ul">
+<li>Determine the gain \(K\) to satisfy the steady state error requirement.</li>
+<li>Draw the Bode plots of \(KG(s)\), derive the phase margin \(\phi_0\).</li>
+<li>From \(\phi_0\) and the required phase margin \(PM\), determine the phase lead \(\phi\): \[\phi = PM - \phi_0 + 5^\circ\sim 10^\circ.\]</li>
+<li>Derive \[\alpha = \frac{1-\sin \phi}{1+\sin \phi}.\]</li>
+<li>To achieve the maximum phase lead, place the gain crossover frequency \(\omega_g\) at \(1/\sqrt{\alpha}T\). Therefore, \[20\log|G(j\omega_g)| + 20\log K = 10\log \alpha,\] and we can derive \(\omega_g\).</li>
+<li>Choose \[T = \frac{1}{\sqrt{\alpha}\omega_g}.\]</li>
+<li>Verify the result using Matlab.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd5687c8" class="outline-3">
+<h3 id="orgd5687c8"><span class="section-number-3">1.22</span> Lead Compensator Example</h3>
+<div class="outline-text-3" id="text-1-22">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec7ExampleBode.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5769cf1" class="outline-3">
+<h3 id="org5769cf1"><span class="section-number-3">1.23</span> Lag Compensator Design Procedure</h3>
+<div class="outline-text-3" id="text-1-23">
+<ul class="org-ul">
+<li>Determine the compensator gain \(K\) to meet the steady state error requirement.</li>
+<li>Draw the Bode plots of \(KG(s)\).</li>
+<li>From the Bode plots, find the frequency \(\omega_g\) at which the phase of \(KG(s)\) is \[\angle KG(\omega_g) = PM -180^\circ + 5^\circ\sim 10^\circ.\]</li>
+<li>Calculate \(\beta\) to make \(\omega_g\) the gain crossover frequency, \[20\log\beta = 20\log K + 20\log |G(j\omega_g)|.\]</li>
+<li>Choose \(T\) to be much greater than \(1/\omega_g\), for example, \(T = 10/\omega_g\).</li>
+<li>Verify the results using matlab.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7237870" class="outline-3">
+<h3 id="org7237870"><span class="section-number-3">1.24</span> Lag Compensator Example</h3>
+<div class="outline-text-3" id="text-1-24">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec8ExampleBode.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org142ddc9" class="outline-3">
+<h3 id="org142ddc9"><span class="section-number-3">1.25</span> PID Controller</h3>
+<div class="outline-text-3" id="text-1-25">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec9Diagram.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+<p>
+The standard form of PID controller is \[C(s) = K_p\left(1+\frac{1}{T_is}+T_ds\right) = K_p+\frac{K_I}{s}+K_Ds.\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org104e91e" class="outline-3">
+<h3 id="org104e91e"><span class="section-number-3">1.26</span> Step Response Method</h3>
+<div class="outline-text-3" id="text-1-26">
+<ul class="org-ul">
+<li>Find the maximum slop tangent line</li>
+<li>Read \(K\), \(T\) and \(L\) from the plot</li>
+<li>Compute \(K_p\), \(T_i\) and \(T_d\) from the table</li>
+</ul>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec9Step.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga33e9af" class="outline-3">
+<h3 id="orga33e9af"><span class="section-number-3">1.27</span> Self-Oscillation Method</h3>
+<div class="outline-text-3" id="text-1-27">
+<ul class="org-ul">
+<li>The critical gain \(K_{cr}\) is the gain margin</li>
+<li>The critical period \(P_{cr} = 2\pi/\omega_\phi\)</li>
+<li>Compute \(K_p\), \(T_i\) and \(T_d\) from the table</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
