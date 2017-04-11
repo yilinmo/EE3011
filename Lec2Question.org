@@ -1,0 +1,358 @@
+#+BEGIN_SRC ipython :session :exports none
+import numpy as np
+from numpy import log10 as log
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Arial']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+import control
+from control.matlab import *
+from control import bode_plot as bode
+from control import nyquist, margin
+from numpy import convolve as conv
+
+%load_ext tikzmagic
+
+%matplotlib inline
+%config InlineBackend.figure_format = 'svg'
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC ipython :session :file assets/Lec2Question1aBode.svg :exports results
+num = [20];
+den = conv([0.1,1], [0.02,1])
+den = conv([1,0], den)
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-1,3,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.semilogx(omega, mag, 'b')
+
+yticks = np.linspace(-100, 40, 8) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-270, -90, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec2Question1aBode.svg]]
+#+BEGIN_SRC ipython :session :file assets/Lec2Question1bBode.svg :exports results
+num = [20];
+den = conv([0.1,1], [0.02,1])
+den = conv([1,0], den)
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-1,3,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.plot(omega, mag, 'b')
+
+yticks = np.linspace(-100, 40, 8) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+plt.subplot(212)
+plt.plot(omega, phase,'b')
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-270, -90, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec2Question1bBode.svg]]
+
+
+#+BEGIN_SRC ipython :session :file assets/Lec2Question1cBode.svg :exports results
+num = [20];
+den = conv([0.1,1], [0.02,1])
+den = conv([1,0], den)
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=False, Plot=False, omega=np.logspace(-1,3,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.semilogx(omega, mag, 'b')
+
+yticks = np.linspace(200, 0, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude')
+plt.grid(b=True, which='both')
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-270, -90, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec2Question1cBode.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Lec2Question1cBode.svg :exports results
+num = [20];
+den = conv([0.1,1], [0.02,1])
+den = conv([1,0], den)
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=False, Plot=False, omega=np.logspace(-1,3,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.semilogx(omega, mag, 'b')
+
+yticks = np.linspace(200, 0, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude')
+plt.grid(b=True, which='both')
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-270, -90, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec2Question1cBode.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Lec2Question1dBode.svg :exports results
+num = [20];
+den = conv([0.1,1], [0.02,1])
+den = conv([1,0], den)
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=False, Plot=False, omega=np.logspace(-1,3,200));
+
+real = mag * np.cos(phase*np.pi/180)
+imag = mag * np.sin(phase*np.pi/180)
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.semilogx(omega, real, 'b')
+
+yticks = np.linspace(2, -2, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Real Part')
+plt.grid(b=True, which='both')
+plt.subplot(212)
+plt.semilogx(omega, imag,'b')
+
+plt.ylabel('Imaginary Part')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-200, 0, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec2Question1dBode.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Lec2Question2Bode.svg :exports results
+num = [-1e-1]
+den = [1]
+sys = tf(num, den);
+mag, phase, omega = bode(sys, dB=True, Plot=False, omega=np.logspace(-1,1,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.semilogx(omega, mag, 'b')
+
+yticks = np.linspace(-40, 0, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+plt.subplot(212)
+plt.semilogx(omega, phase-360,'b')
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(-190, -170, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec2Question2Bode.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Lec2Question3Bode.svg :exports results
+
+plt.subplots_adjust(hspace=0.4)
+omega = np.array([.1,10.])
+
+plt.subplot(211)
+plt.semilogx(omega, [-20, 20], 'b')
+plt.semilogx(omega, [20,-20], 'r')
+plt.semilogx(omega, [40,-40], 'k')
+
+yticks = np.linspace(-40, 40, 5) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+plt.subplot(212)
+
+g1, = plt.semilogx(omega, [-90,-90], 'g',label ='Line 1')
+g2, = plt.semilogx(omega, [-180,-180], 'g--', label = 'Line 2')
+g3, = plt.semilogx(omega, [90,90], 'g:', label = 'Line 3')
+
+plt.legend(handles=[g1, g2, g3], loc=3)
+
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(90, -180, 4) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec2Question3Bode.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Lec2Question4Bode.svg :exports results
+plt.subplots_adjust(hspace=0.4)
+
+mag, phase, omega = bode(tf([1],[10,1]), dB=True, Plot=False, omega=np.logspace(-2,2,200));
+plt.subplot(211)
+plt.semilogx(omega, mag, 'b')
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+
+mag, phase, omega = bode(tf([1],[.1,1]), dB=True, Plot=False, omega=np.logspace(-2,2,200));
+plt.subplot(211)
+plt.semilogx(omega, mag, 'r')
+plt.subplot(212)
+plt.semilogx(omega, phase,'r')
+
+mag, phase, omega = bode(tf([10,1],[1]), dB=True, Plot=False, omega=np.logspace(-2,2,200));
+plt.subplot(211)
+plt.semilogx(omega, mag, 'k')
+plt.subplot(212)
+plt.semilogx(omega, phase,'k')
+
+mag, phase, omega = bode(tf([1],[.01,.2,1]), dB=True, Plot=False, omega=np.logspace(-2,2,200));
+plt.subplot(211)
+plt.semilogx(omega, mag, 'g')
+plt.subplot(212)
+plt.semilogx(omega, phase,'g')
+
+plt.subplot(211)
+yticks = np.linspace(-60, 60, 7) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(90, -180, 4) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec2Question4Bode.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Lec2Question5Bode.svg :exports results
+plt.subplots_adjust(hspace=0.4)
+
+mag, phase, omega = bode(tf([1],[1,0.2,1]), dB=True, Plot=False, omega=np.logspace(-2,1,200));
+plt.subplot(211)
+plt.semilogx(omega, mag, 'b')
+plt.subplot(212)
+plt.semilogx(omega, phase,'b')
+
+mag, phase, omega = bode(tf([1],[100,2,1]), dB=True, Plot=False, omega=np.logspace(-2,1,200));
+plt.subplot(211)
+plt.semilogx(omega, mag, 'r')
+plt.subplot(212)
+plt.semilogx(omega, phase,'r')
+
+mag, phase, omega = bode(tf([1],[1,1.8,1]), dB=True, Plot=False, omega=np.logspace(-2,1,200));
+plt.subplot(211)
+plt.semilogx(omega, mag, 'k')
+plt.subplot(212)
+plt.semilogx(omega, phase,'k')
+
+plt.subplot(211)
+yticks = np.linspace(-80, 20, 6) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+
+yticks = np.linspace(0, -180, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Lec2Question5Bode.svg]]
