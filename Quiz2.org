@@ -1,0 +1,478 @@
+#+BEGIN_SRC ipython :session :exports none
+import matplotlib
+import numpy as np
+from numpy import log10 as log
+from numpy import convolve as conv
+import matplotlib.pyplot as plt
+from matplotlib import rc
+rc('font',**{'family':'sans-serif','sans-serif':['Arial']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
+import control
+from control.matlab import *
+from control import bode_plot as bode
+
+%load_ext tikzmagic
+
+%matplotlib inline
+%config InlineBackend.figure_format = 'svg'
+
+from matplotlib2tikz import save as tikz_save
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC ipython :session :file assets/Quiz21.svg :exports results
+Gain = 5
+IntOrder = 1
+# first order term, time constant
+# positive means on the numerator 
+# negative means on the denominator
+First = [0.5, -5]
+# second order term, (zeta, omega)
+# positive omega means on the numerator 
+# negative means on the denominator
+Second = [(0.5,-50)]
+
+num = Gain
+den = 1
+
+# list of slope changes and correction terms
+# in the form of (corner freq, slop change, correction)
+Corners = []
+
+for tau in First:
+    if tau > 0:
+        num = conv(num, [1./tau, 1])
+        Corners.append((tau, 20, None))
+    elif tau < 0:
+        den = conv(den, [-1./tau, 1])
+        Corners.append((-tau, -20, None))
+
+for z,w in Second:
+    if w > 0:
+        num = conv(num, [1./(w**2), 2.*z/w, 1])
+        Corners.append((w, 40, 20*log(2*z)))
+    elif w < 0:
+        den = conv(den, [1./(w**2), -2.*z/w, 1])
+        Corners.append((-w, -40, -20*log(2*z)))
+
+den = np.concatenate((den,np.zeros(IntOrder)))
+sys = tf(num, den)
+
+# sort the list according to the corner frequency in ascending order
+Corners.sort(key=lambda x:x[0]) 
+
+# Find max and min corner frequencies
+logminfreq=log(min([x[0] for x in Corners]))-1.5
+logmaxfreq=log(max([x[0] for x in Corners]))+1.5
+minfreq=np.power(10, logminfreq)
+maxfreq=np.power(10, logmaxfreq)
+
+omega = np.logspace(logminfreq, logmaxfreq, 200)
+
+mag, phase, _ = control.bode_plot(sys, dB=True, Plot=False, omega=omega);
+
+plt.semilogx(omega,mag, 'b')
+
+freqs = [minfreq]
+magapprox = [20*log(Gain)-20*IntOrder*logminfreq]
+
+currentfreq = minfreq
+currentmag = 20*log(Gain)-20*IntOrder*logminfreq
+currentslope = -20*IntOrder
+for cornerfreq, slopechange, correction in Corners:
+    freqs.append(cornerfreq)
+    currentmag += currentslope*(log(cornerfreq)-log(currentfreq))
+    currentslope += slopechange
+    currentfreq = cornerfreq
+    magapprox.append(currentmag)
+    if correction != None:
+        plt.semilogx([cornerfreq, cornerfreq],
+                     [currentmag, currentmag+correction],
+                     'r--')
+        if correction >= 0:
+            plt.annotate('%.1fdB' % correction, 
+                         xy=(cornerfreq,currentmag+correction), 
+                         xytext=(cornerfreq,currentmag+correction+20), 
+                         arrowprops=dict(arrowstyle='-|>'),
+                         horizontalalignment='center',
+                         verticalalignment='bottom', 
+                         )
+        else:
+            plt.annotate('%.1fdB' % correction, 
+                         xy=(cornerfreq,currentmag+correction), 
+                         xytext=(cornerfreq,currentmag+correction-20), 
+                         arrowprops=dict(arrowstyle='-|>'),
+                         horizontalalignment='center',
+                         verticalalignment='top', 
+                         )
+
+freqs.append(maxfreq)
+currentmag += currentslope*(log(maxfreq)-log(currentfreq))
+magapprox.append(currentmag)
+
+plt.semilogx(freqs,magapprox, 'r')
+plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+yticks = np.linspace(np.floor(min(mag)/20)*20, 
+                     np.ceil(max(mag)/20)*20, 
+                     round(np.ceil(max(mag)/20)-np.floor(min(mag)/20))+1) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+
+tikz_save(
+    'tikz/Quiz21.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+plt.show()
+#+END_SRC 
+
+#+RESULTS:
+[[file:assets/Quiz21.svg]]
+#+BEGIN_SRC ipython :session :file Quiz22.svg :exports results
+num = [1, 1];
+den = [1, 4, -5];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-1.5,1.5,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode plot of $(s+1)/(s^2+4s-5)$")
+plt.semilogx(omega, mag, 'b')
+yticks = np.linspace(-10, -40, 4) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(db)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+g2, = plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-180, -90, 3) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+tikz_save(
+    'tikz/Quiz22.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Quiz22.svg]]
+
+
+#+BEGIN_SRC ipython :session :file assets/Quiz23.svg :exports results
+Gain = 2
+IntOrder = 1
+# first order term, time constant
+# positive means on the numerator 
+# negative means on the denominator
+First = [-0.2, -20]
+# second order term, (zeta, omega)
+# positive omega means on the numerator 
+# negative means on the denominator
+Second = [(0.1, 2)]
+
+num = Gain
+den = 1
+
+# list of slope changes and correction terms
+# in the form of (corner freq, slop change, correction)
+Corners = []
+
+for tau in First:
+    if tau > 0:
+        num = conv(num, [1./tau, 1])
+        Corners.append((tau, 20, None))
+    elif tau < 0:
+        den = conv(den, [-1./tau, 1])
+        Corners.append((-tau, -20, None))
+
+for z,w in Second:
+    if w > 0:
+        num = conv(num, [1./(w**2), 2.*z/w, 1])
+        Corners.append((w, 40, 20*log(2*z)))
+    elif w < 0:
+        den = conv(den, [1./(w**2), -2.*z/w, 1])
+        Corners.append((-w, -40, -20*log(2*z)))
+
+den = np.concatenate((den,np.zeros(IntOrder)))
+sys = tf(num, den)
+
+# sort the list according to the corner frequency in ascending order
+Corners.sort(key=lambda x:x[0]) 
+
+# Find max and min corner frequencies
+logminfreq=log(min([x[0] for x in Corners]))-1.5
+logmaxfreq=log(max([x[0] for x in Corners]))+1.5
+minfreq=np.power(10, logminfreq)
+maxfreq=np.power(10, logmaxfreq)
+
+omega = np.logspace(logminfreq, logmaxfreq, 200)
+
+mag, phase, _ = control.bode_plot(sys, dB=True, Plot=False, omega=omega);
+
+plt.semilogx(omega,mag, 'b')
+
+freqs = [minfreq]
+magapprox = [20*log(Gain)-20*IntOrder*logminfreq]
+
+currentfreq = minfreq
+currentmag = 20*log(Gain)-20*IntOrder*logminfreq
+currentslope = -20*IntOrder
+for cornerfreq, slopechange, correction in Corners:
+    freqs.append(cornerfreq)
+    currentmag += currentslope*(log(cornerfreq)-log(currentfreq))
+    currentslope += slopechange
+    currentfreq = cornerfreq
+    magapprox.append(currentmag)
+    if correction != None:
+        plt.semilogx([cornerfreq, cornerfreq],
+                     [currentmag, currentmag+correction],
+                     'r--')
+        if correction >= 0:
+            plt.annotate('%.1fdB' % correction, 
+                         xy=(cornerfreq,currentmag+correction), 
+                         xytext=(cornerfreq,currentmag+correction+20), 
+                         arrowprops=dict(arrowstyle='-|>'),
+                         horizontalalignment='center',
+                         verticalalignment='bottom', 
+                         )
+        else:
+            plt.annotate('%.1fdB' % correction, 
+                         xy=(cornerfreq,currentmag+correction), 
+                         xytext=(cornerfreq,currentmag+correction-20), 
+                         arrowprops=dict(arrowstyle='-|>'),
+                         horizontalalignment='center',
+                         verticalalignment='top', 
+                         )
+
+freqs.append(maxfreq)
+currentmag += currentslope*(log(maxfreq)-log(currentfreq))
+magapprox.append(currentmag)
+
+plt.semilogx(freqs,magapprox, 'r')
+plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+yticks = np.linspace(np.floor(min(mag)/20)*20, 
+                     np.ceil(max(mag)/20)*20, 
+                     round(np.ceil(max(mag)/20)-np.floor(min(mag)/20))+1) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+
+tikz_save(
+    'tikz/Quiz23.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+plt.show()
+#+END_SRC 
+
+#+RESULTS:
+[[file:assets/Quiz23.svg]]
+#+BEGIN_SRC ipython :session :file Quiz24.svg :exports results
+num = [1, -1];
+den = [1, 2, 1];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-1.5,1.5,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.title("Bode plot of $(s-1)/(s^2+2s+1)$")
+plt.semilogx(omega, mag, 'b')
+yticks = np.linspace(0, -30, 4) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(db)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+g2, = plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(180, -90, 4) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+tikz_save(
+    'tikz/Quiz24.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Quiz24.svg]]
+
+
+
+#+BEGIN_SRC ipython :session :file assets/Quiz25.svg :exports results
+Gain = 5
+IntOrder = 1
+# first order term, time constant
+# positive means on the numerator 
+# negative means on the denominator
+First = [.5, 5]
+# second order term, (zeta, omega)
+# positive omega means on the numerator 
+# negative means on the denominator
+Second = [(0.2, -20)]
+
+num = Gain
+den = [1]
+
+# list of slope changes and correction terms
+# in the form of (corner freq, slop change, correction)
+Corners = []
+
+for tau in First:
+    if tau > 0:
+        num = conv(num, [1./tau, 1])
+        Corners.append((tau, 20, None))
+    elif tau < 0:
+        den = conv(den, [-1./tau, 1])
+        Corners.append((-tau, -20, None))
+
+for z,w in Second:
+    if w > 0:
+        num = conv(num, [1./(w**2), 2.*z/w, 1])
+        Corners.append((w, 40, 20*log(2*z)))
+    elif w < 0:
+        den = conv(den, [1./(w**2), -2.*z/w, 1])
+        Corners.append((-w, -40, -20*log(2*z)))
+
+den = np.concatenate((den,np.zeros(IntOrder)))
+sys = tf(num, den)
+
+# sort the list according to the corner frequency in ascending order
+Corners.sort(key=lambda x:x[0]) 
+
+# Find max and min corner frequencies
+logminfreq=log(min([x[0] for x in Corners]))-1.5
+logmaxfreq=log(max([x[0] for x in Corners]))+1.5
+minfreq=np.power(10, logminfreq)
+maxfreq=np.power(10, logmaxfreq)
+
+omega = np.logspace(logminfreq, logmaxfreq, 200)
+
+mag, phase, _ = control.bode_plot(sys, dB=True, Plot=False, omega=omega);
+
+plt.semilogx(omega,mag, 'b')
+
+freqs = [minfreq]
+magapprox = [20*log(Gain)-20*IntOrder*logminfreq]
+
+currentfreq = minfreq
+currentmag = 20*log(Gain)-20*IntOrder*logminfreq
+currentslope = -20*IntOrder
+for cornerfreq, slopechange, correction in Corners:
+    freqs.append(cornerfreq)
+    currentmag += currentslope*(log(cornerfreq)-log(currentfreq))
+    currentslope += slopechange
+    currentfreq = cornerfreq
+    magapprox.append(currentmag)
+    if correction != None:
+        plt.semilogx([cornerfreq, cornerfreq],
+                     [currentmag, currentmag+correction],
+                     'r--')
+        if correction >= 0:
+            plt.annotate('%.1fdB' % correction, 
+                         xy=(cornerfreq,currentmag+correction), 
+                         xytext=(cornerfreq,currentmag+correction+10), 
+                         arrowprops=dict(arrowstyle='-|>'),
+                         horizontalalignment='center',
+                         verticalalignment='bottom', 
+                         )
+        else:
+            plt.annotate('%.1fdB' % correction, 
+                         xy=(cornerfreq,currentmag+correction), 
+                         xytext=(cornerfreq,currentmag+correction-10), 
+                         arrowprops=dict(arrowstyle='-|>'),
+                         horizontalalignment='center',
+                         verticalalignment='top', 
+                         )
+
+freqs.append(maxfreq)
+currentmag += currentslope*(log(maxfreq)-log(currentfreq))
+magapprox.append(currentmag)
+
+plt.semilogx(freqs,magapprox, 'r')
+plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Magnitude(dB)')
+plt.grid(b=True, which='both')
+
+yticks = np.linspace(np.floor(min(mag)/20)*20, 
+                     np.ceil(max(mag)/20)*20, 
+                     round(np.ceil(max(mag)/20)-np.floor(min(mag)/20))+1) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+
+tikz_save(
+    'tikz/Quiz25.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+plt.show()
+#+END_SRC 
+
+#+RESULTS:
+[[file:assets/Quiz25.svg]]
+
+
+#+BEGIN_SRC ipython :session :file Quiz26.svg :exports results
+num = [1, -3];
+den = [1, -4, 4];
+sys = tf(num, den);
+mag, phase, omega = control.bode_plot(sys, dB=True, Plot=False, omega=np.logspace(-1,2,200));
+
+plt.subplots_adjust(hspace=0.4)
+
+plt.subplot(211)
+plt.semilogx(omega, mag, 'b')
+yticks = np.linspace(0, -30, 4) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.ylabel('Magnitude(db)')
+plt.grid(b=True, which='both')
+
+plt.subplot(212)
+g2, = plt.semilogx(omega, phase,'b')
+plt.ylabel('Phase(deg)')
+plt.xlabel('Frequency(rad/sec)')
+yticks = np.linspace(-90, -180, 2) 
+ylabels = [(str(ytick)) for ytick in yticks]
+plt.yticks(yticks, ylabels)
+plt.grid(b=True, which='both')
+
+tikz_save(
+    'tikz/Quiz26.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:Quiz26.svg]]
