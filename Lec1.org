@@ -125,8 +125,11 @@ control.nyquist_plot(sys, omega = [1e-2, 1e3]);
 #+RESULTS:
 [[file:./Lec1Nyquist.svg]]
 
-#+BEGIN_SRC ipython :session :file ./Lec1Summary.svg :exports both
-%%tikz -l matrix,arrows -s 400,60 -f svg -S ./Lec1Summary.svg
+** Summary
+The frequency response of a system is defined as the *steady-state response* of the system to *a sinusoidal input*.
+
+#+BEGIN_SRC ipython :session :file assets/Lec1Summary.svg :exports results
+%%tikz -l matrix,arrows -s 400,30 -f svg -S assets/Lec1Summary.svg
 
 \tikzstyle{point} = [coordinate]
 \tikzstyle{box} = [rectangle, draw, semithick]
@@ -138,8 +141,12 @@ control.nyquist_plot(sys, omega = [1e-2, 1e3]);
 #+END_SRC
 
 #+RESULTS:
-[[file:./Lec1Summary.svg]]
+[[file:assets/Lec1Summary.svg]]
 
+It is also a sinusoidal signal, where
+1. The frequency is the same.
+2. The amplitude is $A\times |G(j\omega)|$.
+3. The phase is $\phi + \angle G(j\omega)$.
 
 
 

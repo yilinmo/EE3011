@@ -174,6 +174,35 @@ plt.show()
 [[file:Quiz22.svg]]
 
 
+#+BEGIN_SRC ipython :session :file assets/Quiz22Nyquist.svg :exports results
+num = [1, 1];
+den = [1, 4, -5];
+sys = tf(num, den);
+real, imag, omega = nyquist(sys, Plot=False, omega=np.logspace(-2,3,200));
+
+plt.plot(real, imag, 'b')
+for index in [50,75,90]:
+    plt.arrow(real[index], imag[index], real[index+1]-real[index], imag[index+1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.02)
+
+imag = -1*imag;
+plt.plot(real, imag, 'b--')
+for index in [50,75,90]:
+    plt.arrow(real[index], imag[index], real[index-1]-real[index], imag[index-1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.02)
+
+plt.plot([-1],[0], 'rx')
+plt.grid(b=True, which='both')
+
+tikz_save(
+    'tikz/Quiz22Nyquist.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Quiz22Nyquist.svg]]
+
 #+BEGIN_SRC ipython :session :file assets/Quiz23.svg :exports results
 Gain = 2
 IntOrder = 1
@@ -326,6 +355,35 @@ plt.show()
 
 
 
+#+BEGIN_SRC ipython :session :file assets/Quiz24Nyquist.svg :exports results
+num = [1, -1];
+den = [1, 2, 1];
+sys = tf(num, den);
+real, imag, omega = nyquist(sys, Plot=False, omega=np.logspace(-2,3,200));
+
+plt.plot(real, imag, 'b')
+for index in [50,75,90]:
+    plt.arrow(real[index], imag[index], real[index+1]-real[index], imag[index+1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.05)
+
+imag = -1*imag;
+plt.plot(real, imag, 'b--')
+for index in [50,75,90]:
+    plt.arrow(real[index], imag[index], real[index-1]-real[index], imag[index-1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.05)
+
+plt.plot([-1],[0], 'rx')
+plt.grid(b=True, which='both')
+
+tikz_save(
+    'tikz/Quiz24Nyquist.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Quiz24Nyquist.svg]]
+
 #+BEGIN_SRC ipython :session :file assets/Quiz25.svg :exports results
 Gain = 5
 IntOrder = 1
@@ -476,3 +534,32 @@ plt.show()
 
 #+RESULTS:
 [[file:Quiz26.svg]]
+
+#+BEGIN_SRC ipython :session :file assets/Quiz26Nyquist.svg :exports results
+num = [1, -3];
+den = [1, -4, 4];
+sys = tf(num, den);
+real, imag, omega = nyquist(sys, Plot=False, omega=np.logspace(-2,3,200));
+
+plt.plot(real, imag, 'b')
+for index in [50,75,90]:
+    plt.arrow(real[index], imag[index], real[index+1]-real[index], imag[index+1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.03)
+
+imag = -1*imag;
+plt.plot(real, imag, 'b--')
+for index in [50,75,90]:
+    plt.arrow(real[index], imag[index], real[index-1]-real[index], imag[index-1]-imag[index], shape='full', lw=0, length_includes_head=True, head_width=.03)
+
+plt.plot([-1],[0], 'rx')
+plt.grid(b=True, which='both')
+
+tikz_save(
+    'tikz/Quiz26Nyquist.tikz',
+    figureheight = '\\figureheight',
+    figurewidth = '\\figurewidth'
+    )
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:assets/Quiz26Nyquist.svg]]
