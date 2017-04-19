@@ -3,6 +3,9 @@
 !assets
 !assets/
 !assets/*
+!reveal.js
+!reveal.js/
+!reveal.js/*
 !tikz
 !tikz/
 !tikz/*
