@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-08 Sat 13:21 -->
+<!-- 2017-04-21 Fri 12:18 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title></title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="yilin" />
+<meta name="author" content="Yilin" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -254,36 +254,36 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgac2554f">1. Further Examples on Controller Design</a>
+<li><a href="#orgd0a4b09">1. Further Examples on Controller Design</a>
 <ul>
-<li><a href="#org4891afb">1.1. Example 1</a>
+<li><a href="#orgbc97ca4">1.1. Example 1</a>
 <ul>
-<li><a href="#org4120010">1.1.1. Designing \(K\)</a></li>
-<li><a href="#org03121d8">1.1.2. Draw the Bode Plot of \(KG(s)\)</a></li>
-<li><a href="#org1795ef4">1.1.3. Select Compensator</a></li>
-<li><a href="#org4f636b5">1.1.4. Design \(\alpha\)</a></li>
-<li><a href="#org92712b8">1.1.5. Design \(T\)</a></li>
-<li><a href="#orgffbb37d">1.1.6. Verification</a></li>
-<li><a href="#orgf07c5d6">1.1.7. Step Response</a></li>
+<li><a href="#org742d0bd">1.1.1. Designing \(K\)</a></li>
+<li><a href="#orgd9c8504">1.1.2. Draw the Bode Plot of \(KG(s)\)</a></li>
+<li><a href="#org4e7c588">1.1.3. Select Compensator</a></li>
+<li><a href="#org15038d6">1.1.4. Design \(\alpha\)</a></li>
+<li><a href="#orgb1d4006">1.1.5. Design \(T\)</a></li>
+<li><a href="#org35a92ea">1.1.6. Verification</a></li>
+<li><a href="#org59faefc">1.1.7. Step Response</a></li>
 </ul>
 </li>
-<li><a href="#org39c982d">1.2. Example 2</a>
+<li><a href="#org7cebcfd">1.2. Example 2</a>
 <ul>
-<li><a href="#org971707e">1.2.1. Designing \(K\)</a></li>
-<li><a href="#orga206f2c">1.2.2. Draw the Bode Plot of \(KG(s)\)</a></li>
-<li><a href="#org7ebb0ec">1.2.3. Select Compensator</a></li>
-<li><a href="#orgdd4dc02">1.2.4. Design \(\beta\)</a></li>
-<li><a href="#org645e526">1.2.5. Design \(T\)</a></li>
-<li><a href="#org498d64c">1.2.6. Verification</a></li>
-<li><a href="#org8a51d35">1.2.7. Step Response</a></li>
+<li><a href="#org38304df">1.2.1. Designing \(K\)</a></li>
+<li><a href="#org5e7680a">1.2.2. Draw the Bode Plot of \(KG(s)\)</a></li>
+<li><a href="#org7de90b6">1.2.3. Select Compensator</a></li>
+<li><a href="#orgbf09693">1.2.4. Design \(\beta\)</a></li>
+<li><a href="#org6686bf2">1.2.5. Design \(T\)</a></li>
+<li><a href="#orgd042b11">1.2.6. Verification</a></li>
+<li><a href="#org0c8f0c1">1.2.7. Step Response</a></li>
 </ul>
 </li>
-<li><a href="#orgae54c1e">1.3. Example 3</a>
+<li><a href="#org51e1a06">1.3. Example 3</a>
 <ul>
-<li><a href="#org4c4c89c">1.3.1. Self-Oscillation Method</a></li>
-<li><a href="#org22845ee">1.3.2. Bode Plot</a></li>
-<li><a href="#org6c444e2">1.3.3. PID Tuning</a></li>
-<li><a href="#org135ced7">1.3.4. Step Response</a></li>
+<li><a href="#orgc56b5ff">1.3.1. Self-Oscillation Method</a></li>
+<li><a href="#org61f821a">1.3.2. Bode Plot</a></li>
+<li><a href="#orgbc53c7d">1.3.3. PID Tuning</a></li>
+<li><a href="#org3863fde">1.3.4. Step Response</a></li>
 </ul>
 </li>
 </ul>
@@ -291,11 +291,11 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
-<div id="outline-container-orgac2554f" class="outline-2">
-<h2 id="orgac2554f"><span class="section-number-2">1</span> Further Examples on Controller Design</h2>
+<div id="outline-container-orgd0a4b09" class="outline-2">
+<h2 id="orgd0a4b09"><span class="section-number-2">1</span> Further Examples on Controller Design</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-org4891afb" class="outline-3">
-<h3 id="org4891afb"><span class="section-number-3">1.1</span> Example 1</h3>
+</div><div id="outline-container-orgbc97ca4" class="outline-3">
+<h3 id="orgbc97ca4"><span class="section-number-3">1.1</span> Example 1</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Consider a position control system:
@@ -318,8 +318,8 @@ Design a lag or lead compensator \(C(s)\) such that the following specifications
 </ul>
 </div>
 
-<div id="outline-container-org4120010" class="outline-4">
-<h4 id="org4120010"><span class="section-number-4">1.1.1</span> Designing \(K\)</h4>
+<div id="outline-container-org742d0bd" class="outline-4">
+<h4 id="org742d0bd"><span class="section-number-4">1.1.1</span> Designing \(K\)</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <ul class="org-ul">
 <li>The transfer function of the compensator is \[C(s) = K\frac{Ts+1}{\gamma Ts+1},\,\gamma > 0\]</li>
@@ -331,8 +331,8 @@ Design a lag or lead compensator \(C(s)\) such that the following specifications
 </div>
 </div>
 
-<div id="outline-container-org03121d8" class="outline-4">
-<h4 id="org03121d8"><span class="section-number-4">1.1.2</span> Draw the Bode Plot of \(KG(s)\)</h4>
+<div id="outline-container-orgd9c8504" class="outline-4">
+<h4 id="orgd9c8504"><span class="section-number-4">1.1.2</span> Draw the Bode Plot of \(KG(s)\)</h4>
 <div class="outline-text-4" id="text-1-1-2">
 
 <div class="figure">
@@ -342,8 +342,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 </div>
-<div id="outline-container-org1795ef4" class="outline-4">
-<h4 id="org1795ef4"><span class="section-number-4">1.1.3</span> Select Compensator</h4>
+<div id="outline-container-org4e7c588" class="outline-4">
+<h4 id="org4e7c588"><span class="section-number-4">1.1.3</span> Select Compensator</h4>
 <div class="outline-text-4" id="text-1-1-3">
 <ul class="org-ul">
 <li>The gain crossover frequency of \(KG(s)\) is \(12.3\) rad/s and the phase margin is \(-154.6+180 = 25.4^\circ\).</li>
@@ -352,8 +352,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org4f636b5" class="outline-4">
-<h4 id="org4f636b5"><span class="section-number-4">1.1.4</span> Design \(\alpha\)</h4>
+<div id="outline-container-org15038d6" class="outline-4">
+<h4 id="org15038d6"><span class="section-number-4">1.1.4</span> Design \(\alpha\)</h4>
 <div class="outline-text-4" id="text-1-1-4">
 <ul class="org-ul">
 <li>The maximum phase lead we need is \[\phi = 50^\circ - 25.4^\circ + 10^\circ = 34.6^\circ.\]</li>
@@ -362,8 +362,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org92712b8" class="outline-4">
-<h4 id="org92712b8"><span class="section-number-4">1.1.5</span> Design \(T\)</h4>
+<div id="outline-container-orgb1d4006" class="outline-4">
+<h4 id="orgb1d4006"><span class="section-number-4">1.1.5</span> Design \(T\)</h4>
 <div class="outline-text-4" id="text-1-1-5">
 <ul class="org-ul">
 <li>Using the straight line approximation, we know that between \(\omega = 10\) and \(\omega = 50\), the magnitude plot can be approximated by \[20\log 2+40-40 \log \omega.\]</li>
@@ -374,8 +374,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgffbb37d" class="outline-4">
-<h4 id="orgffbb37d"><span class="section-number-4">1.1.6</span> Verification</h4>
+<div id="outline-container-org35a92ea" class="outline-4">
+<h4 id="org35a92ea"><span class="section-number-4">1.1.6</span> Verification</h4>
 <div class="outline-text-4" id="text-1-1-6">
 
 <div class="figure">
@@ -390,8 +390,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgf07c5d6" class="outline-4">
-<h4 id="orgf07c5d6"><span class="section-number-4">1.1.7</span> Step Response</h4>
+<div id="outline-container-org59faefc" class="outline-4">
+<h4 id="org59faefc"><span class="section-number-4">1.1.7</span> Step Response</h4>
 <div class="outline-text-4" id="text-1-1-7">
 
 <div class="figure">
@@ -408,8 +408,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org39c982d" class="outline-3">
-<h3 id="org39c982d"><span class="section-number-3">1.2</span> Example 2</h3>
+<div id="outline-container-org7cebcfd" class="outline-3">
+<h3 id="org7cebcfd"><span class="section-number-3">1.2</span> Example 2</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Consider a control system
@@ -432,8 +432,8 @@ Design a lead of lag compensator so that the following specifications are satisf
 </ul>
 </div>
 
-<div id="outline-container-org971707e" class="outline-4">
-<h4 id="org971707e"><span class="section-number-4">1.2.1</span> Designing \(K\)</h4>
+<div id="outline-container-org38304df" class="outline-4">
+<h4 id="org38304df"><span class="section-number-4">1.2.1</span> Designing \(K\)</h4>
 <div class="outline-text-4" id="text-1-2-1">
 <ul class="org-ul">
 <li>The transfer function of the compensator is \[C(s) = K\frac{Ts+1}{\gamma Ts+1},\,\gamma > 0\]</li>
@@ -445,8 +445,8 @@ Design a lead of lag compensator so that the following specifications are satisf
 </div>
 </div>
 
-<div id="outline-container-orga206f2c" class="outline-4">
-<h4 id="orga206f2c"><span class="section-number-4">1.2.2</span> Draw the Bode Plot of \(KG(s)\)</h4>
+<div id="outline-container-org5e7680a" class="outline-4">
+<h4 id="org5e7680a"><span class="section-number-4">1.2.2</span> Draw the Bode Plot of \(KG(s)\)</h4>
 <div class="outline-text-4" id="text-1-2-2">
 
 <div class="figure">
@@ -456,8 +456,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 </div>
-<div id="outline-container-org7ebb0ec" class="outline-4">
-<h4 id="org7ebb0ec"><span class="section-number-4">1.2.3</span> Select Compensator</h4>
+<div id="outline-container-org7de90b6" class="outline-4">
+<h4 id="org7de90b6"><span class="section-number-4">1.2.3</span> Select Compensator</h4>
 <div class="outline-text-4" id="text-1-2-3">
 <ul class="org-ul">
 <li>The gain crossover frequency of \(KG(s)\) is \(\approx 40\) rad/s.</li>
@@ -466,11 +466,11 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgdd4dc02" class="outline-4">
-<h4 id="orgdd4dc02"><span class="section-number-4">1.2.4</span> Design \(\beta\)</h4>
+<div id="outline-container-orgbf09693" class="outline-4">
+<h4 id="orgbf09693"><span class="section-number-4">1.2.4</span> Design \(\beta\)</h4>
 <div class="outline-text-4" id="text-1-2-4">
 <ul class="org-ul">
-<li>We need to find a frequency \(\omega_g\) where the phase is \(50-180+5= 125^\circ\).</li>
+<li>We need to find a frequency \(\omega_g\) where the phase is \(50-180+5= -125^\circ\).</li>
 <li>From the phase plot, we choose \(\omega_g = 5\) rad/s.</li>
 <li>Using the straight line approximation, we know that when \(\omega < 10\) and \(\omega = 50\), the magnitude plot can be approximated by \[20\log 200-20 \log \omega.\]</li>
 <li>\(\beta\) can be calculated as \[20\log\beta =20\log 200-20\log \omega \Rightarrow \beta = 40. \]</li>
@@ -478,8 +478,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org645e526" class="outline-4">
-<h4 id="org645e526"><span class="section-number-4">1.2.5</span> Design \(T\)</h4>
+<div id="outline-container-org6686bf2" class="outline-4">
+<h4 id="org6686bf2"><span class="section-number-4">1.2.5</span> Design \(T\)</h4>
 <div class="outline-text-4" id="text-1-2-5">
 <ul class="org-ul">
 <li>We choose \(T = 10/\omega_g = 2\).</li>
@@ -487,8 +487,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org498d64c" class="outline-4">
-<h4 id="org498d64c"><span class="section-number-4">1.2.6</span> Verification</h4>
+<div id="outline-container-orgd042b11" class="outline-4">
+<h4 id="orgd042b11"><span class="section-number-4">1.2.6</span> Verification</h4>
 <div class="outline-text-4" id="text-1-2-6">
 
 <div class="figure">
@@ -502,8 +502,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org8a51d35" class="outline-4">
-<h4 id="org8a51d35"><span class="section-number-4">1.2.7</span> Step Response</h4>
+<div id="outline-container-org0c8f0c1" class="outline-4">
+<h4 id="org0c8f0c1"><span class="section-number-4">1.2.7</span> Step Response</h4>
 <div class="outline-text-4" id="text-1-2-7">
 
 <div class="figure">
@@ -515,8 +515,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgae54c1e" class="outline-3">
-<h3 id="orgae54c1e"><span class="section-number-3">1.3</span> Example 3</h3>
+<div id="outline-container-org51e1a06" class="outline-3">
+<h3 id="org51e1a06"><span class="section-number-3">1.3</span> Example 3</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 Consider the plant as shown in the figure. Determine the values of PID parameters using the Ziegler-Nichols rules. Make fine tuning to achieve the maximum overshoot of \(25\%\).
@@ -529,8 +529,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org4c4c89c" class="outline-4">
-<h4 id="org4c4c89c"><span class="section-number-4">1.3.1</span> Self-Oscillation Method</h4>
+<div id="outline-container-orgc56b5ff" class="outline-4">
+<h4 id="orgc56b5ff"><span class="section-number-4">1.3.1</span> Self-Oscillation Method</h4>
 <div class="outline-text-4" id="text-1-3-1">
 <ul class="org-ul">
 <li>Since there is an integrator in the plant, the first method is not applicable (the open-loop step response will not plateau)</li>
@@ -542,8 +542,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org22845ee" class="outline-4">
-<h4 id="org22845ee"><span class="section-number-4">1.3.2</span> Bode Plot</h4>
+<div id="outline-container-org61f821a" class="outline-4">
+<h4 id="org61f821a"><span class="section-number-4">1.3.2</span> Bode Plot</h4>
 <div class="outline-text-4" id="text-1-3-2">
 
 <div class="figure">
@@ -554,8 +554,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org6c444e2" class="outline-4">
-<h4 id="org6c444e2"><span class="section-number-4">1.3.3</span> PID Tuning</h4>
+<div id="outline-container-orgbc53c7d" class="outline-4">
+<h4 id="orgbc53c7d"><span class="section-number-4">1.3.3</span> PID Tuning</h4>
 <div class="outline-text-4" id="text-1-3-3">
 <ul class="org-ul">
 <li>From the table of Ziegler-Nichols methods, we have \[K_p = 0.6K_{cr} = 18,\,T_i = 0.5P_{cr} = 1.405,\,T_d = 0.125 P_{cr} = 0.351.\]</li>
@@ -569,8 +569,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org135ced7" class="outline-4">
-<h4 id="org135ced7"><span class="section-number-4">1.3.4</span> Step Response</h4>
+<div id="outline-container-org3863fde" class="outline-4">
+<h4 id="org3863fde"><span class="section-number-4">1.3.4</span> Step Response</h4>
 <div class="outline-text-4" id="text-1-3-4">
 
 <div class="figure">

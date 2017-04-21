@@ -1,0 +1,459 @@
+---
+layout: slides
+title: Lecture 11 - EE 3011 Modelling and Control
+---
+<section>
+<div id="outline-container-org8b00dda" class="outline-2">
+<h1 id="org8b00dda">Review</h1>
+</div>
+</section>
+<section>
+<div id="outline-container-org64097f1" class="outline-2">
+<h3 id="org64097f1">Complex Numbers</h3>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>\(a+bi = r\angle \phi\).</li>
+<li>\(r = \sqrt{a^2+b^2}\) and \[\phi=\begin{cases}\tan^{-1}(b/a)&a > 0\\ \tan^{-1}(b/a) + 180^\circ &a <0\\ 90^\circ& a=0,\,b>0\\ -90^\circ &a=0,b<0 \\indeterminate &a=b=0\end{cases}.\]</li>
+<li>\((a+bi)^n = r^n\angle n\phi\). (This is true even when \(n\) is negative.)</li>
+<li>\[\frac{1}{a+bi} = \frac{a-bi}{a^2+b^2}.\]</li>
+</ul>
+</div>
+</div>
+</section>
+<section>
+<div id="outline-container-orgd01c02d" class="outline-2">
+<h3 id="orgd01c02d">Frequency Response</h3>
+<div class="outline-text-2" id="text-1">
+<p>
+The frequency response of a system is defined as the <b>steady-state response</b> of the system to <b>a sinusoidal input</b>.
+</p>
+
+
+<div class="figure" style="zoom:1.7;">
+<p><object type="image/svg+xml" data="assets/Lec1Summary.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<p>
+It is also a sinusoidal signal, where
+</p>
+<ul class="org-ul">
+<li>The frequency is the same.</li>
+<li>The amplitude is \(A\times |G(j\omega)|\).</li>
+<li>The phase is \(\phi + \angle G(j\omega)\).</li>
+</ul>
+</div>
+</div>
+</section>
+<section>
+<div id="outline-container-org7f08bdc" class="outline-2">
+<h3 id="org7f08bdc">Bode Plots</h3>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>Bode plots of a transfer function \(G(s)\) include two graphs:
+<ul class="org-ul">
+<li>Magnitude plot: \(20\log_{10}|G(j\omega)|\) (dB) in linear scale v.s. \(\omega\) in log scale.</li>
+<li>Phase plot: \(\angle G(j\omega)\) (degree) in linear scale v.s. \(\omega\) in log-scale.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org92fac0f" class="outline-2">
+<h3 id="org92fac0f">Basic Factors</h3>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li>A complex polynomial can always be factorized in to basic terms 
+<ul class="org-ul">
+<li>\(K\)</li>
+<li>\(s\)</li>
+<li>\(\tau s + 1\)</li>
+<li>\[\left(\frac{s}{\omega_n}\right)^2 + 2\zeta \left(\frac{s}{\omega_n}\right) + 1.\]</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section>
+<div id="outline-container-org342a415" class="outline-2">
+<h3 id="org342a415">Constant K</h3>
+<div class="outline-text-2" id="text-5">
+
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec2BodeConstant.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org840e21c" class="outline-2">
+<h3 id="org840e21c">Integrator \(1/s\)</h3>
+<div class="outline-text-2" id="text-6">
+
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec2BodeIntegrators.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org83c5d41" class="outline-2">
+<h3 id="org83c5d41">First Order \(1/(\tau s+1)\)</h3>
+<div class="outline-text-2" id="text-7">
+
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec2BodeFirstOrder.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org4f40f5b" class="outline-2">
+<h3 id="org4f40f5b">Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</h3>
+<div class="outline-text-2" id="text-8">
+
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec2BodeSecondOrder.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org60defb0" class="outline-2">
+<h3 id="org60defb0">Bode Plots of Complex Function</h3>
+<div class="outline-text-2" id="text-9">
+<ul class="org-ul">
+<li>Decompose the Transfer Function into Basic Factors</li>
+<li>Determine the Plot at the Low Frequency</li>
+<li>Add First and Second Order Terms</li>
+<li>Verify the results in Matlab</li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org1715961" class="outline-2">
+<h3 id="org1715961">Frequency Domain Modeling</h3>
+<div class="outline-text-2" id="text-10">
+<ul class="org-ul">
+<li>Determine an asymptotic magnitude plot by approximating the actual gain plot by a sequence of straight lines with slopes of \(20N\).</li>
+<li>From the low frequency plot, determine the number of integrator \(1/s^N\) and the constant term \(K\).</li>
+<li>Determine the corner frequency from the intersection of two consecutive lines.</li>
+<li>From the change of slopes of the consecutive lines, determine the associated basic factor.</li>
+<li>Determine the damping ratio for second order zeros and poles.</li>
+<li>The phase plot can be used to verify your results.</li>
+</ul>
+</div>
+</div>
+
+</section>
+  <section>
+<div id="outline-container-orgd7bb78d" class="outline-2">
+<h3 id="org1715961">Non-Minimum Phase System</h3>
+<div class="outline-text-2" id="text-9">
+<div class="figure" style="zoom:1.5">
+<p><object type="image/svg+xml" data="assets/Lec3UnstableZero.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+</div>
+</div>
+ </section>
+<section>
+<div id="outline-container-org8b5d58a" class="outline-2">
+<h3 id="org8b5d58a">Nyquist Contour and Plot</h3>
+<div class="outline-text-2" id="text-11">
+
+<div class="figure" style="zoom:2.5;">
+<p><object type="image/svg+xml" data="assets/Lec11Nyquist.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org78f8e70" class="outline-2">
+<h3 id="org78f8e70">Nyquist Stability Criterion</h3>
+<div class="outline-text-2" id="text-12">
+<p>
+A feedback system is stable if and only if \(N=-P\), i.e. the number of the counterclockwise encirclements of \(–1\) point by the Nyquist plot in the \(G\)-plane is equal to the number of the unstable poles of the open-loop transfer function.
+</p>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org8f909aa" class="outline-2">
+<h3 id="org8f909aa">Sketch Nyquist Plot (Segment 1)</h3>
+<div class="outline-text-2" id="text-13">
+<ul class="org-ul">
+<li>We need to find 4 types of point from the Bode plots:
+<ul class="org-ul">
+<li>\(\omega = 0\);</li>
+<li>Real intersection: Phase = \(180N^\circ\);</li>
+<li>Imaginary intersection: Phase = \(180N+90^\circ\);</li>
+<li>\(\omega = +\infty\);</li>
+</ul></li>
+<li>We can also deduce the trend of the plot around those points:
+<ul class="org-ul">
+<li>If the phase is decreasing, the plot goes clockwise</li>
+<li>If the phase is increasing, the plot goes counterclockwise</li>
+</ul></li>
+<li>Plot those points on the \(G\)-plane and draw a smooth line to connect them.</li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org2d5c362" class="outline-2">
+<h3 id="org2d5c362">Sketch Nyquist Plot (Segment 2&amp;3)</h3>
+<div class="outline-text-2" id="text-14">
+<ul class="org-ul">
+<li>Segment 2 is the origin point for strictly proper function. It is a constant for proper function.</li>
+<li>Segment 3 is the mirror reflection of segment 1 around the real axis.</li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org6c54611" class="outline-2">
+<h3 id="org6c54611">Gain Margin</h3>
+<div class="outline-text-2" id="text-15">
+<ul class="org-ul">
+<li>Define \(\omega_{\phi}\) to be the smallest frequency, where the phase of the open-loop transfer function is \(-180^\circ\).</li>
+<li>\(\omega_{\phi}\) is called the phase crossover frequency.</li>
+<li>For most minimum phase system, the gain margin for the system is given by \[K_g = \frac{1}{|G(j\omega_\phi)H(\omega_\phi)|}.\]</li>
+<li>In terms of decibles,\[K_g(dB) = -20\log|G(j\omega_\phi)H(\omega_\phi)|.\]</li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org148d2d2" class="outline-2">
+<h3 id="org148d2d2">Phase Margin</h3>
+<div class="outline-text-2" id="text-16">
+<ul class="org-ul">
+<li>Define \(\omega_{g}\) to be the smallest frequency, where the magnitude of the open-loop transfer function is \(1\) or \(0dB\).</li>
+<li>\(\omega_{g}\) is called the gain crossover frequency.</li>
+<li>For most minimum phase system, the phase margin for the system is given by \[\phi_m = 180^\circ+\angle G(j\omega_g)H(\omega_g).\]</li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org316f568" class="outline-2">
+<h3 id="org316f568">Stable System</h3>
+<div class="outline-text-2" id="text-17">
+
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec6Bode.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-orgacbd3c2" class="outline-2">
+<h3 id="orgacbd3c2">Unstable System</h3>
+<div class="outline-text-2" id="text-18">
+
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec6BodeUnstable.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org77d4f08" class="outline-2">
+<h3 id="org77d4f08">Loop Shaping</h3>
+<div class="outline-text-2" id="text-19">
+<ul class="org-ul">
+<li>In the low frequency, the gain should be high to have good steady state accuracy.</li>
+<li>Around the gain crossover frequency, the slope of the magnitude plot should be about \(-20\) and extend over a sufficient range of frequency</li>
+<li>In the high frequency, the gain must be small in order to have good noise attenuation and robustness against model uncertainty.</li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-orge579f90" class="outline-2">
+<h3 id="orge579f90">Desirable Magnitude Plot Shape</h3>
+<div class="outline-text-2" id="text-20">
+
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec7IdealShape.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org1d35071" class="outline-2">
+<h3 id="org1d35071">Lead and Lag Compensator</h3>
+<div class="outline-text-2" id="text-21">
+<ul class="org-ul">
+<li>The transfer function of a lead compensator is \[C(s) = K\frac{Ts+1}{\alpha Ts+1},\,0<\alpha<1.\]</li>
+<li>The transfer function of a lag compensator is \[C(s) = K\frac{Ts+1}{\beta Ts+1},\,\beta > 1.\]</li>
+</ul>
+
+
+</div>
+</div>
+
+</section>
+<section>
+<h3 id="org1d35071">Lead and Lag Compensator</h3>
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec11LeadLag.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</section>
+<section>
+<div id="outline-container-org38b7bcb" class="outline-2">
+<h3 id="org38b7bcb">Lead Compensator Design Procedure</h3>
+<div class="outline-text-2" id="text-22">
+<ul class="org-ul">
+<li>Determine the gain \(K\) to satisfy the steady state error requirement.</li>
+<li>Draw the Bode plots of \(KG(s)\), derive the phase margin \(\phi_0\)</li>
+<li>From \(\phi_0\) and the required phase margin \(PM\), determine the phase lead \(\phi\): \[\phi = PM - \phi_0 + 5^\circ\sim 10^\circ.\]</li>
+<li>Derive \[\alpha = \frac{1-\sin \phi}{1+\sin \phi}.\]</li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+<h3 id="org38b7bcb">Lead Compensator Design Procedure</h3>
+ <ul>
+<li>To achieve the maximum phase lead, place the gain crossover frequency \(\omega_g\) at \(1/\sqrt{\alpha}T\). Therefore, \[20\log|G(j\omega_g)| + 20\log K = 10\log \alpha,\] and we can derive \(\omega_g\).</li>
+<li>Choose \[T = \frac{1}{\sqrt{\alpha}\omega_g}.\]</li>
+<li>Verify the result using Matlab.</li>
+ </ul> 
+</section>
+<section>
+<div id="outline-container-org04a0cd1" class="outline-2">
+<h3 id="org04a0cd1">Lead Compensator Example</h3>
+<div class="outline-text-2" id="text-23">
+
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec7ExampleBode.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-orgd10a71c" class="outline-2">
+<h3 id="orgd10a71c">Lag Compensator Design Procedure</h3>
+<div class="outline-text-2" id="text-24">
+<ul class="org-ul">
+<li>Determine the compensator gain \(K\) to meet the steady state error requirement.</li>
+<li>Draw the Bode plots of \(KG(s)\).</li>
+<li>From the Bode plots, find the frequency \(\omega_g\) at which the phase of \(KG(s)\) is \[\angle KG(\omega_g) = PM -180^\circ + 5^\circ\sim 10^\circ.\]</li>
+<li>Calculate \(\beta\) to make \(\omega_g\) the gain crossover frequency, \[20\log\beta = 20\log K + 20\log |G(j\omega_g)|.\]</li>
+<li>Choose \(T\) to be much greater than \(1/\omega_g\), for example, \(T = 10/\omega_g\).</li>
+<li>Verify the results using matlab.</li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org6d8f5ca" class="outline-2">
+<h3 id="org6d8f5ca">Lag Compensator Example</h3>
+<div class="outline-text-2" id="text-25">
+
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec8ExampleBode.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-orge9d74e8" class="outline-2">
+<h3 id="orge9d74e8">PID Controller</h3>
+<div class="outline-text-2" id="text-26">
+
+<div class="figure" style="zoom:2.5;">
+<p><object type="image/svg+xml" data="assets/Lec9Diagram.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+<p>
+The standard form of PID controller is \[C(s) = K_p\left(1+\frac{1}{T_is}+T_ds\right) = K_p+\frac{K_I}{s}+K_Ds.\]
+</p>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org0bbe9bc" class="outline-2">
+<h3 id="org0bbe9bc">Step Response Method</h3>
+<div class="outline-text-2" id="text-27">
+<ul class="org-ul">
+<li>Find the maximum slop tangent line</li>
+<li>Read \(K\), \(T\) and \(L\) from the plot</li>
+<li>Compute \(K_p\), \(T_i\) and \(T_d\) from the table</li>
+</ul>
+
+
+<div class="figure" style="zoom:1.2;">
+<p><object type="image/svg+xml" data="assets/Lec9Step.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org6722b9a" class="outline-2">
+<h3 id="org6722b9a">Self-Oscillation Method</h3>
+<div class="outline-text-2" id="text-28">
+<ul class="org-ul">
+<li>The critical gain \(K_{cr}\) is the gain margin</li>
+<li>The critical period \(P_{cr} = 2\pi/\omega_\phi\)</li>
+<li>Compute \(K_p\), \(T_i\) and \(T_d\) from the table</li>
+</ul>
+</div>
+</div>
+</section>

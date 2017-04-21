@@ -1,0 +1,273 @@
+---
+layout: slides
+title: Lecture 4 - EE 3011 Modelling and Control
+---
+	<section>
+	  <h2 id="org2054433">Frequency Domain Modeling</h2>
+	</section>
+	<section>
+	  <div id="outline-container-org2054433" class="outline-2">
+	    <h3 id="org2054433">Frequency Domain Modeling</h3>
+	    <div class="outline-text-2" id="text-1">
+	      <ul class="org-ul">
+		<li>Modeling from first principles can be difficult and time-consuming</li>
+		<li>The Bode plots of a system can be obtained through experiments.</li>
+		<li>For a minimum phase system, an approximate transfer function can be derived from the Bode magnitude plot</li>
+	      </ul>
+	    </div>
+	  </div>
+	</section>
+	<section>
+	    <h3 id="org90352e9">How to Get the Transfer Function</h3>
+	      <ul class="org-ul">
+		<li>Determine an asymptotic magnitude plot by approximating the actual gain plot by a sequence of straight lines with slopes of \(20N\).</li>
+		<li>From the low frequency plot, determine the number of integrator \(1/s^N\) and the constant term \(K\).
+		  <ul class="org-ul">
+		    <li>The beginning slope is \(20N\) for \(s^N\).</li>
+		    <li>Calculate the constant term \(K\) accordingly</li>
+		</ul></li>
+	      </ul>
+	</section>
+	<section>
+	    <h3 id="org90352e9">How to Get the Transfer Function</h3>
+	      <ul class="org-ul">
+		<li>Determine the corner frequency from the intersection of two consecutive lines.</li>
+		<li>From the change of slopes of the consecutive lines, determine the associated basic factor.
+		  <ul class="org-ul">
+		    <li>\(+20\) implies first order zero and \(-20\) implies first order pole;</li>
+		    <li>\(+40\) implies second order zero and \(-40\) implies second order pole.</li>
+		</ul></li>
+		<li>Determine the damping ratio for second order zeros and poles.
+		  <ul class="org-ul">
+		    <li>\(-20\log(2\zeta)\) correction for second order poles.</li>
+		    <li>\(+20\log(2\zeta)\) correction for second order zeros.</li>
+		</ul></li>
+		<li>The phase plot can be used to verify your results.</li>
+	      </ul>
+	</section>
+	<section>
+	    <h3 id="org7259f3c">Example 1</h3>
+	      <p>
+		Given the Bode plot of a minimum phase system. Obtain an estimated transfer function.
+	      </p>
+
+	      <div class="figure" style="text-align:center;zoom:1.4;">
+		<p><object type="image/svg+xml" data="assets/Lec4Example1a.svg" class="org-svg">
+		    Sorry, your browser does not support SVG.</object>
+		</p>
+	      </div>
+	</section>
+	<section>
+	      <div class="figure" style="text-align:center;zoom:1.8;">
+		<p><object type="image/svg+xml" data="assets/Lec4Example1b.svg" class="org-svg">
+		    Sorry, your browser does not support SVG.</object>
+		</p>
+	      </div>
+	</section>
+	<section>
+	      <ul class="org-ul">
+		<li>Approximate the magnitude plot via a sequence of straight lines with slope \(20N\).</li>
+		<li>For the low frequency:
+		  <ul class="org-ul">
+		    <li>The slope is 0. Hence, no integrator;</li>
+		    <li>The magnitude is 20dB. Hence, the constant term is \(K = 10\).</li>
+		</ul></li>
+	      </ul>
+	</section>
+	<section>
+	      <ul class="org-ul">
+		<li>Determine the first and second order terms:
+		  <ul class="org-ul">
+		    <li>There is second order term with natural frequency \(\omega_n = 10\).</li>
+		    <li>The correction is -6dB. Hence \(-20\log(2\zeta) = -6\), \(\zeta = 1\). The system is critically damped.</li>
+		    <li>There is a first order zero at \(100\).</li>
+		</ul></li>
+	      </ul>
+	      <table>
+		<tbody>
+		  <tr>
+		    <td class="org-right">Corner Frequency</td>
+		    <td class="org-right">Slope Before</td>
+		    <td class="org-right">Slope After</td>
+		    <td class="org-right">Change of Slope</td>
+		  </tr>
+
+		  <tr>
+		    <td class="org-right">10</td>
+		    <td class="org-right">0</td>
+		    <td class="org-right">-40</td>
+		    <td class="org-right">-40</td>
+		  </tr>
+
+		  <tr>
+		    <td class="org-right">100</td>
+		    <td class="org-right">-40</td>
+		    <td class="org-right">-20</td>
+		    <td class="org-right">+20</td>
+		  </tr>
+		</tbody>
+	      </table>
+
+	      <p>
+		\[G(s) = \frac{10(0.01s+1)}{(s/10)^2+2(s/10)+1} = \frac{10(0.01s+1)}{(0.1s+1)^2}\]
+	      </p>
+	</section>
+	<section>
+	      <ul class="org-ul">
+		<li>Verify the transfer function using the Bode phase plot</li>
+	      </ul>
+	      <table>
+		<tbody>
+		  <tr>
+		    <td class="org-left">Frequency</td>
+		    <td class="org-left">Low</td>
+		    <td class="org-right">1</td>
+		    <td class="org-right">10</td>
+		    <td class="org-right">100</td>
+		    <td class="org-right">1000</td>
+		  </tr>
+
+		  <tr>
+		    <td class="org-left">Slope Change</td>
+		    <td class="org-left">&#xa0;</td>
+		    <td class="org-right">-90</td>
+		    <td class="org-right">+45</td>
+		    <td class="org-right">+90</td>
+		    <td class="org-right">-45</td>
+		  </tr>
+
+		  <tr>
+		    <td class="org-left">Slope</td>
+		    <td class="org-left">0</td>
+		    <td class="org-right">-90</td>
+		    <td class="org-right">-45</td>
+		    <td class="org-right">45</td>
+		    <td class="org-right">0</td>
+		  </tr>
+		</tbody>
+	      </table>
+
+
+	      <div class="figure" style="text-align:center;zoom:1.2;">
+		<p><object type="image/svg+xml" data="assets/Lec4Example1c.svg" class="org-svg">
+		    Sorry, your browser does not support SVG.</object>
+		</p>
+	      </div>
+	</section>
+	<section>
+	  <h3 id="orgd60c0b3">Example 2</h3>
+	    <p>
+	      Determine the transfer function of a minimum phase system from Bode magnitude plot:
+	    </p>
+
+	    <div class="figure" style="text-align:center;zoom:1.3;">
+	      <p><object type="image/svg+xml" data="assets/Lec4Example2a.svg" class="org-svg">
+		  Sorry, your browser does not support SVG.</object>
+	      </p>
+	    </div>
+	</section>
+	<section>
+	    <ul class="org-ul">
+	      <li>For the low frequency:
+		<ul class="org-ul">
+		  <li>The slope is -20, which corresponds to an integrator \(1/s\).</li>
+		  <li>The magnitude of the low frequency asymptote is 20dB at frequency 1. Hence, \(K = 10\).</li>
+	      </ul></li>
+	      <li><p>
+		  Determine the first and second order terms:
+		</p>
+	    <table>
+	      <tbody>
+		<tr>
+		  <td class="org-right">Corner Frequency</td>
+		  <td class="org-right">Slope Before</td>
+		  <td class="org-right">Slope After</td>
+		  <td class="org-right">Change of Slope</td>
+		</tr>
+
+		<tr>
+		  <td class="org-right">0.2</td>
+		  <td class="org-right">-20</td>
+		  <td class="org-right">-60</td>
+		  <td class="org-right">-40</td>
+		</tr>
+
+		<tr>
+		  <td class="org-right">1</td>
+		  <td class="org-right">-60</td>
+		  <td class="org-right">-20</td>
+		  <td class="org-right">+40</td>
+		</tr>
+	      </tbody>
+	    </table></li>
+	    </ul>
+	</section>
+	<section>
+		<ul class="org-ul">
+		  <li>There is second order term on the denominator with natural frequency \(\omega_n = 0.2\).</li>
+		  <li>The correction is +6dB. Hence \(-20\log(2\zeta) = 6\), \(\zeta = 0.25\).</li>
+		</ul>
+		<p>
+		  \[\left[(s/0.2)^2+0.5(s/0.2)+1\right]^{-1}\]
+		</p>
+		<ul class="org-ul">
+		  <li>There is second order term on the numerator with natural frequency \(\omega_n = 1\).</li>
+		  <li>The correction is +2dB. Hence \(20\log(2\zeta) = 2\), \(\zeta = 0.63\).</li>
+		</ul>
+		<p>
+		  \[s^2+1.26s+1\]
+	      </p>
+	</section>
+	<section>
+	  <p>The minimum phase transfer function corresponding to the magnitude plot is: </p>
+	    <p>
+	      \[G(s) = \frac{10(s^2+1.26s+1)}{s\left[(s/0.2)^2+0.5(s/0.2)+1\right]}.\]
+	    </p>
+	</section>
+	<section>
+	  <h3 id="orge3614a5">Example 3: Pupillary Light Reflex Dynamics</h3>
+	    <ul class="org-ul">
+	      <li>The human eye is an organ that is easily accessible for experiments. It has a control system that adjusts the pupil opening to regulate the light intensity at the retina.</li>
+	      <li>To determine its dynamics, light intensity on the eye was varied sinusoidally and the pupil opening was measured.</li>
+	    </ul>
+	</section>
+	<section>
+	    <div class="figure" style="text-align:center;zoom:1.8;">
+	      <p><object type="image/svg+xml" data="assets/Lec4Example3.svg" class="org-svg">
+		  Sorry, your browser does not support SVG.</object>
+	      </p>
+	    </div>
+	</section>
+	<section>
+	    <ul class="org-ul">
+	      <li>By matching the magnitude, a model can be obtained as</li>
+	    </ul>
+	    <p>
+	      \[G_1(s) = \frac{0.17}{(0.08s+1)^3}.\]
+	    </p>
+	    <ul class="org-ul">
+	      <li>The phase of \(G_1(s)\) (plotted as the green dashed line, is significantly different from actual phase</li>
+	      <li>We can add a delay term \(\exp(-0.2s)\) to match the phase, without affecting the magnitude (<b>why?</b>)</li>
+	    </ul>
+	    <p>
+	      \[G(s) = \frac{0.17}{(0.08s+1)^3}\exp(-0.2s).\]
+	    </p>
+	</section>
+	<section>
+	  <h3 id="org43a6bf3">Review</h3>
+	  <ul class="org-ul">
+	    <li>Frequency response</li>
+	    <li>Bode plot</li>
+	    <li>Frequency domain modeling</li>
+	    <li>One Fundamental Question: Given transfer functions \(G(s),\,H(s)\), how to determine if the system is closed-loop stable?
+	      <ul class="org-ul">
+		<li>Time Domain: Routh-Hurwitz, Root Locus</li>
+		<li>Frequency Domain: Nyquist Plot and Stability Criterion</li>
+	    </ul></li>
+	    <div class="figure" style="text-align:center;zoom:1.6;">
+	      <p><object type="image/svg+xml" data="assets/Lec5Feedback.svg" class="org-svg">
+		  Sorry, your browser does not support SVG.</object>
+	      </p>
+	    </div>
+	  </ul>
+	</section>

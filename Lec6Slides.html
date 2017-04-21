@@ -1,0 +1,268 @@
+---
+layout: slides
+title: Lecture 6 - EE 3011 Modelling and Control
+---
+<section>
+<div id="outline-container-org3d49b78" class="outline-2">
+<h2 id="org3d49b78">Relative Stability Analysis</h2>
+</div>
+</section>
+<section>
+<div id="outline-container-org976aaa6" class="outline-2">
+<h2 id="org976aaa6">Motivation</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>In practice it is not enough that a system is stable due to modelling uncertainties.</li>
+<li>There must also be some margins of stability that describe how stable the system is.</li>
+<li>We shall concentrate on minimum phase systems (\(P=0\)).</li>
+<li>In time-domain, the closer the dominant closed-loop poles to the imaginary axis, the poorer the system relative stability.</li>
+<li>Using Nyquist Stability Criterion, we know that the system is stable if and only if the Nyquist plot does not encircle \(-1\).</li>
+</ul>
+</div>
+</div>
+</section>
+<section>
+<div id="outline-container-org9694da9" class="outline-2">
+<h2 id="org9694da9">Example</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>Let us consider the following close-loop transfer function \[G(s)H(s) = \frac{K}{(s+1)\left[(s/10)^2+s/10+1\right]}.\]</li>
+</ul>
+
+</div>
+</div>
+
+</section>
+<section>
+<div class="figure" style="zoom:1.7;">
+<p><object type="image/svg+xml" data="assets/Lec6Nyquist.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</section>
+<section>
+  
+<ul class="org-ul">
+<li>\(G(s)H(s)\) is minimum phase</li>
+<li>To make the system closed-loop stable, the Nyquist plot should not encircle \(-1\).</li>
+<li>From the figure, the larger the value of \(K\) the closer the Nyquist plot is to the critical point \(–1\).</li>
+<li>The closeness of the plot to \(–1\) gives a measure on the relative stability of the system.</li>
+<li>In general, it is expected that the closer the Nyquist plot is to the critical point, the larger the maximum overshoot and the longer the settling time will be (worse performance).</li>
+</ul>
+</section>
+<section>
+<div id="outline-container-org96f9c7a" class="outline-2">
+<h2 id="org96f9c7a">Gain Margin</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li>The gain margin \(K_g\) of a system is defined as the largest amount that the open loop gain can be increased before the closed loop system goes unstable.</li>
+<li>Define \(\omega_{\phi}\) to be the smallest frequency, where the phase of the open-loop transfer function is \(-180^\circ\).</li>
+<li>\(\omega_{\phi}\) is called the phase crossover frequency.</li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+<h2 id="org96f9c7a">Gain Margin</h2>
+ <ul>
+   <li>If the open loop minimum-phase transfer function satisfies the following conditions:
+<ul class="org-ul">
+<li>The phase starts at 0 or -90.</li>
+<li>The phase is monotonically decreasing</li>
+<li>The magnitude is monotonically decreasing</li>
+</ul></li>
+<li>Then the phase margin for the system is given by \[K_g = \frac{1}{|G(j\omega_\phi)H(\omega_\phi)|}.\]</li>
+<li>In terms of decibles,\[K_g(dB) = -20\log|G(j\omega_\phi)H(\omega_\phi)|.\]</li>
+
+ </ul> 
+</section>
+<section>
+<div id="outline-container-org11ad623" class="outline-2">
+<h2 id="org11ad623">Phase Margin</h2>
+<div class="outline-text-2" id="text-5">
+<ul class="org-ul">
+<li>The phase margin \(\phi_m\) is the amount of phase lag required to reach the stability limit.</li>
+<li>Define \(\omega_{g}\) to be the smallest frequency, where the magnitude of the open-loop transfer function is \(1\) or \(0dB\).</li>
+<li>\(\omega_{g}\) is called the gain crossover frequency.</li>
+<li>If the open loop minimum-phase transfer function satisfies the following conditions:
+<ul class="org-ul">
+<li>The phase starts at 0 or -90.</li>
+<li>The phase is monotonically decreasing</li>
+<li>The magnitude is monotonically decreasing</li>
+</ul></li>
+<li>Then the phase margin for the system is given by \[\phi_m = 180^\circ+\angle G(j\omega_g)H(\omega_g).\]</li>
+</ul>
+</div>
+</div>
+</section>
+<section>
+<div id="outline-container-org35d2366" class="outline-2">
+<h2 id="org35d2366">Gain and Phase Margin on Bode Plot</h2>
+<div class="outline-text-2" id="text-6">
+<ul class="org-ul">
+<li>Suppose the open loop minimum-phase transfer function satisfies the following conditions:
+<ul class="org-ul">
+<li>The phase starts at 0 or -90.</li>
+<li>The phase is monotonically decreasing</li>
+<li>The magnitude is monotonically decreasing</li>
+</ul></li>
+<li>We can find the gain and phase crossover frequency and get the stability margins from Bode plot.</li>
+<li>For most of the systems, we can find the stability margins from the Bode plot.</li>
+<li>However, the Bode plot interpretation of the gain and phase margins can be incorrect. (Need Nyquist Plot)</li>
+</ul>
+
+</div>
+</div>
+
+</section>
+<section>
+<h3>Stable System</h3>  
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec6Bode.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</section>
+<section>
+<div id="outline-container-org9686315" class="outline-2">
+<h3 id="org9686315">Unstable System</h2>
+<div class="outline-text-2" id="text-7">
+
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec6BodeUnstable.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+</div>
+</div>
+
+</section>
+<section>
+  
+<h3 id="org9686315">Unstable System</h2>
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec6NyquistUnstable.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</section>
+<section>
+<div id="outline-container-org8ac01dc" class="outline-2">
+<h2 id="org8ac01dc">Stability Margins and Closed-Loop Stability</h2>
+<div class="outline-text-2" id="text-8">
+<ul class="org-ul">
+<li>Unstable closed-loop system has negative gain and phase margin</li>
+<li>Stable closed-loop system has positive gain and phase margin</li>
+<li>Proper phase and gain margins ensure stability against modeling uncertainties and variations in system components.</li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org97b8993" class="outline-2">
+<h2 id="org97b8993">Stability Margins and System Performance</h2>
+<div class="outline-text-2" id="text-9">
+<ul class="org-ul">
+<li>For minimum phase systems, to have satisfactory performance, the phase margin should be between \(30^\circ\) and \(70^\circ\) and gain margin should be greater than \(6dB\).</li>
+<li>For second-order system, the phase margin is directly related to the damping ratio of the closed loop system.</li>
+</ul>
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec6Secondorder.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+
+<ul class="org-ul">
+<li>The closed-loop transfer function is given by \[\frac{Y(s)}{R(s)} = \frac{1}{(s/\omega_n)^2+2\zeta s/\omega_n +1}.\]</li>
+<li>The phase margin is related to the damping ratio by \[\phi_m=\tan^{-1}\frac{2\zeta}{\sqrt{\sqrt{1+4\zeta^4}-2\zeta^2}}.\]</li>
+<li>The large the phase margin, the larger the damping ratio. In particular, for \(0\leq \zeta\leq 0.6\), \(\zeta \approx \phi_m/100\).</li>
+<li>For more complicated higher order systems, good stability margins may not be enough to guarantee good performance.</li>
+</ul>
+
+</section>
+<section>
+<div id="outline-container-org016b7d1" class="outline-2">
+<h2 id="org016b7d1">Example: System with Good Stability Margins but Poor Performance</h2>
+<div class="outline-text-2" id="text-10">
+<ul class="org-ul">
+<li>Consider the following open-loop transfer function \[G(s)H(s) = \frac{0.38(s^2+0.1s+0.55)}{s(s+1)(s^2+0.06s+0.5)}.\]</li>
+<li>The system has infinite gain margin and \(70^\circ\) phase margin.</li>
+<li>However, the closed-loop system has two poles at \(-0.01\pm 0.7j\).</li>
+</ul>
+
+</div>
+</div>
+
+</section>
+<section>
+<h3 id="org016b7d1">Example: System with Good Stability Margins but Poor Performance</h2>
+  <div class="figure" style="zoom:1.4;">
+<p><object type="image/svg+xml" data="assets/Lec6NyquistPoor.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</section>
+<section>
+  
+<h3 id="org016b7d1">Example: System with Good Stability Margins but Poor Performance</h2>
+  <div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec6BodePoor.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</section>
+<section>
+<div id="outline-container-org758710f" class="outline-2">
+<h2 id="org758710f">Example</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+Consider an open-loop transfer function
+\[G(s)H(s) = \frac{K}{s(s+1)(s+5)}.\]
+Derive the stability margins of the system for \(K = 10\) and \(K = 100\).
+</p>
+</div>
+</div>
+</section>
+<section>
+<div id="outline-container-orgec19543" class="outline-2">
+<h3 id="orgec19543">\(K=10\)</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+\(\phi_m = 25^\circ\) and \(K_g=9.5 dB\). The system is stable.
+</p>
+
+<div class="figure" style="zoom:1.4;">
+<p><object type="image/svg+xml" data="assets/Lec6BodeK10.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+
+</section>
+<section>
+<div id="outline-container-orgc7559ce" class="outline-2">
+<h3 id="orgc7559ce">\(K=100\)</h2>
+<div class="outline-text-2" id="text-13">
+<p>
+\(\phi_m = -23^\circ\) and \(K_g=-10.5 dB\). The system is unstable.
+</p>
+
+<div class="figure" style="zoom:1.4;">
+<p><object type="image/svg+xml" data="assets/Lec6BodeK100.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+</section>

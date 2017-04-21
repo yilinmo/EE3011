@@ -25,7 +25,7 @@ from numpy import convolve as conv
 * Review
 ** Complex Numbers
 - $a+bi = r\angle \phi$. 
-- $r = \sqrt{a^2+b^2}$ and $$\phi=\begin{cases}\tan^{-1}(b/a)&a > 0\\ \tan^{-1}(b/a) + \pi &a <0\\ \pi/2& a=0,\,b>0\\ -\pi/2 &a=0,b<0 \\indeterminate &a=b=0\end{cases}.$$
+- $r = \sqrt{a^2+b^2}$ and $$\phi=\begin{cases}\tan^{-1}(b/a)&a > 0\\ \tan^{-1}(b/a) + 180^\circ &a <0\\ 90^\circ& a=0,\,b>0\\ -90^\circ &a=0,b<0 \\indeterminate &a=b=0\end{cases}.$$
 - $(a+bi)^n = r^n\angle n\phi$. (This is true even when $n$ is negative.)
 - $$\frac{1}{a+bi} = \frac{a-bi}{a^2+b^2}.$$
 ** Bode Plots

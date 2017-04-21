@@ -1,0 +1,764 @@
+---
+layout: slides
+title: Lecture 3 - EE 3011 Modelling and Control
+---
+<section>
+  <div id="outline-container-org8c139b0" class="outline-2">
+    <h2 id="org8c139b0">Minimum Phase and Non-Minimum Phase System</h2>
+  </div>
+</section>
+<section>
+  <h3 id="org9afff54">Constant K</h3>
+
+  <div class="figure" style="text-align:center;zoom:1.5;">
+    <p><object type="image/svg+xml" data="assets/Lec2BodeConstant.svg" class="org-svg">
+	Sorry, your browser does not support SVG.</object>
+    </p>
+  </div>
+</section>
+<section>
+  <div id="outline-container-org3474956" class="outline-2">
+    <h3 id="org3474956">Integrator \(1/s\)</h3>
+    <div class="outline-text-2" id="text-3">
+
+      <div class="figure" style="text-align:center;zoom:1.5;">
+	<p><object type="image/svg+xml" data="assets/Lec2BodeIntegrators.svg" class="org-svg">
+	    Sorry, your browser does not support SVG.</object>
+	</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+<section>
+  <div id="outline-container-orgb1399cd" class="outline-2">
+    <h3 id="orgb1399cd">First Order \(1/(\tau s+1)\)</h3>
+    <div class="outline-text-2" id="text-4">
+
+      <div class="figure" style="text-align:center;zoom:1.5;">
+	<p><object type="image/svg+xml" data="assets/Lec2BodeFirstOrder.svg" class="org-svg">
+	    Sorry, your browser does not support SVG.</object>
+	</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+<section>
+  <div id="outline-container-org5357ad2" class="outline-2">
+    <h3 id="org5357ad2">Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</h3>
+    <div class="outline-text-2" id="text-5">
+
+      <div class="figure" style="text-align:center;zoom:1.5;">
+	<p><object type="image/svg+xml" data="assets/Lec2BodeSecondOrder.svg" class="org-svg">
+	    Sorry, your browser does not support SVG.</object>
+	</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+<section>
+  <div id="outline-container-org378349d" class="outline-2">
+    <h3 id="org378349d">Minimum Phase System: Bode's Relation</h3>
+    <div class="outline-text-2" id="text-6">
+      <ul class="org-ul">
+	<li>Bode discovered that the phase can be uniquely derived from the slope of the magnitude for minimum-phase system. </li>
+      </ul>
+
+      <table>
+	<thead>
+	  <tr>
+	    <th class="org-left">Basic Factor</td>
+<th class="org-right">M. Slope(Low)</td>
+<th class="org-right">P. (Low)</td>
+<th class="org-right">M. Slope(High)</td>
+<th class="org-right">P. (High)</td>
+</tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="org-left">K</td>
+    <td class="org-right">0</td>
+    <td class="org-right">0</td>
+    <td class="org-right">0</td>
+    <td class="org-right">0</td>
+  </tr>
+
+  <tr>
+    <td class="org-left">\(s^N\)</td>
+    <td class="org-right">20N</td>
+    <td class="org-right">90N</td>
+    <td class="org-right">20N</td>
+    <td class="org-right">90N</td>
+  </tr>
+
+  <tr>
+    <td class="org-left">1st Order</td>
+    <td class="org-right">0</td>
+    <td class="org-right">0</td>
+    <td class="org-right">-20</td>
+    <td class="org-right">-90</td>
+  </tr>
+
+  <tr>
+    <td class="org-left">2nd Order</td>
+    <td class="org-right">0</td>
+    <td class="org-right">0</td>
+    <td class="org-right">-40</td>
+    <td class="org-right">-180</td>
+  </tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section>
+  <div id="outline-container-org378349d" class="outline-2">
+    <h3 id="org378349d">Minimum Phase System</h3>
+    <div class="outline-text-2" id="text-6">
+      <ul class="org-ul">
+	<li>A transfer function \(G(s)\) is minimum phase if both \(G(s)\) and \(1/G(s)\) are causal and stable.</li>
+	<li>Roughly speaking it means that the system does not have zeros or poles on the right-half plane. Moreover, it does not have delay.</li>
+      </ul>
+</section>
+<section>
+  <div id="outline-container-orgee5cdca" class="outline-2">
+    <h3 id="orgee5cdca">Non-Minimum Phase System: Unstable Zeros</h3>
+    <div class="outline-text-2" id="text-7">
+      <p>
+	Consider two transfer functions:
+	\[G_1(s) = 1,\,G_2(s) = \frac{1-s}{1+s}\]
+      </p>
+      <ul class="org-ul">
+	<li>\(G_1(s)\) is minimum phase since it does not have unstable zeros/poles.</li>
+	<li>The magnitude of \(G_1(s)\) is 0dB, and the phase is \(0^\circ\).</li>
+	<li>\(G_2(s)\) is non-minimum phase, since \(G_2(1) = 0\).</li>
+      </ul>
+
+      <p>
+	\[|G_2(j\omega)| = \frac{\sqrt{1+\omega^2}}{\sqrt{1+\omega^2}} = 1,\,\angle G_2(j\omega) = -2\tan^{-1}\omega.\]
+      </p>
+    </div>
+  </div>
+
+</section>
+<section>
+  <div id="outline-container-orgc4f2d84" class="outline-2">
+    <h3 id="orgc4f2d84">Non-Minimum Phase System: Delay</h3>
+    <div class="outline-text-2" id="text-8">
+
+      <div class="figure" style="text-align:center;zoom:1.5;">
+	<p><object type="image/svg+xml" data="assets/Lec3Delay.svg" class="org-svg">
+	    Sorry, your browser does not support SVG.</object>
+	</p>
+      </div>
+
+
+      <ul class="org-ul">
+	<li>Time delay often exists in communication systems, chemical and manufacturing processes, etc.</li>
+	<li>Time delay systems are of non-minimum phase behavior.</li>
+	<li>The transfer function of the time delay factor is \(G_3(s) = \exp(-\tau s)\), where \(\tau\) is the delay.</li>
+      </ul>
+
+      <p>
+	\[G_3(j\omega) = \exp(-j\omega\tau) = 1\angle -\omega\tau\times\frac{180^\circ}{\pi}.\]
+      </p>
+    </div>
+  </div>
+
+</section>
+<section>
+  <div id="outline-container-orgd7bb78d" class="outline-2">
+    <div class="outline-text-2" id="text-9">
+      <div class="figure" style="text-align:center;zoom:1.2">
+	<p><object type="image/svg+xml" data="assets/Lec3UnstableZero.svg" class="org-svg">
+	    Sorry, your browser does not support SVG.</object>
+	</p>
+      </div>
+
+      <p>
+	Minimum phase system has <b>minimum phase change</b> amongst all transfer functions that have the same magnitude plot.
+      </p>
+
+    </div>
+  </div>
+</section>
+<section>
+  <div id="outline-container-org9b3f395" class="outline-2">
+    <h3 id="org9b3f395">Implications of Non-Minimum Phase</h3>
+    <div class="outline-text-2" id="text-10">
+
+      <div class="figure" style="text-align:center;zoom:1.2">
+	<p><object type="image/svg+xml" data="assets/Lec3NonMinimumPhaseStep.svg" class="org-svg">
+	    Sorry, your browser does not support SVG.</object>
+	</p>
+      </div>
+
+      <ul class="org-ul">
+	<li>Non-minimum phase systems are much more difficult to control than minimum phase system</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+<section>
+  <h3>Control Design for Non-Minimum Phase System</h3>
+  <ul>
+    <li>Unfortunately, non-minimum phase is quite common in practice
+      <ul class="org-ul">
+	<li>Flexible Structure</li>
+	<li>Circuits</li>
+	<li>Back a car into the parking lot</li>
+    </ul></li>
+    <li>The unstable zeros can be changed by reallocating sensors and actuators, or by introducing new sensors and actuators.</li>
+    <li>You will learn this in EE4273 Digital Control Systems where we teach state space model.</li>
+  </ul>
+  
+
+</section>
+<section>
+  <div id="outline-container-org63322eb" class="outline-2">
+    <h2 id="org63322eb">Bode Plots of Complex Transfer Functions</h2>
+    <div class="outline-text-2" id="text-11">
+      <p>
+	Bode plots of a transfer function can be obtained using Matlab. However, to interpret the Bode plots, we shall take a look at how basic factors of the transfer function affect the Bode plots.
+      </p>
+    </div>
+  </div>
+
+</section>
+<section>
+  <div id="outline-container-orgda0c809" class="outline-2">
+    <h3 id="orgda0c809">Example 1</h3>
+    <div class="outline-text-2" id="text-12">
+      \begin{align}
+      G(s) = \frac{2000(s+0.5)}{s(s+10)(s+50)} = \frac{2(2s+1)}{s(0.1s+1)(0.02s+1)}.
+      \end{align}
+    </div>
+  </div>
+
+</section>
+<section>
+  <div id="outline-container-org0d1a45c" class="outline-2">
+    <h3 id="org0d1a45c">Step 1: Decompose the Transfer Function into Basic Factors</h3>
+    <div class="outline-text-2" id="text-13">
+      <table>
+	<thead>
+	  <tr>
+	    <th scope="col" class="org-left">Factor</th>
+	    <th scope="col" class="org-right">Corner Freq.</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr>
+	    <td class="org-left">2</td>
+	    <td class="org-right">&#xa0;</td>
+	  </tr>
+
+	  <tr>
+	    <td class="org-left">\(1/s\)</td>
+	    <td class="org-right">&#xa0;</td>
+	  </tr>
+
+	  <tr>
+	    <td class="org-left">\(2s+1\)</td>
+	    <td class="org-right">0.5</td>
+	  </tr>
+
+	  <tr>
+	    <td class="org-left">\(1/(0.1s+1)\)</td>
+	    <td class="org-right">10</td>
+	  </tr>
+
+	  <tr>
+	    <td class="org-left">\(1/(0.02s+1)\)</td>
+	    <td class="org-right">50</td>
+	  </tr>
+	</tbody>
+      </table>
+
+      <p>
+	By adding the Bode plots of the above factors together, we can get the Bode plot of \(G(s)\)
+      </p>
+    </div>
+  </div>
+</section>
+<section>
+  <h3>Bode Plot of \(2\)</h3>
+  <div class="figure" style="text-align:center;zoom:1.5">
+    <p><object type="image/svg+xml" data="assets/Lec3Example1a.svg" class="org-svg">
+	Sorry, your browser does not support SVG.</object>
+    </p>
+  </div>
+</section>
+<section>
+  <h3>Bode Plot of \(1/s\)</h3>
+
+
+  <div class="figure" style="text-align:center;zoom:1.5">
+    <p><object type="image/svg+xml" data="assets/Lec3Example1b.svg" class="org-svg">
+	Sorry, your browser does not support SVG.</object>
+    </p>
+  </div>
+
+</section>
+<section>
+  <h3>Bode Plot of \(2s+1\)</h3>
+
+  <div class="figure" style="text-align:center;zoom:1.5">
+    <p><object type="image/svg+xml" data="assets/Lec3Example1c.svg" class="org-svg">
+	Sorry, your browser does not support SVG.</object>
+    </p>
+  </div>
+
+
+</section>
+<section>
+  <h3>Bode Plot of \(1/(0.1s+1)\)</h3>
+  <div class="figure" style="text-align:center;zoom:1.5">
+    <p><object type="image/svg+xml" data="assets/Lec3Example1d.svg" class="org-svg">
+	Sorry, your browser does not support SVG.</object>
+    </p>
+  </div>
+</section>
+<section>
+  <h3>Bode Plot of \(1/(0.02s+1)\)</h3>
+  <div class="figure" style="text-align:center;zoom:1.5">
+    <p><object type="image/svg+xml" data="assets/Lec3Example1e.svg" class="org-svg">
+	Sorry, your browser does not support SVG.</object>
+    </p>
+  </div>
+
+</section>
+<section>
+  <div id="outline-container-org1757d2f" class="outline-2">
+    <h3 id="org1757d2f">Step 2: Determine the Plot at the Low Frequency</h3>
+    <div class="outline-text-2" id="text-14">
+      <ul class="org-ul">
+	<li>For low frequency, only need to look at the constant \(K\) and \(s^N\) term.</li>
+	<li>Draw the plot of \(s^N\) first
+	  <ul class="org-ul">
+	    <li>Magnitude: a straight line passes through \((1,0dB)\) with a slope of \(20NdB\).</li>
+	    <li>Phase: a horizontal line at \(90N^\circ\).</li>
+	</ul></li>
+	<li>Adding the constant term \(K\)
+	  <ul class="org-ul">
+	    <li>Magnitude: add \(20\log|K|\)</li>
+	    <li>Phase: If \(K > 0\), do nothing. If \(K < 0\), subtract \(180^\circ\).</li>
+							  </ul></li>
+      </ul>
+
+    </div>
+  </div>
+</section>
+<section>
+  <h3>Bode Plot at Low Frequency</h3>
+  <div class="figure" style="text-align:center;zoom:1.5">
+    <p><object type="image/svg+xml" data="assets/Lec3Example1f.svg" class="org-svg">
+	Sorry, your browser does not support SVG.</object>
+    </p>
+  </div>
+</section>
+<section>
+  <div id="outline-container-org29374c0" class="outline-2">
+    <h3 id="org29374c0">Step 3: Add First and Second Order Terms</h3>
+    <div class="outline-text-2" id="text-15">
+      <table>
+	<tbody>
+	  <tr>
+	    <td class="org-left">Factor</td>
+	    <td class="org-left">\(2s+1\)</td>
+	    <td class="org-left">\((0.1s+1)^{-1}\)</td>
+	    <td class="org-left">\((0.02s+1)^{-1}\)</td>
+	  </tr>
+	  <tr>
+	    <td class="org-right">Corner Freq.</td>
+	    <td class="org-right">0.5</td>
+	    <td class="org-right">10</td>
+	    <td class="org-right">50</td>
+	  </tr>
+
+	</tbody>
+      </table>
+
+      <ul class="org-ul">
+	<li>Magnitude</li>
+      </ul>
+      <p>
+	For \((\tau s+1)^N\), change the slope at corner frequency \(1/\tau\) by \(20N\).
+      </p>
+
+      <table>
+	<tbody>
+	  <tr>
+	    <td class="org-left">Frequency</td>
+	    <td class="org-left">Low</td>
+	    <td class="org-right">0.5</td>
+	    <td class="org-right">10</td>
+	    <td class="org-right">50</td>
+	  </tr>
+
+	  <tr>
+	    <td class="org-left">Slope Change</td>
+	    <td class="org-left">&#xa0;</td>
+	    <td class="org-right">+20</td>
+	    <td class="org-right">-20</td>
+	    <td class="org-right">-20</td>
+	  </tr>
+
+	  <tr>
+	    <td class="org-left">Slope</td>
+	    <td class="org-left">-20</td>
+	    <td class="org-right">0</td>
+	    <td class="org-right">-20</td>
+	    <td class="org-right">-40</td>
+	  </tr>
+	</tbody>
+      </table>
+
+    </div>
+  </div>
+</section>
+<section>
+  <div id="outline-container-org29374c0" class="outline-2">
+    <h3 id="org29374c0">Step 3: Add First and Second Order Terms</h3>
+    <div class="outline-text-2" id="text-15">
+      <table>
+	<tbody>
+	  <tr>
+	    <td class="org-left">Factor</td>
+	    <td class="org-left">\(2s+1\)</td>
+	    <td class="org-left">\((0.1s+1)^{-1}\)</td>
+	    <td class="org-left">\((0.02s+1)^{-1}\)</td>
+	  </tr>
+	  <tr>
+	    <td class="org-right">Corner Freq.</td>
+	    <td class="org-right">0.5</td>
+	    <td class="org-right">10</td>
+	    <td class="org-right">50</td>
+	  </tr>
+
+	</tbody>
+      </table>
+      <ul class="org-ul">
+	<li>Phase: For \((\tau s+1)^N\) </li>
+	<ul class="org-ul">
+	  <li>change the slope at \(0.1/\tau\) by \(45N\).</li>
+	  <li>change the slope at \(10/\tau\) by \(-45N\).</li>
+	</ul>
+      </ul>
+
+      <table>
+	<tbody>
+	  <tr>
+	    <td class="org-left">Frequency</td>
+	    <td class="org-left">Low</td>
+	    <td class="org-right">0.05</td>
+	    <td class="org-right">1</td>
+	    <td class="org-right">5</td>
+	    <td class="org-right">100</td>
+	    <td class="org-right">500</td>
+	  </tr>
+
+	  <tr>
+	    <td class="org-left">Slope Change</td>
+	    <td class="org-left">&#xa0;</td>
+	    <td class="org-right">+45</td>
+	    <td class="org-right">-45</td>
+	    <td class="org-right">-45 -45</td>
+	    <td class="org-right">+45</td>
+	    <td class="org-right">+45</td>
+	  </tr>
+
+	  <tr>
+	    <td class="org-left">Slope</td>
+	    <td class="org-left">0</td>
+	    <td class="org-right">45</td>
+	    <td class="org-right">0</td>
+	    <td class="org-right">-90</td>
+	    <td class="org-right">-45</td>
+	    <td class="org-right">0</td>
+	  </tr>
+	</tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<section>
+  <div id="outline-container-org29374c0" class="outline-2">
+    <div class="outline-text-2" id="text-15">
+
+      <div class="figure" style="text-align:center;zoom:1.8">
+	<p><object type="image/svg+xml" data="assets/Lec3Example1g.svg" class="org-svg">
+	    Sorry, your browser does not support SVG.</object>
+	</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div id="outline-container-orgdc2a64a" class="outline-2">
+    <h3 id="orgdc2a64a">Step 4 (Optional): Check your result in Matlab</h3>
+    <div class="outline-text-2" id="text-16">
+      <div class="org-src-container">
+	<pre><code class="python">
+	    num = [2000,1000];
+	    den = [1,60,500,0];
+	    sys = tf(num, den);
+	    bode(sys);
+	</code></pre>
+      </div>
+
+
+      <div class="figure" style="text-align:center;">
+	<p><object type="image/svg+xml" data="assets/Lec3Example1h.svg" class="org-svg">
+	    Sorry, your browser does not support SVG.</object>
+	</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div id="outline-container-orge209ecc" class="outline-2">
+    <h3 id="orge209ecc">Example 2</h3>
+    <div class="outline-text-2" id="text-17">
+      \begin{align}
+      G(s) = \frac{10}{s(s^2+0.4s+4)} = \frac{2.5}{s((s/2)^2+2\times 0.1s/2+1)}.
+      \end{align}
+    </div>
+  </div>
+
+</section>
+<section>
+  <div id="outline-container-org8878810" class="outline-2">
+    <h3 id="org8878810">Step 1: Decompose the Transfer Function into Basic Factors</h3>
+    <div class="outline-text-2" id="text-18">
+      <table>
+	<thead>
+	  <tr>
+	    <th scope="col" class="org-left">Factor</th>
+	    <th scope="col" class="org-left">Corner Freq.</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr>
+	    <td class="org-left">2.5</td>
+	    <td class="org-right">&#xa0;</td>
+	  </tr>
+
+	  <tr>
+	    <td class="org-left">\(1/s\)</td>
+	    <td class="org-right">&#xa0;</td>
+	  </tr>
+
+	  <tr>
+	    <td class="org-left">\((s/2)^2+0.2s/2+1\)</td>
+	    <td class="org-right">2</td>
+	  </tr>
+	</tbody>
+      </table>
+
+
+    </div>
+  </div>
+
+
+</section>
+<section>
+  <h3>Bode Plot of the 2nd Order Term</h3>  
+  <div class="figure" style="text-align:center;zoom:1.5;">
+    <p><object type="image/svg+xml" data="assets/Lec3Example2a.svg" class="org-svg">
+	Sorry, your browser does not support SVG.</object>
+    </p>
+  </div>
+</section>
+<section>
+  <div id="outline-container-org32dcb74" class="outline-2">
+    <h3 id="org32dcb74">Step 2: Determine the Plot at the Low Frequency</h3>
+    <div class="outline-text-2" id="text-19">
+      <p>
+	The low frequency factors are \(2.5\) and \(1/s\).
+      </p>
+
+      <ul class="org-ul">
+	<li>Magnitude
+	  <ul class="org-ul">
+	    <li>Draw a straight line passing through \((1,0dB)\) with slope -20.</li>
+	    <li>Shift the magnitude plot of \(1/s\) up by \(20\log(2.5)\).</li>
+	</ul></li>
+	<li>Phase
+	  <ul class="org-ul">
+	    <li>Draw a constant line at \(-90^\circ\).</li>
+	</ul></li>
+      </ul>
+
+    </div>
+  </div>
+
+</section>
+<section>
+  <h3>Bode Plot at Low Frequency</h3>  
+  <div class="figure" style="text-align:center;zoom:1.5;">
+    <p><object type="image/svg+xml" data="assets/Lec3Example2b.svg" class="org-svg">
+	Sorry, your browser does not support SVG.</object>
+    </p>
+  </div>
+</section>
+<section>
+  <div id="outline-container-org8ba9d6e" class="outline-2">
+    <h3 id="org8ba9d6e">Step 3: Add First and Second Order Terms</h3>
+    <div class="outline-text-2" id="text-20">
+      <p>
+	Consider a second order term:
+      </p>
+
+      <p>
+	\[\left[\left(\frac{s}{\omega_n}\right)^2+2\zeta\frac{s}{\omega_n}+1\right]^{\pm 1}.\]
+      </p>
+      <ul class="org-ul">
+	<li>Magnitude
+	  <ul class="org-ul">
+	    <li>change the slope at the corner frequency \(\omega_n\) by \(\pm 40dB\)</li>
+	    <li>add \(\pm 20\log(2\zeta)\) correction at the corner frequency \(\omega_n\).</li>
+	</ul></li>
+	<li>Phase
+	  <ul class="org-ul">
+	    <li>draw the phase plot using calculators.</li>
+	</ul></li>
+      </ul>
+
+    </div>
+  </div>
+</section>
+<section>
+  <div class="figure" style="text-align:center;zoom:1.8;">
+    <p><object type="image/svg+xml" data="assets/Lec3Example2c.svg" class="org-svg">
+	Sorry, your browser does not support SVG.</object>
+    </p>
+  </div>
+</section>
+<section>
+  <div id="outline-container-org6624687" class="outline-2">
+    <h3 id="org6624687">Step 4: Check your result in Matlab</h3>
+    <div class="outline-text-2" id="text-21">
+      <div class="org-src-container">
+	<pre><code class="python">
+	    num = [10];
+	    den = [1,0.4,4,0];
+	    sys = tf(num, den);
+	    bode(sys);
+	</code></pre>
+      </div>
+      
+      <div class="figure" style="text-align:center;">
+	<p><object type="image/svg+xml" data="assets/Lec3Example2d.svg" class="org-svg">
+	    Sorry, your browser does not support SVG.</object>
+	</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+<section>
+  <div id="outline-container-orgcb7caae" class="outline-2">
+    <h3 id="orgcb7caae">Example 3</h3>
+    <div class="outline-text-2" id="text-22">
+      \begin{align}
+      G(s) &= \frac{2500(s+10)}{s(s+2)(s^2+30+2500)}\\
+      &=\frac{5(0.1s+1)}{s(0.5s+1)\left[(s/50)^2+0.6s/50+1\right]}.
+      \end{align}
+
+    </div>
+  </div>
+</section>
+<section>
+  <h3>Decomposition</h3>
+  <table>
+    <thead>
+      <tr>
+	<th class="org-left">Factor</td>
+<th class="org-right">Corner Freq.</td>
+</tr>
+</thead>
+<tbody>
+
+  <tr>
+    <td class="org-left">5</td>
+    <td class="org-right">&#xa0;</td>
+  </tr>
+
+  <tr>
+    <td class="org-left">\(1/s\)</td>
+    <td class="org-right">&#xa0;</td>
+  </tr>
+
+  <tr>
+    <td class="org-left">\(1/(0.5s+1)\)</td>
+    <td class="org-right">2</td>
+  </tr>
+
+  <tr>
+    <td class="org-left">\(0.1s+1\)</td>
+    <td class="org-right">10</td>
+  </tr>
+
+  <tr>
+    <td class="org-left">\(\left[(s/50)^2+0.6s/50+1\right]^{-1}\)</td>
+    <td class="org-right">50</td>
+  </tr>
+</tbody>
+</table>
+</section>
+<section>
+  <ul class="org-ul">
+    <li>Magnitude
+      <ul class="org-ul">
+	<li>Low Frequency: Draw a straight line passing through \((1,0dB)\) with slope -20. Shift this line up by \(20\log(5)=14dB\).</li>
+	<li>Adding the first and second order term. Add \(-20\log(0.6) = 4.4dB\) correction at 50.</li>
+    </ul></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+	<td class="org-left">Frequency</td>
+	<td class="org-left">Low</td>
+	<td class="org-right">2</td>
+	<td class="org-right">10</td>
+	<td class="org-right">50</td>
+      </tr>
+
+      <tr>
+	<td class="org-left">Slope Change</td>
+	<td class="org-left">&#xa0;</td>
+	<td class="org-right">-20</td>
+	<td class="org-right">+20</td>
+	<td class="org-right">-40</td>
+      </tr>
+
+      <tr>
+	<td class="org-left">Slope</td>
+	<td class="org-left">-20</td>
+	<td class="org-right">-40</td>
+	<td class="org-right">-20</td>
+	<td class="org-right">-60</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul class="org-ul">
+    <li>Phase
+      <ul class="org-ul">
+	<li>Phase starts at \(-90^\circ\) due to the integrator.</li>
+	<li>Phase ends at \(-90-90+90-180 = -270^\circ\).</li>
+	<li>Use calculator to draw the phase plot.</li>
+    </ul></li>
+  </ul>
+</section>
+<section>
+  <h3>Bode Plot</h3>  
+  <div class="figure" style="text-align:center;zoom:1.5;">
+    <p><object type="image/svg+xml" data="assets/Lec3Example3b.svg" class="org-svg">
+	Sorry, your browser does not support SVG.</object>
+    </p>
+  </div>
+</section>

@@ -1,0 +1,272 @@
+---
+layout: slides
+title: Lecture 9 - EE 3011 Modelling and Control
+---
+	<section>
+	<div id="outline-container-orge954cfd" class="outline-2">
+	  <h1 id="orge954cfd">PID Control Schemes</h1>
+	</div>
+	</section>
+	<section>
+	<div id="outline-container-orgec2e801" class="outline-2">
+	  <h3 id="orgec2e801">Motivation</h3>
+	  <div class="outline-text-2" id="text-2">
+	    <ul class="org-ul">
+	      <li>So far, we design controller/compensator based on models of plants(transfer function, Bode plot).</li>
+	      <li>However, in many practical situations, we deal with very complicated plants whose mathematical models are difficult to obtain. Hence, the analytical approach of designing a controller is not possible.</li>
+	      <li>In this chapter, we shall introduce tuning rules for basic PID controllers.</li>
+	      <li>More than half of industrial plants today still employ PID control schemes.</li>
+	    </ul>
+	  </div>
+	</div>
+
+	</section>
+	<section>
+	<div id="outline-container-org0bb0b32" class="outline-2">
+	  <h3 id="org0bb0b32">PID Controller</h3>
+	  <div class="outline-text-2" id="text-3">
+
+	    <div class="figure" style="zoom:2;">
+	      <p><object type="image/svg+xml" data="assets/Lec9Diagram.svg" class="org-svg">
+		  Sorry, your browser does not support SVG.</object>
+	      </p>
+	    </div>
+	    <ul class="org-ul">
+	      <li>The standard form of PID controller is \[C(s) = K_p\left(1+\frac{1}{T_is}+T_ds\right) = K_p+\frac{K_I}{s}+K_Ds.\]</li>
+	      <li><b>P(Proportional) action</b>: P-action provides an action which depends on the instantaneous value of the control error. It can be used to improve speed of response and steady-state error but with limited performance.</li>
+	    </ul>
+	  </div>
+	</div>
+	</section>
+<section>
+  <h3>PID Controller</h3>
+ <ul>
+	      <li><b>I (Integral) action</b>: I-action gives a controller output that is proportional to the accumulated error, which implies that it is a slow reaction control mode. It is used to achieve zero-steady error in the presence of a step reference and/or disturbance. The shortcomings are: its pole at the origin is detrimental to loop stability and undesirable effect in the presence of actuator saturation, known as <i>wind-up</i>.</li>
+	      <li><b>D (Derivative) action</b>: It acts on the changing rate of the control error, sometimes referred to as a predictive mode. Its limitation is the tendency to yield large control signals in response to high frequency control errors such as error induced by set-point changes or measurement noises.</li>
+ </ul> 
+</section>
+	<section>
+	<div id="outline-container-org6b77044" class="outline-2">
+	  <h3 id="org6b77044">Ziegler-Nichols Rules</h3>
+	  <div class="outline-text-2" id="text-4">
+	    <ul class="org-ul">
+	      <li>The process of selecting the controller parameters \(K_p\), \(T_i\) and \(T_d\) is known as PID Tuning.</li>
+	      <li>Two classical methods for determining the parameters of PID controllers were presented by Ziegler-Nichols in 1942.
+		<ul class="org-ul">
+		  <li>Step response method</li>
+		  <li>Self-oscillation method</li>
+	      </ul></li>
+	      <li>\(K_p\), \(T_i\) and \(T_d\) from Ziegler-Nichols rule often serve as the starting point for tuning procedures used by manufacturers and process industry.</li>
+	      <li>It typically yields an aggressive gain and overshoot. Further tuning is needed if minimizing overshoot is desirable.</li>
+	    </ul>
+	  </div>
+	</div>
+
+	</section>
+	<section>
+	<div id="outline-container-org667f6df" class="outline-2">
+	  <h3 id="org667f6df">Step Response Method</h3>
+	  <div class="outline-text-2" id="text-5">
+
+	    <div class="figure" style="zoom:1.4;">
+	      <p><object type="image/svg+xml" data="assets/Lec9Sshape.svg" class="org-svg">
+		  Sorry, your browser does not support SVG.</object>
+	      </p>
+	    </div>
+
+
+	    <ul class="org-ul">
+	      <li>Many plants, particularly those in the process industries has step response of S-shape (reaction curve):
+		<ul class="org-ul">
+		  <li>open-loop stable</li>
+		  <li>no integrator</li>
+		  <li>no dominant complex poles</li>
+	      </ul></li>
+	    </ul>
+	  </div>
+	</div>
+
+	</section>
+<section>
+  <ul>
+	      <li>An experiment for deriving step response can be designed as
+		<ul class="org-ul">
+		  <li>With the plant in open-loop, let the plant run at normal operating condition with constant input \(u_0\) and steady state output \(y_0\) .</li>
+		  <li>At the initial time \(t_0\) , apply a step change to the plant, from \(u_0\) to \(u_\infty\) (in the range of 10 to 20% of full scale).</li>
+		  <li>Record the output response to get the reaction curve. In the figure, the m.s.t. stands for the maximum slope tangent.</li>
+		  <li>Compute \[K = \frac{y_\infty-y_0}{u_\infty-u_0},\,L=t_1-t_0,T = t_2-t_1.\] \(K\) is the system gain. \(L\) and \(T\) are often called the apparent dead time and the apparent time constant.</li>
+	      </ul></li>
+	    </ul>
+
+</section>
+<section>
+	  <h3 id="org667f6df">Step Response Method</h3>
+  	      <p>The PID parameters are then chosen according to the table</p>
+	    <table>
+	      <thead>
+		<tr>
+		  <th scope="col" class="org-left">Controller</th>
+		  <th scope="col" class="org-left">\(K_p\)</th>
+		  <th scope="col" class="org-left">\(T_i\)</th>
+		  <th scope="col" class="org-left">\(T_d\)</th>
+		</tr>
+	      </thead>
+	      <tbody>
+		<tr>
+		  <td class="org-left">P</td>
+		  <td class="org-left">\(T/KL\)</td>
+		  <td class="org-left">&#xa0;</td>
+		  <td class="org-left">&#xa0;</td>
+		</tr>
+
+		<tr>
+		  <td class="org-left">PI</td>
+		  <td class="org-left">\(0.9T/KL\)</td>
+		  <td class="org-left">\(3L\)</td>
+		  <td class="org-left">&#xa0;</td>
+		</tr>
+
+		<tr>
+		  <td class="org-left">PID</td>
+		  <td class="org-left">\(1.2T/KL\)</td>
+		  <td class="org-left">\(2L\)</td>
+		  <td class="org-left">\(0.5L\)</td>
+		</tr>
+	      </tbody>
+	    </table>
+
+
+</section>
+	<section>
+	<div id="outline-container-org69fa9f4" class="outline-2">
+	  <h3 id="org69fa9f4">Example</h3>
+	  <div class="outline-text-2" id="text-6">
+	    <p>
+	      Consider a plant with transfer function \[G(s) = \frac{5}{(s+1)^3}.\]
+	    </p>
+
+
+	    <div class="figure" style="zoom:1.2;">
+	      <p><object type="image/svg+xml" data="assets/Lec9Step.svg" class="org-svg">
+		  Sorry, your browser does not support SVG.</object>
+	      </p>
+	    </div>
+	  </div>
+	</div>
+
+	</section>
+<section>
+  
+	    <ul class="org-ul">
+	      <li>From the unit step response, it is known that \[K = 5/1 = 5,\,L = 0.8,\,T = 4.5-0.8 = 3.7.\]</li>
+	      <li>The PID parameters given by Ziegler-Nichols tuning rule is \[K_p = 1.11,\,T_i = 1.60,\,T_d = 0.40.\]</li>
+	    </ul>
+
+	    <div class="figure" style="zoom:1.2;">
+	      <p><object type="image/svg+xml" data="assets/Lec9ClosedLoop.svg" class="org-svg">
+		  Sorry, your browser does not support SVG.</object>
+	      </p>
+	    </div>
+
+</section>
+	<section>
+	<div id="outline-container-org7a67255" class="outline-2">
+	  <h3 id="org7a67255">Self-Oscillation Method</h3>
+	  <div class="outline-text-2" id="text-7">
+	    <ul class="org-ul">
+	      <li>Set the integrator and derivative gain to \(0\).</li>
+	      <li>Increase the proportional gain \(K_p\) from \(0\), until the closed-loop system starts oscillation.</li>
+	      <li>Record the critical propotional gain \(K_{cr}\) and the oscillation period \(P_{cr}\).</li>
+	      <li>Notice that if the open-loop transfer function of the plant is given, then
+		<ul class="org-ul">
+		  <li>The critical gain is the gain margin, i.e., \(K_{cr} = K_g\).</li>
+		  <li>The critical oscillation period is related to the phase crossover frequency: \[P_{cr} = 2\pi/\omega_\phi.\]</li>
+	      </ul></li>
+	    </ul>
+	      	  </div>
+	</div>
+
+	</section>
+<section>
+	  <h3 id="org7a67255">Self-Oscillation Method</h3>
+  <p>Set the PID controller according to</p>
+	    <table>
+	      <thead>
+		<tr>
+		  <th scope="col" class="org-left">Controller</th>
+		  <th scope="col" class="org-left">\(K_p\)</th>
+		  <th scope="col" class="org-left">\(T_i\)</th>
+		  <th scope="col" class="org-left">\(T_d\)</th>
+		</tr>
+	      </thead>
+	      <tbody>
+		<tr>
+		  <td class="org-left">P</td>
+		  <td class="org-left">\(0.5K_{cr}\)</td>
+		  <td class="org-left">&#xa0;</td>
+		  <td class="org-left">&#xa0;</td>
+		</tr>
+
+		<tr>
+		  <td class="org-left">PI</td>
+		  <td class="org-left">\(0.45K_{cr}\)</td>
+		  <td class="org-left">\(P_{cr}/1.2\)</td>
+		  <td class="org-left">&#xa0;</td>
+		</tr>
+
+		<tr>
+		  <td class="org-left">PID</td>
+		  <td class="org-left">\(0.6K_{cr}\)</td>
+		  <td class="org-left">\(0.5P_{cr}\)</td>
+		  <td class="org-left">\(0.125P_{cr}\)</td>
+		</tr>
+	      </tbody>
+	    </table>
+
+</section>
+	<section>
+	<div id="outline-container-org6e7525c" class="outline-2">
+	  <h3 id="org6e7525c">Example</h3>
+	  <div class="outline-text-2" id="text-8">
+	    <ul class="org-ul">
+	      <li>Consider the same plant with transfer function \[G(s) = \frac{5}{(s+1)^3}.\]</li>
+	      <li>The phase crossover happens when \(\angle G(j\omega_\phi) = -180^\circ\), which implies that \[\angle 1+j\omega_\phi = 60^\circ\Rightarrow\omega_\phi = \sqrt{3}.\]</li>
+	      <li>The corresponding magnitude is \(|G(j\sqrt{3})| = 5/8\) and hence the gain margin/critical gain is \(1.6\).</li>
+	      <li>The critical period is \(2\pi/\sqrt{3} = 3.63\).</li>
+	      <li>The PID parameters according to Ziegler-Nichols rule is \[K_p = 0.96,\, T_i=1.81,\,T_d = 0.453.\]</li>
+	    </ul>
+
+
+	  </div>
+	</div>
+
+	</section>
+<section>
+	  <h3 id="org6e7525c">Unit Step Response for the Closed-Loop System</h3>
+	    <div class="figure" style="zoom:1.5;">
+	      <p><object type="image/svg+xml" data="assets/Lec9ClosedLoop2.svg" class="org-svg">
+		  Sorry, your browser does not support SVG.</object>
+	      </p>
+	    </div>
+</section>
+	<section>
+	<div id="outline-container-org516bee5" class="outline-2">
+	  <h3 id="org516bee5">Remarks</h3>
+	  <div class="outline-text-2" id="text-9">
+	    <ul class="org-ul">
+	      <li>Ziegler-Nichols tuning typically yields an aggressive gain and overshoot, which may be unacceptable in some applications.</li>
+	      <li>However, it can serve as a starting point for finer tuning.</li>
+	      <li>For example, by increasing \(T_i\) and \(T_d\), we can expect the overshoot will be reduced.</li>
+	      <li>However, for certain applications where the measurement noise is significant, we need to be extra careful when increasing \(T_d\).</li>
+	      <li>Ziegler-Nichols tuning rules have been widely used in process control where the plant dynamics are unknown. When the plant model is available, other controller design methods exists.</li>
+	    </ul>
+	  </div>
+	</div>
+	</section>
+	<section>
+	  <h3>Comparison between the Two Methods</h3>
+	 <ul>
+	      <li>Generally, to apply the step response method, one needs to obtain the S-shape response. Plants with complicated dynamics but no integrators are usually the cases.</li>
+	      <li>The self-oscillation method requires the plant to be forced into oscillation. This can be expensive and dangerous.</li>
+	 </ul> 
+	</section>

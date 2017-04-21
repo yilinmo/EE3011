@@ -1,0 +1,662 @@
+---
+layout: slides
+title: Lecture 5 - EE 3011 Modelling and Control
+---
+<section>
+<div id="outline-container-org2faaf21" class="outline-2">
+<h1 id="org2faaf21">Nyquist Stability Criterion</h1>
+</div>
+</section>	
+<section>
+<div id="outline-container-orgeab23c5" class="outline-2">
+<h3 id="orgeab23c5">Review</h3>
+<div class="outline-text-2" id="text-2">
+
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec5Feedback.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<ul class="org-ul">
+<li>One Fundamental Question: Given transfer functions \(G(s),\,H(s)\), how to determine if the system is closed-loop stable?
+<ul class="org-ul">
+<li>Time Domain: Routh-Hurwitz stability criterion, Root Locus</li>
+<li>Frequency Domain: Nyquist Plot + Nyquist Stability Criterion</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+</section>	
+<section>
+<div id="outline-container-org45b05fc" class="outline-2">
+<h3 id="org45b05fc">Contour and Plot</h3>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>The open-loop transfer function \(G(s)H(s)\) is a mapping from complex \(s\)-plane to complex \(GH\)-plane.</li>
+<li>A closed-path (contour) on \(s\)-plane will be mapped to \(w = G(s)H(s)\) to a closed path (plot) on \(GH\)-plane.</li>
+</ul>
+
+<div class="figure" style="zoom:1.2;">
+<p><object type="image/svg+xml" data="assets/Lec51.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>	
+<section>
+<div id="outline-container-orgb3b5c26" class="outline-2">
+<h3 id="orgb3b5c26">Zeros and Poles</h3>
+<div class="outline-text-2" id="text-4">
+<p>
+Consider the following transfer function
+\[G(s)H(s) = \frac{s}{s^2+2s+2} = \frac{s}{(s+1+j)(s+1-j)}.\]
+<object type="image/svg+xml" data="assets/Lec5Cauchy.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+
+</section>	
+<section>
+<div id="outline-container-orgb069156" class="outline-2">
+<h3 id="orgb069156">Observation</h3>
+<div class="outline-text-2" id="text-5">
+<ul class="org-ul">
+<li>If a clockwise contour does not encircle zeros nor poles, then the plot will not encircle the origin.</li>
+<li>If a clockwise contour encircles a zero, then the plot will encircle the origin clockwise once.</li>
+<li>If a clockwise contour encircles a pole, then the plot will encircle the origin counterclockwise once.</li>
+<li><b>Cauchy's Argument Principle:</b> If a clockwise contour encircles \(Z\) zeros and \(P\) poles, then the number of clockwise encirclements of the origin \(N\), is given by</li>
+</ul>
+<p>
+\[N = Z - P\Rightarrow Z = N+P.\]
+</p>
+</div>
+</div>
+
+</section>	
+<section>
+<div id="outline-container-org21c1a20" class="outline-2">
+<h3 id="org21c1a20">Counting Closed-Loop Poles</h3>
+<div class="outline-text-2" id="text-6">
+
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec5Feedback.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+<ul class="org-ul">
+<li>The closed-loop transfer function is given by</li>
+</ul>
+<p>
+\[\frac{G(s)}{1+G(s)H(s)}\]
+</p>
+<ul class="org-ul">
+<li>Define \(F(s) = 1+G(s)H(s)\), we notice that
+<ul class="org-ul">
+<li>The poles of \(F(s)\) is the poles of \(G(s)H(s)\)</li>
+<li>The zeros of \(F(s)\) will be poles for the close loop transfer function.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>	
+<section>
+<div id="outline-container-orgaa2f58d" class="outline-2">
+<h3 id="orgaa2f58d">Counting Closed-Loop Poles using Argument Principle</h3>
+<div class="outline-text-2" id="text-7">
+<ul class="org-ul">
+<li>By <b>Cauchy's Argument Principle</b>, for a clockwise contour \(\Gamma\) on the \(s\)-plane:</li>
+</ul>
+<p>
+\[Z = N+P\]
+</p>
+<ul class="org-ul">
+<li>\(Z\) is the number of zeros of \(F\), i.e., number of closed-loop poles in the contour</li>
+<li>\(P\) is the number of poles of \(F\), i.e., number of open-loop poles in the contour</li>
+<li>\(N\) is the number of clockwise encirclements of the origin for the plot \(F(\Gamma)\)</li>
+<li>\(N\) is also the number of clockwise encirclements of \(-1\) for the plot \(G\circ H(\Gamma)\).</li>
+</ul>
+</div>
+</div>
+
+
+</section>	
+<section>
+<div id="outline-container-orgadb88da" class="outline-2">
+<h3 id="orgadb88da">Example</h3>
+<div class="outline-text-2" id="text-8">
+<ul class="org-ul">
+<li>Consider the following transfer function:</li>
+</ul>
+<p>
+\[ G(s)H(s) = \frac{s}{s^2+2s+2}.\]
+</p>
+<ul class="org-ul">
+<li>It has two open-loop poles at \(-1\pm j\).</li>
+<li>\[F(s) = \frac{s^2+3s+2}{s^2+2s+2}\] has two zeros (close-loop poles) at \(-1\) and \(-2\).</li>
+</ul>
+</div>
+</div>
+</section>	
+<section>
+  <ul>
+    <li>The contour encircles 2 poles. \(P = 2\).</li>
+    <li>The \(F\)-plot encircles origin counterclockwise once. \(N = -1\).</li>
+    <li>Therefore, \(Z = N+P = 1.\)</li>
+  </ul>
+<div class="figure" style="zoom:1.4;">
+<p><object type="image/svg+xml" data="assets/Lec52.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</section>
+<section>
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec53.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+</section>	
+<section>
+<div id="outline-container-org5941e5d" class="outline-2">
+<h3 id="org5941e5d">Nyquist Contour \(\Gamma_n\)</h3>
+<div class="outline-text-2" id="text-9">
+<ul class="org-ul">
+<li>The stability of system is related to whether there exists any closed-loop poles (or zeros of \(F(s)\)) on the Right Half Plane (RHP).</li>
+<li>We select a contour (Nyquist contour) consisting of
+<ul class="org-ul">
+<li>Segment 1: The imaginary axis from 0 to \(+j\infty\).</li>
+<li>Segment 2: A semicircle of infinite radius that encloses the entire right half \(s\)-plane.</li>
+<li>Segment 3: The imaginary axis from \(-j\infty\) to \(0\).</li>
+</ul></li>
+<li>The Nyquist Contour is a ‘big’ semicircle that encloses the RHP. The direction of the encirclement is clockwise.</li>
+</ul>
+</div>
+</div>
+</section>	
+<section>
+<h3 id="org5941e5d">Nyquist Contour \(\Gamma_n\)</h3>
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec5NyquistContour.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</section>
+<section>
+<div id="outline-container-orga1b9d2f" class="outline-2">
+<h3 id="orga1b9d2f">Nyquist Stability Criterion</h3>
+<div class="outline-text-2" id="text-10">
+<ul class="org-ul">
+<li>By the Cauchy’s Principle of Argument: \[Z = N+P.\]
+<ul class="org-ul">
+<li>\(Z\): number of unstable closed-loop poles (zeros of \(F\))</li>
+<li>\(P\): number of unstable open-loop poles (poles of \(F\))</li>
+<li>\(N\): number of clockwise encirclements of \(-1\) on the \(GH\)-plane for the plot \(G\circ H(\Gamma)\).</li>
+</ul></li>
+<li>The closed-loop system is stable, i.e. \(Z = 0\), when \(N = -P\).</li>
+</ul>
+</div>
+</div>
+
+</section>	
+<section>
+<div id="outline-container-orgd4b8ac8" class="outline-2">
+<h3 id="orgd4b8ac8">Nyquist Stability Criterion</h3>
+<div class="outline-text-2" id="text-11">
+<ul class="org-ul">
+<li>A feedback system is stable if and only if \(N=-P\), i.e. the number of the counterclockwise encirclements of \(–1\) point by the Nyquist plot in the \(GH\)-plane is equal to the number of the unstable poles of the open-loop transfer function.</li>
+</ul>
+</div>
+</div>
+
+</section>	
+<section>
+<div id="outline-container-org0570218" class="outline-2">
+<h3 id="org0570218">Implication of Nyquist Stability Criterion</h3>
+<div class="outline-text-2" id="text-12">
+<ul class="org-ul">
+<li>If the open-loop system is stable(\(P=0\)), the closed-loop system is stable if and only if the Nyquist plot does not encircle \(–1\) point</li>
+<li>If the open-loop system has \(P\) unstable poles, the closed-loop system is stable if and only if the Nyquist plot encircles \(–1\) point \(P\) times counterclockwise.</li>
+<li>If the Nyquist plot passes through \(-1\), then the system has a closed-loop pole on the imaginary axis (critically stable).</li>
+</ul>
+</div>
+</div>
+
+
+</section>	
+<section>
+<div id="outline-container-org6f8f7d0" class="outline-2">
+<h3 id="org6f8f7d0">Procedure for Determining Stability using Nyquist Stability Criterion</h3>
+<div class="outline-text-2" id="text-13">
+<ul class="org-ul">
+<li>Draw the Nyquist Plot</li>
+<li>Determine the clockwise encirclement \(N\).</li>
+<li>From the open-loop transfer function, find the number of unstable open-loop poles (\(P\))</li>
+<li>Stable if \(N = -P\).</li>
+</ul>
+</div>
+</div>
+
+
+</section>	
+<section>
+<div id="outline-container-orgdd28dcb" class="outline-2">
+<h3 id="orgdd28dcb">How to Sketch the Nyquist Plot</h3>
+<div class="outline-text-2" id="text-14">
+<p>
+Nyquist Contour consists of 3 segments:
+</p>
+<ul class="org-ul">
+<li>Segment 1: The imaginary axis from 0 to \(+j\infty\).</li>
+<li>Segment 2: A semicircle of infinite radius that encloses the entire right half \(s\)-plane.</li>
+<li>Segment 3: The imaginary axis from \(-j\infty\) to \(0\).</li>
+</ul>
+
+</div>
+</div>
+</section>	
+<section>
+  
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec5NyquistContour.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object> 
+</p>
+</div>
+</section>
+<section>
+<div id="outline-container-org616a74e" class="outline-2">
+<h3 id="org616a74e">Segment 1</h3>
+<div class="outline-text-2" id="text-15">
+<ul class="org-ul">
+<li>We use Bode plot to help us sketch the first segment.</li>
+<li>We need to find 4 types of point:
+<ul class="org-ul">
+<li>\(\omega = 0\);</li>
+<li>Real intersection: Phase = \(180N^\circ\);</li>
+<li>Imaginary intersection: Phase = \(180N+90^\circ\);</li>
+<li>\(\omega = +\infty\);</li>
+</ul></li>
+<li>We can also deduce the trend of the plot around those points:
+<ul class="org-ul">
+<li>If the phase is decreasing, the plot goes clockwise</li>
+<li>If the phase is increasing, the plot goes counterclockwise</li>
+</ul></li>
+<li>Plot those points on the \(GH\)-plane and draw a smooth line to connect them.</li>
+</ul>
+</div>
+</div>
+</section>	
+<section>
+<div id="outline-container-orgedb03b1" class="outline-2">
+<h3 id="orgedb03b1">Segment 2</h3>
+<div class="outline-text-2" id="text-16">
+<ul class="org-ul">
+<li>Consider the following open-loop transfer function:</li>
+</ul>
+<p>
+\[G(s)H(s) = \begin{cases}\frac{s}{s^2+2s+2}&\text{strictly proper}\\\frac{s-1}{s+1}&\text{proper}\\s&\text{non-proper}\end{cases}\]
+</p>
+<ul class="org-ul">
+<li>For strictly proper function, the order of the denominator is greater than the order of the numerator:</li>
+</ul>
+<p>
+\[\lim_{s\rightarrow\infty}\frac{s}{s^2+2s+2} = \lim_{s\rightarrow\infty}\frac{s}{s^2} = 0\]
+</p>
+</div>
+</div>
+</section>	
+<section>
+<h3 id="orgedb03b1">Segment 2</h3>
+  <ul class="org-ul">
+<li>For proper function, the order of the denominator is no less than the order of the numerator:</li>
+</ul>
+<p>
+\[\lim_{s\rightarrow\infty}\frac{s-1}{s+1} = \lim_{s\rightarrow\infty}\frac{s}{s} = 1\]
+</p>
+<ul class="org-ul">
+<li>Segment 2 is the origin point for strictly proper function. It is a constant for proper function.</li>
+<li>Non-proper transfer functions are not physically realizable.</li>
+</ul>
+
+</section>
+<section>
+<div id="outline-container-org9265f88" class="outline-2">
+<h3 id="org9265f88">Segment 3</h3>
+<div class="outline-text-2" id="text-17">
+<ul class="org-ul">
+<li>From the property of Laplace transform:</li>
+</ul>
+<p>
+\[G(s) = \overline{G(-s)}.\]
+</p>
+<ul class="org-ul">
+<li>Therefore, segment 3 is the mirror reflection of segment 1 around the real axis.</li>
+</ul>
+</div>
+</div>
+
+</section>	
+<section>
+<div id="outline-container-orge5c2c6e" class="outline-2">
+<h3 id="orge5c2c6e">Example 1</h3>
+<div class="outline-text-2" id="text-18">
+<p>
+Consider the system with open-loop transfer function:
+\[G(s)H(s) = \frac{1}{(s+1)(0.1s+1)}.\]
+Determine the stability of the closed-loop system using the Nyquist stability criterion.
+</p>
+</div>
+</div>
+
+</section>	
+<section>
+<h3 id="org40c5a9b">Sketch Nyquist Plot</h3>
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec5Example1Bode.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</section>
+<section>
+<div id="outline-container-org40c5a9b" class="outline-2">
+<h3 id="org40c5a9b">Sketch Nyquist Plot</h3>
+<div class="outline-text-2" id="text-19">
+
+<ul class="org-ul">
+<li>Segment 1:
+<ul class="org-ul">
+<li>When \(\omega \rightarrow 0\), \(G(j\omega)H(j\omega)\rightarrow 1\).</li>
+<li>There is no real intersection for \(0 < \omega < \infty\).</li>
+<li>There is a imaginary intersection when \(\omega \approx 3\). The intersection is around \(0.3\angle -90^\circ\). (\(0.3\approx -10dB\))</li>
+<li>More precisely, the intersection is at \(0.287\angle -90^\circ\) and the corresponding frequency is \(\omega = \sqrt{10}\).</li>
+<li>When \(\omega \rightarrow \infty\), \(G(j\omega)H(j\omega)\rightarrow 0\).</li>
+<li>The phase is always decreasing, therefore the plot goes clockwise.</li>
+</ul></li>
+<li>Segment 2: Since the system is strictly proper, Segment 2 is the origin.</li>
+<li>Segment 3: Mirror reflection of segment 1.</li>
+</ul>
+
+
+</div>
+</div>
+
+</section>	
+<section>
+  
+<h3 id="org40c5a9b">Sketch Nyquist Plot</h3>
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec5Example1Nyquist.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</section>
+<section>
+<div id="outline-container-org723d629" class="outline-2">
+<h3 id="org723d629">Finding \(N\) and \(P\)</h3>
+<div class="outline-text-2" id="text-20">
+<ul class="org-ul">
+<li>The Nyquist plot does not encircle \(-1\). Therefore \(N = 0\).</li>
+<li>The open-loop poles are \(-1\), \(-10\). Therefore \(P = 0\).</li>
+<li>\(Z = N + P = 0\). The closed-loop system is stable.</li>
+</ul>
+</div>
+</div>
+
+</section>	
+<section>
+<div id="outline-container-org3861d9b" class="outline-2">
+<h3 id="org3861d9b">Example 2</h3>
+<div class="outline-text-2" id="text-21">
+<p>
+Consider a feedback system with open-loop transfer function
+\[G(s)H(s) = \frac{K(s-1)}{s^2+s+4},\,K>0\]
+Determine the range of \(K\) such that the feedback system is stable.
+</p>
+</div>
+</div>
+
+
+</section>	
+<section>
+<h3 id="orgc992798">Nyquist Plot</h3>
+  <p>
+Assume \(K=1\) first.
+</p>
+
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec5Example2Bode.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+</section>
+<section>
+<div id="outline-container-orgc992798" class="outline-2">
+<h3 id="orgc992798">Nyquist Plot</h3>
+<div class="outline-text-2" id="text-22">
+<ul class="org-ul">
+<li>Segment 1:
+<ul class="org-ul">
+<li>When \(\omega \rightarrow 0\), \(G(j\omega)H(j\omega)\rightarrow -0.25\).</li>
+<li>There is a imaginary intersection when \(1<\omega <2\). The intersection is between \(0.1j\) and \(j\).</li>
+<li>There is a real intersection when \(\omega \approx 2\). The intersection is around \(1\).</li>
+<li>When \(\omega \rightarrow \infty\), \(G(j\omega)H(j\omega)\rightarrow 0\).</li>
+<li>The phase is always decreasing. Therefore the plot goes clockwise.</li>
+</ul></li>
+<li>Segment 2: Since the system is strictly proper, Segment 2 is the origin.</li>
+<li>Segment 3: Mirror reflection of segment 1.</li>
+</ul>
+
+
+</div>
+</div>
+</section>	
+<section>
+  
+<h3 id="orgc992798">Nyquist Plot</h3>
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec5Example2Nyquist.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</section>
+<section>
+<div id="outline-container-org96aa8bf" class="outline-2">
+<h3 id="org96aa8bf">Determine \(N\) and \(P\)</h3>
+<div class="outline-text-2" id="text-23">
+<ul class="org-ul">
+<li>For the open-loop system, the poles are at \(-0.5\pm 1.94j\). Therefore, \(P = 0\)</li>
+<li>If \(K < 4\), then \(-0.25K > -1\), the Nyquist plot does not encircle \(-1\). Therefore \(N = 0\) and the system is closed-loop stable.</li>
+<li>If \(K > 4\), then \(-0.25K < -1\), the Nyquist plot encircle \(-1\) clockwise once. Therefore \(N = 1\) and \(Z = 1\). There is one unstable pole for the closed-loop system.</li>
+</ul>
+</div>
+</div>
+
+</section>	
+<section>
+<div id="outline-container-org7c3e04e" class="outline-2">
+<h3 id="org7c3e04e">Example 3</h3>
+<div class="outline-text-2" id="text-24">
+<p>
+Consider the two loops feedback system:
+</p>
+
+<div class="figure" style="zoom:1.2;">
+<p><object type="image/svg+xml" data="assets/Lec5Example3Diagram.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<p>
+Determine the range of gain \(K\) for stability of the system using Nyquist stability criterion.
+</p>
+</div>
+</div>
+
+</section>	
+<section>
+<div id="outline-container-org3009263" class="outline-2">
+<h3 id="org3009263">Sketch Nyquist Plot</h3>
+<div class="outline-text-2" id="text-25">
+<ul class="org-ul">
+<li>We first compute the closed-loop transfer function of the inner loop.</li>
+</ul>
+<p>
+\[G_2(s) = \frac{1/(s^3+s^2)}{1+1/(s^3+s^2)} = \frac{1}{s^3+s^2+1}.\]
+</p>
+<ul class="org-ul">
+<li>The open-loop transfer function is</li>
+</ul>
+<p>
+$$ G(s) = \frac{K(s+0.5)}{s^3+s^2+1}.$$
+</p>
+
+<div class="figure" style="zoom:1.2;">
+<p><object type="image/svg+xml" data="assets/Lec5Example3Diagram2.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+</div>
+</div>
+</section>	
+<section>
+<h3 id="org3009263">Sketch Nyquist Plot</h3>
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec5Example3Bode.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</section>
+<section>
+<h3 id="org3009263">Sketch Nyquist Plot</h3>
+<ul class="org-ul">
+<li>Segment 1:
+<ul class="org-ul">
+<li>When \(\omega \rightarrow 0\), \(G(j\omega)H(j\omega)\rightarrow 0.5K\).</li>
+<li>There is a imaginary intersection when $&omega; &asymp; 0.7 $. The intersection is between \(0.1j\) and \(j\).</li>
+<li>There is a real intersection when \(1 <\omega < 2\). Calculation shows that the exact frequency is \(\omega = \sqrt{2}\) and the crossing is at \(0.5K\angle -180^\circ\).</li>
+<li>When \(\omega \rightarrow \infty\), \(G(j\omega)H(j\omega)\rightarrow 0\). Calculation shows that the exact frequency is \(\omega = 1/\sqrt{2}\) and the crossing is at \(\sqrt{2}K\angle -270^\circ\).</li>
+<li>The phase is increasing around above points. Therefore the plot goes counterclockwise around the above points.</li>
+</ul></li>
+</ul>
+</section>
+<section>
+<h3 id="org3009263">Sketch Nyquist Plot</h3>
+<ul>
+<li>Segment 2: Since the system is strictly proper, Segment 2 is the origin.</li>
+<li>Segment 3: Mirror reflection of segment 1.</li>
+</ul>
+</section>
+<section>
+<h3 id="org3009263">Sketch Nyquist Plot</h3>
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec5Example3Nyquist.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org621fdc7" class="outline-2">
+<h3 id="org621fdc7">Determine \(N\) and \(P\)</h3>
+<div class="outline-text-2" id="text-26">
+<ul class="org-ul">
+<li>For the open-loop system, the poles are at \(-1.47,\,0.23\pm0.79j\). Therefore, \(P = 2\)</li>
+<li>If \(K < 2\), then \(-0.5K > -1\), the Nyquist plot does not encircle \(-1\). Therefore \(N = 0,\,Z = 2\). The system has 2 unstable poles.</li>
+<li>If \(K > 2\), then \(-0.5K < -1\), the Nyquist plot encircle \(-1\) counterclockwise twice. Therefore \(N = -2\) and \(Z = 0\). The system is stable.</li>
+</ul>
+</div>
+</div>
+
+
+</section>	
+<section>
+<div id="outline-container-orgb288179" class="outline-2">
+<h3 id="orgb288179">Example 4</h3>
+<div class="outline-text-2" id="text-27">
+<p>
+Consider a feedback system with open-loop transfer function
+\[G(s)H(s) = \frac{K}{(s-1)(s+2)},\,K>0\]
+Determine the range of \(K\) such that the feedback system is stable.
+</p>
+</div>
+</div>
+
+</section>	
+<section>
+  
+<h3 id="orgb4fcdaf">Sketch Nyquist Plot</h3>
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec5Example4Bode.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+<h3 id="orgb4fcdaf">Sketch Nyquist Plot</h3>
+</section>
+<section>
+<div id="outline-container-orgb4fcdaf" class="outline-2">
+<h3 id="orgb4fcdaf">Sketch Nyquist Plot</h3>
+<div class="outline-text-2" id="text-28">
+
+<ul class="org-ul">
+<li>Segment 1:
+<ul class="org-ul">
+<li>When \(\omega \rightarrow 0\), \(G(j\omega)H(j\omega)\rightarrow -K/2\).</li>
+<li>There is no real intersection for \(0 < \omega < \infty\).</li>
+<li>There is no imaginary intersection for \(0 < \omega < \infty\).</li>
+<li>When \(\omega \rightarrow \infty\), \(G(j\omega)H(j\omega)\rightarrow 0\).</li>
+<li>The phase is always increasing at \(\omega = 0\), therefore the plot goes counterclockwise at \(-K/2\).</li>
+</ul></li>
+<li>Segment 2: Since the system is strictly proper, Segment 2 is the origin.</li>
+<li>Segment 3: Mirror reflection of segment 1.</li>
+</ul>
+
+
+</div>
+</div>
+
+
+</section>	
+<section>
+  
+<h3 id="orgb4fcdaf">Sketch Nyquist Plot</h3>
+<div class="figure" style="zoom:1.5;">
+<p><object type="image/svg+xml" data="assets/Lec5Example4Nyquist.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</section>
+<section>
+<div id="outline-container-orgcc236fc" class="outline-2">
+<h3 id="orgcc236fc">Determine \(N\) and \(P\)</h3>
+<div class="outline-text-2" id="text-29">
+<ul class="org-ul">
+<li>For the open-loop system, the poles are at \(1,\,-2\). Therefore, \(P = 1\)</li>
+<li>If \(K < 2\), then \(-0.5K > -1\), the Nyquist plot does not encircle \(-1\). Therefore \(N = 0,\,Z = 1\). The system has 1 unstable poles.</li>
+<li>If \(K > 2\), then \(-0.5K < -1\), the Nyquist plot encircle \(-1\) counterclockwise once. Therefore \(N = -1\) and \(Z = 0\). The system is stable.</li>
+</ul>
+</div>
+</div>
+
+</section>	
+<section>
+<div id="outline-container-org5f21c38" class="outline-2">
+<h3 id="org5f21c38">Summary</h3>
+<div class="outline-text-2" id="text-30">
+<ul class="org-ul">
+<li>Cauchy's Argument Principle: \(Z = N+P\).</li>
+<li>Nyquist Stability Criterion: Closed-loop system is stable if and only if \[N+P = 0.\]</li>
+<li>Sketch Nyquist plot from Bode plot</li>
+<li>Determine stability of the closed-loop system using Nyquist stability criterion.</li>
+</ul>
+</div>
+</div>
+</section>

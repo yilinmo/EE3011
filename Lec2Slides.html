@@ -1,0 +1,404 @@
+---
+layout: slides
+title: Lecture 2 - EE 3011 Modelling and Control
+---
+<section>
+<h1>Bode Plots</h1>
+</section>
+<section>
+<div id="outline-container-orgfa28352" class="outline-2">
+<h2 id="orgfa28352">Bode Plots</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>Bode plots play an important role in frequency domain analysis and design.</li>
+<li>Bode plots of a transfer function \(G(s)\) include two graphs:
+<ul class="org-ul">
+<li>Magnitude plot: \(20\log_{10}|G(j\omega)|\) (dB) in linear scale v.s. \(\omega\) in log scale.</li>
+<li>Phase plot: \(\angle G(j\omega)\) (degree) in linear scale v.s. \(\omega\) in log-scale.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section>
+<div id="outline-container-orgfc1c771" class="outline-2">
+<h3 id="orgfc1c771">Example</h3>
+<div class="outline-text-2" id="text-2">
+<p>
+Consider the transfer function \(G(s) = \frac{s+1}{s^2+2s+3}\).
+</p>
+
+
+<div class="figure" style="zoom:1.3;">
+<p><object type="image/svg+xml" data="assets/Lec2Bode1.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-orgbdba1af" class="outline-2">
+<h3 id="orgbdba1af">Why Bode Plots?</h3>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>Why choose \(20\log_{10}|G(j\omega)|\)?
+<ul class="org-ul">
+<li>We typical write a transfer function as \[G(s) = K\frac{(s+z_1)\dots(s+z_i)}{(s+p_1)\dots(s+p_n)}\]</li>
+<li>Hence,
+\begin{align}
+20\log|G(j\omega)|&=20\log|G_1(j\omega)|+\dots+20\log|G_n(j\omega)|\\
+\angle G(j\omega)&=\angle G_1(j\omega)+\dots+\angle G_n(j\omega)
+\end{align}
+<ul class="org-ul">
+</li>
+</ul></li>
+</ul>
+<li>Why choose the frequency \(\omega\) in log-scale?
+<ul class="org-ul">
+<li>The magnitude plot can be easily approximated by straight lines</li>
+<li>We can display a wider range of system behavior</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org40acebd" class="outline-2">
+<h3 id="org40acebd">What if \(\omega\) is not in log-scale</h3>
+<div class="outline-text-2" id="text-4">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec2Bode2.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+
+<p>
+As a result, Bode plots are plotted on semilog papers with the horizontal axis in log scale and the vertical axis in linear scale. 
+</p>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org6dc0e8a" class="outline-2">
+<h3 id="org6dc0e8a">Sketching Bode Plots</h3>
+<div class="outline-text-2" id="text-5">
+<ul class="org-ul">
+<li>A complex polynomial can always be factorized in to basic terms 
+<ul class="org-ul">
+<li>Constant: \(K\)</li>
+<li>Integrator/Derivative: \(1/s\)</li>
+<li>First Order System: \(1/(\tau s + 1)\)</li>
+<li>Second Order System:\[\left(\frac{s}{\omega_n}\right)^2 + 2\zeta \left(\frac{s}{\omega_n}\right) + 1,\] where \(-1<\zeta < 1\). (<b>Why?</b>)</li>
+</ul></li>
+<li>To create the Bode plot of a complex rational transfer function, we only need to understand the Bode plots of simple polynomials</li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org823c62c" class="outline-2">
+<h3 id="org823c62c">Example</h3>
+<div class="outline-text-2" id="text-6">
+<ul class="org-ul">
+<li>Consider the following transfer function</li>
+</ul>
+\begin{align}
+G(s) = \frac{10(s+1)}{s(s^2+0.4s+4)} &= \frac{2.5\times (s+1)}{s \times \left[(0.5s)^2 + 0.2(0.5s)+1\right]}\\
+&= \frac{G_1(s)G_2(s)}{G_3(s)G_4(s)}.
+\end{align}
+<ul class="org-ul">
+<li>Therefore, we know that</li>
+</ul>
+\begin{align}
+\log|G(j\omega)| &=\log|G_1(j\omega)| +\log|G_2(j\omega)|\\
+&-\log|G_3(j\omega)|-\log|G_4(j\omega)| \\
+\angle G(j\omega) &=\angle G_1(j\omega) + \angle G_2(j\omega) -\angle G_3(j\omega) -\angle G_4(j\omega) 
+\end{align}
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org7bb21e2" class="outline-2">
+<h3 id="org7bb21e2">Bode Plot of \(K\)</h3>
+<div class="outline-text-2" id="text-7">
+<ul class="org-ul">
+<li>The magnitude is \(20\log|K|\).</li>
+<li>If \(K > 0\), then the phase is \(0^\circ\).</li>
+<li>If \(K < 0\), then the phase is \(-180^\circ\).</li>
+</ul>
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec2BodeConstant.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-orge3fc1fa" class="outline-2">
+<h3 id="orge3fc1fa">Bode Plot of an Integrator \(1/s\)</h3>
+<div class="outline-text-2" id="text-8">
+<ul class="org-ul">
+<li>The magnitude in dB is \[20\log|1/\omega| = -20 \log \omega.\]</li>
+<li>The magnitude is a straight line passing \((1,\,0dB)\) with slope -20.</li>
+<li>The phase is \(-90^\circ\).</li>
+</ul>
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec2BodeIntegrators.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org88616f7" class="outline-2">
+<h3 id="org88616f7">Bode Plot of an Integrator \(s^N\)</h3>
+<div class="outline-text-2" id="text-9">
+<p>
+From what we know about \(s^{-1}\), we can prove that:
+</p>
+<ul class="org-ul">
+<li>The magnitude in dB is \(20N \log \omega\).</li>
+<li>The magnitude is a straight line passing \((1,\,0dB)\) with slope 20N.</li>
+<li>The phase is \(90N^\circ\).</li>
+</ul>
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec2BodeIntegrators2.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<div id="outline-container-org8d949c3" class="outline-2">
+<h3 id="org8d949c3">Bode Plot of \(1/(\tau s+ 1)\)</h3>
+<div class="outline-text-2" id="text-10">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec2BodeFirstOrder.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<ul class="org-ul">
+<li>Here we will assume \(\tau > 0\). (\(\tau < 0\) will be discussed later)</li>
+</ul>
+</div>
+</div>
+
+</section>
+<section>
+  <ul>
+    <li> Observations:
+      <ul class="org-ul">
+	<li>The magnitude plot bends around \(10 = \tau^{-1}\).</li>
+	<li>The magnitude plot is a straight line when \(\omega \ll \tau^{-1}\) or \(\omega \gg \tau^{-1}\).</li>
+	<li>The phase is roughly \(0^\circ\) when \(\omega < 1 = 0.1/\tau\).</li>
+							     <li>The phase is roughly \(-90^\circ\) when \(\omega > 100 = 10/\tau\).</li>
+	<li>The phase passes \(-45^\circ\) when \(\omega = 1/\tau\).</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+<section>
+  <div id="outline-container-org2a5f0fa" class="outline-2">
+    <h3 id="org2a5f0fa">Bode Plot of \(1/(\tau s+ 1)\)</h3>
+    <div class="outline-text-2" id="text-11">
+      <p>
+	<b>Asymptotes</b>
+      </p>
+      <ul class="org-ul">
+	<li>If \(\omega\tau\ll 1\), i.e., \(\omega\ll 1/\tau{}\), then
+
+	  \begin{align}
+G(j\omega{}) &= \frac{1}{j\omega{\tau{}}+1} \approx 1,\,\\
+20\log\left|G(j\omega{})\right| &\approx 0,\, \angle G(j\omega) \approx 0^\circ.
+	  \end{align}
+
+	  <ul class="org-ul">
+	    <li>The magnitude plot is a horizontal line at 0dB.</li>
+	    <li>The phase plot is a horizontal line at \(0^\circ\).</li>
+	</ul></li>
+	</ul>
+    </div>
+  </div>
+</section>
+<section>
+  <div id="outline-container-org2a5f0fa" class="outline-2">
+    <h3 id="org2a5f0fa">Bode Plot of \(1/(\tau s+ 1)\)</h3>
+    <div class="outline-text-2" id="text-11">
+      <p>
+	<b>Asymptotes</b>
+      </p>
+      <ul class="org-ul">
+	<li>If \(\omega\tau\gg 1\), i.e., \(\omega\gg 1/\tau{}\), then
+	  \begin{align}
+	  G(j\omega{}) &= \frac{1}{j\omega{\tau{}}+1} \approx -j\omega^{-1}\tau^{-1},\\
+	  20\log\left|\frac{1}{j\omega{\tau{}}+1}\right| &\approx -20\log\omega{}-20\log\tau{},\, \angle G(j\omega) \approx -90^\circ.
+	  \end{align}
+	  <ul class="org-ul">
+	    <li>The magnitude plot is a line passing \((1/\tau{},0)\) with a slope -20.</li>
+	    <li>The phase plot is a horizontal line at \(-90^\circ\).</li>
+	</ul></li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <div id="outline-container-org2a5f0fa" class="outline-2">
+    <h3 id="org2a5f0fa">Bode Plot of \(1/(\tau s+ 1)\)</h3>
+    <div class="outline-text-2" id="text-11">
+      <ul class="org-ul">
+	<li>\(1/\tau{}\) is called the corner frequency. It is where the two asymptotes of the magnitude plot intersect.
+	  <ul class="org-ul">
+	    <li>At the corner frequency, \(G(j/\tau{}) = 1/(1+j) = 0.5-0.5j = 0.707\angle -45^\circ\). The magnitude is \(-3dB\).</li>
+	</ul></li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <div id="outline-container-org09c0127" class="outline-2">
+    <h3 id="org09c0127">Sketch bode plot of \(1/(\tau s+ 1)\) using Asymptotes</h3>
+    <ul>
+     <li>
+       <b> Magnitude </b>
+	<ul class="org-ul">
+	  <li>draw a horizontal line at 0db until the corner frequency \(1/\tau\).</li>
+	  <li>from the point \((1/\tau, 0db)\), draw a straight line with slope -20.</li>
+	</ul>
+     </li> 
+     <li>
+      <b> Phase </b> 
+	<ul class="org-ul">
+	  <li>draw a horizontal line at \(0^\circ\) until the frequency \(0.1/\tau\).</li>
+	  <li>draw a horizontal line at \(-90^\circ\) from the frequency \(10/\tau\) to \(\infty\).</li>
+	  <li>connect \((0.1/\tau, 0^\circ)\) and \((-10/\tau,\,90^\circ)\) with a straight line.</li>
+	</ul>
+     </li>
+    </ul>
+  </div>
+</section>
+
+<section>
+    <h3 id="org09c0127">Sketch bode plot of \(1/(\tau s+ 1)\) using asymptotes</h3>
+ <div class="figure" style="zoom:1.5;">
+	  <p><object type="image/svg+xml" data="assets/Lec2BodeFirstOrderAsym.svg" class="org-svg">
+	      sorry, your browser does not support svg.</object>
+	  </p>
+	</div>
+</section>
+<section>
+  <div id="outline-container-org2c8bd7e" class="outline-2">
+    <h3 id="org2c8bd7e">Sketch Bode Plot of \(\tau s+ 1\) Using Asymptotes</h3>
+    <div class="outline-text-2" id="text-13">
+      <p>
+	We can flip the plots of \(1/(\tau s+1)\) to get the plots of \(\tau s+1\)
+      </p>
+
+      <div class="figure" style="zoom:1.2;">
+	<p><object type="image/svg+xml" data="assets/Lec2BodeFirstOrderAsymInv.svg" class="org-svg">
+	    Sorry, your browser does not support SVG.</object>
+	</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+<section>
+  <div id="outline-container-org22106a8" class="outline-2">
+    <h3 id="org22106a8">Bode Plot of \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\)</h3>
+    <div class="outline-text-2" id="text-14">
+      <p>
+	Recall that
+      </p>
+      <ul class="org-ul">
+	<li>\(\omega_n\) is called the natural frequency.</li>
+	<li>\(\zeta\) is the damping ratio.</li>
+      </ul>
+
+      <div class="figure">
+	<p><object type="image/svg+xml" data="assets/Lec2BodeSecondOrder.svg" class="org-svg">
+	    Sorry, your browser does not support SVG.</object>
+	</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+<section>
+  <div id="outline-container-orgc4e770b" class="outline-2">
+    <h3 id="orgc4e770b">Bode Plot of \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\)</h3>
+    <div class="outline-text-2" id="text-15">
+      <ul class="org-ul">
+	<li>If \(\omega \ll \omega_n\), then \(G(j\omega) \approx 1\)
+	  <ul class="org-ul">
+	    <li>The magnitude is 0dB.</li>
+	    <li>The phase plot is \(0^\circ\).</li>
+	</ul></li>
+	<li>If \(\omega \gg \omega_n\), then \[G(j\omega) \approx 1/(j\omega/\omega_n)^2 = -\omega_n^2/\omega^2.\]
+	  <ul class="org-ul">
+	    <li>The magnitude is \(40\log \omega_n-40 \log\omega\). A straight line with slope -40 and passing \((\omega_n,0dB)\)</li>
+	    <li>The phase is \(-180^\circ\).</li>
+	</ul></li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+<section>
+    <h3 id="orgc4e770b">Bode Plot of \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\)</h3>
+  <ul>
+   <li>When \(\omega = \omega_n\) (corner frequency), \[G(j\omega) = \frac{1}{j^2+2\zeta j+1} = \frac{-1}{2\zeta}j.\] 
+	  <ul class="org-ul">
+	    <li>The magnitude is \(-20\log(2\zeta)\).</li>
+	    <li>the phase is \(90^\circ\).</li>
+	</ul></li>
+  </ul>
+  	
+</section>
+<section>
+    <h3 id="orgc8fd081">Sketch \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\)</h3>
+    <ul>
+     <li>
+      <b>Magnitude</b> 
+	<ul class="org-ul">
+	  <li>Draw a horizontal line at 0dB until the corner frequency \(\omega_n\).</li>
+	  <li>From the point \((\omega_n, 0dB)\), draw a straight line with slope -40.</li>
+	  <li>If you want to be more accurate, change the magnitude at the corner frequency to \(-20\log(2\zeta)\) and draw a smooth curve.</li>
+	</ul>
+     </li> 
+     <li>
+      <b> Phase </b> 
+	<ul class="org-ul">
+	  <li>The phase plot cannot be drawn very accurately using asymptotes.</li>
+	</ul>
+     </li>
+    </ul>
+
+
+</section>
+<section>
+    <h3 id="orgc8fd081">Sketch \(\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}\)</h3>
+	<div class="figure" style="zoom:1.5;">
+	  <p><object type="image/svg+xml" data="assets/Lec2BodeSecondOrder2.svg" class="org-svg">
+	      Sorry, your browser does not support SVG.</object>
+	  </p>
+	</div> 
+</section>

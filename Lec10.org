@@ -351,7 +351,7 @@ plt.show()
 - Since a lead compensator will result in a larger gain crossover frequency, to meet the gain crossover frequency requirement, we shall adopt a lag compensator.
 
 *** Design $\beta$ 
-- We need to find a frequency $\omega_g$ where the phase is $50-180+5= 125^\circ$.
+- We need to find a frequency $\omega_g$ where the phase is $50-180+5= -125^\circ$.
 - From the phase plot, we choose $\omega_g = 5$ rad/s. 
 - Using the straight line approximation, we know that when $\omega < 10$ and $\omega = 50$, the magnitude plot can be approximated by $$20\log 200-20 \log \omega.$$
 - $\beta$ can be calculated as $$20\log\beta =20\log 200-20\log \omega \Rightarrow \beta = 40. $$

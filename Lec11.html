@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-10 Mon 23:30 -->
+<!-- 2017-04-21 Fri 12:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title></title>
 <meta name="generator" content="Org mode" />
-<meta name="author" content="yilin" />
+<meta name="author" content="Yilin" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -254,56 +254,56 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgcb564f9">1. Review</a>
+<li><a href="#orga044ea8">1. Review</a>
 <ul>
-<li><a href="#org2675fcf">1.1. Complex Numbers</a></li>
-<li><a href="#org2131118">1.2. Bode Plots</a></li>
-<li><a href="#org0e685f1">1.3. Basic Factors</a></li>
-<li><a href="#org549d475">1.4. Constant K</a></li>
-<li><a href="#org853a6a9">1.5. Integrator \(1/s\)</a></li>
-<li><a href="#org105ff28">1.6. First Order \(1/(\tau s+1)\)</a></li>
-<li><a href="#org044df8c">1.7. Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</a></li>
-<li><a href="#orgad2fcf0">1.8. Bode Plots of Complex Function</a></li>
-<li><a href="#org174322f">1.9. Frequency Domain Modeling</a></li>
-<li><a href="#org9ff227b">1.10. Nyquist Contour and Plot</a></li>
-<li><a href="#org5a29efb">1.11. Nyquist Stability Criterion</a></li>
-<li><a href="#org8f84142">1.12. Sketch Nyquist Plot (Segment 1)</a></li>
-<li><a href="#org1e4a50d">1.13. Sketch Nyquist Plot (Segment 2&amp;3)</a></li>
-<li><a href="#orgd5505ed">1.14. Gain Margin</a></li>
-<li><a href="#org03aba06">1.15. Phase Margin</a></li>
-<li><a href="#org04df359">1.16. Stable System</a></li>
-<li><a href="#org20f8a47">1.17. Unstable System</a></li>
-<li><a href="#orge24cccc">1.18. Loop Shaping</a></li>
-<li><a href="#orgeab79b3">1.19. Desirable Magnitude Plot Shape</a></li>
-<li><a href="#org1eceba5">1.20. Lead and Lag Compensator</a></li>
-<li><a href="#orge85da08">1.21. Lead Compensator Design Procedure</a></li>
-<li><a href="#orgd5687c8">1.22. Lead Compensator Example</a></li>
-<li><a href="#org5769cf1">1.23. Lag Compensator Design Procedure</a></li>
-<li><a href="#org7237870">1.24. Lag Compensator Example</a></li>
-<li><a href="#org142ddc9">1.25. PID Controller</a></li>
-<li><a href="#org104e91e">1.26. Step Response Method</a></li>
-<li><a href="#orga33e9af">1.27. Self-Oscillation Method</a></li>
+<li><a href="#orgdba3dd6">1.1. Complex Numbers</a></li>
+<li><a href="#org2566590">1.2. Bode Plots</a></li>
+<li><a href="#orgbfc6b09">1.3. Basic Factors</a></li>
+<li><a href="#org3648cb1">1.4. Constant K</a></li>
+<li><a href="#orgc578e03">1.5. Integrator \(1/s\)</a></li>
+<li><a href="#org78c1744">1.6. First Order \(1/(\tau s+1)\)</a></li>
+<li><a href="#org6b3b053">1.7. Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</a></li>
+<li><a href="#org4e9eecf">1.8. Bode Plots of Complex Function</a></li>
+<li><a href="#org4777aa7">1.9. Frequency Domain Modeling</a></li>
+<li><a href="#org7e83269">1.10. Nyquist Contour and Plot</a></li>
+<li><a href="#org9def435">1.11. Nyquist Stability Criterion</a></li>
+<li><a href="#orgeeb23d2">1.12. Sketch Nyquist Plot (Segment 1)</a></li>
+<li><a href="#orgc201265">1.13. Sketch Nyquist Plot (Segment 2&amp;3)</a></li>
+<li><a href="#org026c8cc">1.14. Gain Margin</a></li>
+<li><a href="#org0101598">1.15. Phase Margin</a></li>
+<li><a href="#org2e5da29">1.16. Stable System</a></li>
+<li><a href="#org8f953ad">1.17. Unstable System</a></li>
+<li><a href="#orga2c684e">1.18. Loop Shaping</a></li>
+<li><a href="#org31c0b93">1.19. Desirable Magnitude Plot Shape</a></li>
+<li><a href="#org6a5b7cb">1.20. Lead and Lag Compensator</a></li>
+<li><a href="#org77ff36a">1.21. Lead Compensator Design Procedure</a></li>
+<li><a href="#org26c10d0">1.22. Lead Compensator Example</a></li>
+<li><a href="#org356a89b">1.23. Lag Compensator Design Procedure</a></li>
+<li><a href="#org3b7f8d1">1.24. Lag Compensator Example</a></li>
+<li><a href="#orgff43cf1">1.25. PID Controller</a></li>
+<li><a href="#org8eac94d">1.26. Step Response Method</a></li>
+<li><a href="#org5ffe21b">1.27. Self-Oscillation Method</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgcb564f9" class="outline-2">
-<h2 id="orgcb564f9"><span class="section-number-2">1</span> Review</h2>
+<div id="outline-container-orga044ea8" class="outline-2">
+<h2 id="orga044ea8"><span class="section-number-2">1</span> Review</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-org2675fcf" class="outline-3">
-<h3 id="org2675fcf"><span class="section-number-3">1.1</span> Complex Numbers</h3>
+</div><div id="outline-container-orgdba3dd6" class="outline-3">
+<h3 id="orgdba3dd6"><span class="section-number-3">1.1</span> Complex Numbers</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>\(a+bi = r\angle \phi\).</li>
-<li>\(r = \sqrt{a^2+b^2}\) and \[\phi=\begin{cases}\tan^{-1}(b/a)&a > 0\\ \tan^{-1}(b/a) + \pi &a <0\\ \pi/2& a=0,\,b>0\\ -\pi/2 &a=0,b<0 \\indeterminate &a=b=0\end{cases}.\]</li>
+<li>\(r = \sqrt{a^2+b^2}\) and \[\phi=\begin{cases}\tan^{-1}(b/a)&a > 0\\ \tan^{-1}(b/a) + 180^\circ &a <0\\ 90^\circ& a=0,\,b>0\\ -90^\circ &a=0,b<0 \\indeterminate &a=b=0\end{cases}.\]</li>
 <li>\((a+bi)^n = r^n\angle n\phi\). (This is true even when \(n\) is negative.)</li>
 <li>\[\frac{1}{a+bi} = \frac{a-bi}{a^2+b^2}.\]</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org2131118" class="outline-3">
-<h3 id="org2131118"><span class="section-number-3">1.2</span> Bode Plots</h3>
+<div id="outline-container-org2566590" class="outline-3">
+<h3 id="org2566590"><span class="section-number-3">1.2</span> Bode Plots</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>Bode plots of a transfer function \(G(s)\) include two graphs:
@@ -315,8 +315,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org0e685f1" class="outline-3">
-<h3 id="org0e685f1"><span class="section-number-3">1.3</span> Basic Factors</h3>
+<div id="outline-container-orgbfc6b09" class="outline-3">
+<h3 id="orgbfc6b09"><span class="section-number-3">1.3</span> Basic Factors</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>A complex polynomial can always be factorized in to basic terms 
@@ -329,8 +329,8 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
-<div id="outline-container-org549d475" class="outline-3">
-<h3 id="org549d475"><span class="section-number-3">1.4</span> Constant K</h3>
+<div id="outline-container-org3648cb1" class="outline-3">
+<h3 id="org3648cb1"><span class="section-number-3">1.4</span> Constant K</h3>
 <div class="outline-text-3" id="text-1-4">
 
 <div class="figure">
@@ -341,8 +341,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org853a6a9" class="outline-3">
-<h3 id="org853a6a9"><span class="section-number-3">1.5</span> Integrator \(1/s\)</h3>
+<div id="outline-container-orgc578e03" class="outline-3">
+<h3 id="orgc578e03"><span class="section-number-3">1.5</span> Integrator \(1/s\)</h3>
 <div class="outline-text-3" id="text-1-5">
 
 <div class="figure">
@@ -353,8 +353,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org105ff28" class="outline-3">
-<h3 id="org105ff28"><span class="section-number-3">1.6</span> First Order \(1/(\tau s+1)\)</h3>
+<div id="outline-container-org78c1744" class="outline-3">
+<h3 id="org78c1744"><span class="section-number-3">1.6</span> First Order \(1/(\tau s+1)\)</h3>
 <div class="outline-text-3" id="text-1-6">
 
 <div class="figure">
@@ -365,8 +365,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org044df8c" class="outline-3">
-<h3 id="org044df8c"><span class="section-number-3">1.7</span> Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</h3>
+<div id="outline-container-org6b3b053" class="outline-3">
+<h3 id="org6b3b053"><span class="section-number-3">1.7</span> Second Order \(1/((s/\omega_n)^2+2\zeta(s/\omega_n)+1)\)</h3>
 <div class="outline-text-3" id="text-1-7">
 
 <div class="figure">
@@ -377,8 +377,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgad2fcf0" class="outline-3">
-<h3 id="orgad2fcf0"><span class="section-number-3">1.8</span> Bode Plots of Complex Function</h3>
+<div id="outline-container-org4e9eecf" class="outline-3">
+<h3 id="org4e9eecf"><span class="section-number-3">1.8</span> Bode Plots of Complex Function</h3>
 <div class="outline-text-3" id="text-1-8">
 <ul class="org-ul">
 <li>Decompose the Transfer Function into Basic Factors</li>
@@ -389,8 +389,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org174322f" class="outline-3">
-<h3 id="org174322f"><span class="section-number-3">1.9</span> Frequency Domain Modeling</h3>
+<div id="outline-container-org4777aa7" class="outline-3">
+<h3 id="org4777aa7"><span class="section-number-3">1.9</span> Frequency Domain Modeling</h3>
 <div class="outline-text-3" id="text-1-9">
 <ul class="org-ul">
 <li>Determine an asymptotic magnitude plot by approximating the actual gain plot by a sequence of straight lines with slopes of \(20N\).</li>
@@ -403,8 +403,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org9ff227b" class="outline-3">
-<h3 id="org9ff227b"><span class="section-number-3">1.10</span> Nyquist Contour and Plot</h3>
+<div id="outline-container-org7e83269" class="outline-3">
+<h3 id="org7e83269"><span class="section-number-3">1.10</span> Nyquist Contour and Plot</h3>
 <div class="outline-text-3" id="text-1-10">
 
 <div class="figure">
@@ -415,8 +415,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org5a29efb" class="outline-3">
-<h3 id="org5a29efb"><span class="section-number-3">1.11</span> Nyquist Stability Criterion</h3>
+<div id="outline-container-org9def435" class="outline-3">
+<h3 id="org9def435"><span class="section-number-3">1.11</span> Nyquist Stability Criterion</h3>
 <div class="outline-text-3" id="text-1-11">
 <p>
 A feedback system is stable if and only if \(N=-P\), i.e. the number of the counterclockwise encirclements of \(–1\) point by the Nyquist plot in the \(G\)-plane is equal to the number of the unstable poles of the open-loop transfer function.
@@ -424,8 +424,8 @@ A feedback system is stable if and only if \(N=-P\), i.e. the number of the coun
 </div>
 </div>
 
-<div id="outline-container-org8f84142" class="outline-3">
-<h3 id="org8f84142"><span class="section-number-3">1.12</span> Sketch Nyquist Plot (Segment 1)</h3>
+<div id="outline-container-orgeeb23d2" class="outline-3">
+<h3 id="orgeeb23d2"><span class="section-number-3">1.12</span> Sketch Nyquist Plot (Segment 1)</h3>
 <div class="outline-text-3" id="text-1-12">
 <ul class="org-ul">
 <li>We need to find 4 types of point from the Bode plots:
@@ -445,8 +445,8 @@ A feedback system is stable if and only if \(N=-P\), i.e. the number of the coun
 </div>
 </div>
 
-<div id="outline-container-org1e4a50d" class="outline-3">
-<h3 id="org1e4a50d"><span class="section-number-3">1.13</span> Sketch Nyquist Plot (Segment 2&amp;3)</h3>
+<div id="outline-container-orgc201265" class="outline-3">
+<h3 id="orgc201265"><span class="section-number-3">1.13</span> Sketch Nyquist Plot (Segment 2&amp;3)</h3>
 <div class="outline-text-3" id="text-1-13">
 <ul class="org-ul">
 <li>Segment 2 is the origin point for strictly proper function. It is a constant for proper function.</li>
@@ -455,8 +455,8 @@ A feedback system is stable if and only if \(N=-P\), i.e. the number of the coun
 </div>
 </div>
 
-<div id="outline-container-orgd5505ed" class="outline-3">
-<h3 id="orgd5505ed"><span class="section-number-3">1.14</span> Gain Margin</h3>
+<div id="outline-container-org026c8cc" class="outline-3">
+<h3 id="org026c8cc"><span class="section-number-3">1.14</span> Gain Margin</h3>
 <div class="outline-text-3" id="text-1-14">
 <ul class="org-ul">
 <li>Define \(\omega_{\phi}\) to be the smallest frequency, where the phase of the open-loop transfer function is \(-180^\circ\).</li>
@@ -467,8 +467,8 @@ A feedback system is stable if and only if \(N=-P\), i.e. the number of the coun
 </div>
 </div>
 
-<div id="outline-container-org03aba06" class="outline-3">
-<h3 id="org03aba06"><span class="section-number-3">1.15</span> Phase Margin</h3>
+<div id="outline-container-org0101598" class="outline-3">
+<h3 id="org0101598"><span class="section-number-3">1.15</span> Phase Margin</h3>
 <div class="outline-text-3" id="text-1-15">
 <ul class="org-ul">
 <li>Define \(\omega_{g}\) to be the smallest frequency, where the magnitude of the open-loop transfer function is \(1\) or \(0dB\).</li>
@@ -478,8 +478,8 @@ A feedback system is stable if and only if \(N=-P\), i.e. the number of the coun
 </div>
 </div>
 
-<div id="outline-container-org04df359" class="outline-3">
-<h3 id="org04df359"><span class="section-number-3">1.16</span> Stable System</h3>
+<div id="outline-container-org2e5da29" class="outline-3">
+<h3 id="org2e5da29"><span class="section-number-3">1.16</span> Stable System</h3>
 <div class="outline-text-3" id="text-1-16">
 
 <div class="figure">
@@ -490,8 +490,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org20f8a47" class="outline-3">
-<h3 id="org20f8a47"><span class="section-number-3">1.17</span> Unstable System</h3>
+<div id="outline-container-org8f953ad" class="outline-3">
+<h3 id="org8f953ad"><span class="section-number-3">1.17</span> Unstable System</h3>
 <div class="outline-text-3" id="text-1-17">
 
 <div class="figure">
@@ -502,8 +502,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orge24cccc" class="outline-3">
-<h3 id="orge24cccc"><span class="section-number-3">1.18</span> Loop Shaping</h3>
+<div id="outline-container-orga2c684e" class="outline-3">
+<h3 id="orga2c684e"><span class="section-number-3">1.18</span> Loop Shaping</h3>
 <div class="outline-text-3" id="text-1-18">
 <ul class="org-ul">
 <li>In the low frequency, the gain should be high to have good steady state accuracy.</li>
@@ -513,8 +513,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgeab79b3" class="outline-3">
-<h3 id="orgeab79b3"><span class="section-number-3">1.19</span> Desirable Magnitude Plot Shape</h3>
+<div id="outline-container-org31c0b93" class="outline-3">
+<h3 id="org31c0b93"><span class="section-number-3">1.19</span> Desirable Magnitude Plot Shape</h3>
 <div class="outline-text-3" id="text-1-19">
 
 <div class="figure">
@@ -525,8 +525,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org1eceba5" class="outline-3">
-<h3 id="org1eceba5"><span class="section-number-3">1.20</span> Lead and Lag Compensator</h3>
+<div id="outline-container-org6a5b7cb" class="outline-3">
+<h3 id="org6a5b7cb"><span class="section-number-3">1.20</span> Lead and Lag Compensator</h3>
 <div class="outline-text-3" id="text-1-20">
 <ul class="org-ul">
 <li>The transfer function of a lead compensator is \[C(s) = K\frac{Ts+1}{\alpha Ts+1},\,0<\alpha<1.\]</li>
@@ -542,8 +542,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orge85da08" class="outline-3">
-<h3 id="orge85da08"><span class="section-number-3">1.21</span> Lead Compensator Design Procedure</h3>
+<div id="outline-container-org77ff36a" class="outline-3">
+<h3 id="org77ff36a"><span class="section-number-3">1.21</span> Lead Compensator Design Procedure</h3>
 <div class="outline-text-3" id="text-1-21">
 <ul class="org-ul">
 <li>Determine the gain \(K\) to satisfy the steady state error requirement.</li>
@@ -557,8 +557,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgd5687c8" class="outline-3">
-<h3 id="orgd5687c8"><span class="section-number-3">1.22</span> Lead Compensator Example</h3>
+<div id="outline-container-org26c10d0" class="outline-3">
+<h3 id="org26c10d0"><span class="section-number-3">1.22</span> Lead Compensator Example</h3>
 <div class="outline-text-3" id="text-1-22">
 
 <div class="figure">
@@ -569,8 +569,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org5769cf1" class="outline-3">
-<h3 id="org5769cf1"><span class="section-number-3">1.23</span> Lag Compensator Design Procedure</h3>
+<div id="outline-container-org356a89b" class="outline-3">
+<h3 id="org356a89b"><span class="section-number-3">1.23</span> Lag Compensator Design Procedure</h3>
 <div class="outline-text-3" id="text-1-23">
 <ul class="org-ul">
 <li>Determine the compensator gain \(K\) to meet the steady state error requirement.</li>
@@ -583,8 +583,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org7237870" class="outline-3">
-<h3 id="org7237870"><span class="section-number-3">1.24</span> Lag Compensator Example</h3>
+<div id="outline-container-org3b7f8d1" class="outline-3">
+<h3 id="org3b7f8d1"><span class="section-number-3">1.24</span> Lag Compensator Example</h3>
 <div class="outline-text-3" id="text-1-24">
 
 <div class="figure">
@@ -595,8 +595,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org142ddc9" class="outline-3">
-<h3 id="org142ddc9"><span class="section-number-3">1.25</span> PID Controller</h3>
+<div id="outline-container-orgff43cf1" class="outline-3">
+<h3 id="orgff43cf1"><span class="section-number-3">1.25</span> PID Controller</h3>
 <div class="outline-text-3" id="text-1-25">
 
 <div class="figure">
@@ -612,8 +612,8 @@ The standard form of PID controller is \[C(s) = K_p\left(1+\frac{1}{T_is}+T_ds\r
 </div>
 </div>
 
-<div id="outline-container-org104e91e" class="outline-3">
-<h3 id="org104e91e"><span class="section-number-3">1.26</span> Step Response Method</h3>
+<div id="outline-container-org8eac94d" class="outline-3">
+<h3 id="org8eac94d"><span class="section-number-3">1.26</span> Step Response Method</h3>
 <div class="outline-text-3" id="text-1-26">
 <ul class="org-ul">
 <li>Find the maximum slop tangent line</li>
@@ -630,8 +630,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orga33e9af" class="outline-3">
-<h3 id="orga33e9af"><span class="section-number-3">1.27</span> Self-Oscillation Method</h3>
+<div id="outline-container-org5ffe21b" class="outline-3">
+<h3 id="org5ffe21b"><span class="section-number-3">1.27</span> Self-Oscillation Method</h3>
 <div class="outline-text-3" id="text-1-27">
 <ul class="org-ul">
 <li>The critical gain \(K_{cr}\) is the gain margin</li>

@@ -3,6 +3,9 @@
 !assets
 !assets/
 !assets/*
+!_layouts
+!_layouts/
+!_layouts/*
 !reveal.js
 !reveal.js/
 !reveal.js/*
