@@ -1,8 +1,4 @@
-* EE3011 Modelling and Control (Part II)
-** Mo, Yilin
-** School of EEE
-
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC ipython :session :exports none
 import matplotlib
 import numpy as np
 import matplotlib.pyplot as plt
@@ -22,8 +18,33 @@ from control.matlab import *
 
 #+RESULTS:
 
-#+BEGIN_SRC ipython :session :file ./Lec1RC.svg :exports both
-%%tikz -p circuitikz -f svg -S ./Lec1RC.svg
+* Frequency Response
+
+** Introduction
+Review of time domain analysis
+- System modeling
+- Time-domain responses systems of control
+- Routh-Hurwitz Criterion and Root locus for stability analysis
+- Time-domain specifications:
+  + rise time
+  + settling time
+  + maximum overshoot
+  + steady-state error
+
+** What is Frequency Response: RC-Network
+
+\begin{align*}
+  \frac{V_0(s)}{V_i(s)}= \frac{1/sC}{R+1/sC} = \frac{1}{\tau s+1},\,\tau=RC.
+\end{align*}
+
+\begin{align*}
+  v_i(t) = 2\sin(\omega t+ 30^\circ)
+\end{align*}
+
+Assuming $R = 1k\Omega$, $C = 10^{-4}F$, then $\tau = 0.1s$.
+
+#+BEGIN_SRC ipython :session :file assets/Lec1RC.svg :exports results
+%%tikz -p circuitikz -f svg -S assets/Lec1RC.svg
 \draw (0,0) to [short, *-*] (6,0);
 \draw (0,3) to [short, *-] (1,3)
 to [R,l=R] (4,3) 
@@ -34,9 +55,9 @@ to [short, -*] (6,3);
 #+END_SRC
 
 #+RESULTS:
-[[file:./Lec1RC.svg]]
+[[file:assets/Lec1RC.svg]]
 
-#+BEGIN_SRC ipython :session :file  :exports both
+#+BEGIN_SRC ipython :session :file :exports none
 # Define System
 
 R = 1e3
@@ -47,106 +68,215 @@ sys = tf([1],[τ,1])
 
 #+RESULTS:
 
-#+BEGIN_SRC ipython :session :file ./Lec1Step.svg  :exports both
-# Step Response
+**  RC-Network: Step Response
+#+BEGIN_SRC ipython :session :file assets/Lec1Step.svg  :exports results
 
-t = np.linspace(0,2,500)
-ω = 5
-vi = np.ones(t.size)
-_, vo = control.step_response(sys,t)
+  t = np.linspace(0,2,500)
+  ω = 5
+  vi = np.ones(t.size)
+  _, vo = control.step_response(sys,t)
 
-plt.plot(t,vi)
-plt.plot(t,vo)
-plt.xlabel(r't/sec')
-plt.ylabel(r'Voltage');
-plt.title(r'Step Response')
-plt.ylim(0,1.5)
+  plt.plot(t,vo)
+  plt.xlabel(r't/sec')
+  plt.ylabel(r'Voltage');
+  plt.title(r'Step Response')
 
-plt.show
+  plt.grid(b=True, which='both')
+  plt.ylim(0,1.1)
+  plt.xlim(0,2)
+  plt.show
 
 #+END_SRC
 
 #+RESULTS:
-[[file:./Lec1Step.svg]]
+[[file:assets/Lec1Step.svg]]
 
+**  RC-Network: Response to Sinusoidal Input with $\omega = 5$
+#+BEGIN_SRC ipython :session :file assets/Lec1Fre5.svg :exports results
+  t = np.linspace(0,10,500)
+  omega = 5
+  vi = 2 * np.sin(omega * t+30*2*np.pi/360)
+  _, vo, _ = control.forced_response(sys,t,vi)
 
+  plt.plot(t,vi,'r')
+  plt.plot(t,vo,'b')
+  plt.xlabel(r't/sec')
+  plt.ylabel(r'Voltage');
+  plt.title(r'$\omega$ = 5rad/s')
 
-#+BEGIN_SRC ipython :session :file ./Lec1Fre5.svg :exports both
-t = np.linspace(0,10,500)
-omega = 5
-vi = 2 * np.sin(omega * t+30*2*np.pi/360)
-_, vo, _ = control.forced_response(sys,t,vi)
-
-
-plt.plot(t,vi)
-plt.plot(t,vo)
-plt.xlabel(r't/sec')
-plt.ylabel(r'Voltage');
-plt.title(r'$\omega$ = 5rad/s')
-
-plt.show
+  plt.grid(b=True, which='both')
+  plt.ylim(-2,2)
+  plt.xlim(0,10)
+  plt.show
 #+END_SRC
 
 #+RESULTS:
-[[file:./Lec1Fre5.svg]]
+[[file:assets/Lec1Fre5.svg]]
 
-#+BEGIN_SRC ipython :session :file ./Lec1Fre50.svg  :exports both
-# Frequency response for ω=50rad/s
+**  RC-Network: Response to Sinusoidal Input with $\omega = 50$
+#+BEGIN_SRC ipython :session :file assets/Lec1Fre50.svg  :exports results
+  # Frequency response for ω=50rad/s
 
-t = np.linspace(0,1,500)
-ω = 50
-vi = 2 * np.sin(ω * t+30*2*np.pi/360)
-_, vo, _ = control.forced_response(sys,t,vi)
+  t = np.linspace(0,1,500)
+  ω = 50
+  vi = 2 * np.sin(ω * t+30*2*np.pi/360)
+  _, vo, _ = control.forced_response(sys,t,vi)
 
-plt.plot(t,vi)
-plt.plot(t,vo)
-plt.xlabel(r't/sec')
-plt.ylabel(r'Voltage');
-plt.title(r'$\omega$ = 50rad/s')
-plt.show;
+  plt.plot(t,vi,'r')
+  plt.plot(t,vo,'b')
+  plt.xlabel(r't/sec')
+  plt.ylabel(r'Voltage');
+  plt.title(r'$\omega$ = 50rad/s')
+  plt.grid(b=True, which='both')
+  plt.ylim(-2,2)
+  plt.xlim(0,1)
+  plt.show;
 #+END_SRC
 
 #+RESULTS:
-[[file:./Lec1Fre50.svg]]
+[[file:assets/Lec1Fre50.svg]]
+** Frequency Response
 
-#+BEGIN_SRC ipython :session :file ./Lec1Bode.svg  :exports both
-# Bode Plot
-control.bode_plot(sys);
+The frequency response of a system is defined as the *steady-state response* of the system to *a sinusoidal input*.
+
+** Why Do We Need Frequency Response
+- The frequency response of a complex system can be derived from the response of simple systems (Bode Plot). 
+- The stability of the closed-loop system is determined by the frequency response of the open-loop system (Nyquist Stability Criterion)
+- Controller design can be carried out *in an intuitive fashion* by shaping the frequency response of the open-loop systems (Lag, Lead, PID controller Design)
+
+** How to Get Frequency Response
+- The frequency response can be derived from transfer functions
+- The frequency response of complex systems can be obtained experimentally
+- In fact, for an unknown system, usually we get its transfer function from the frequency response.
+
+** How to get Frequency Response from Transfer Function
+Consider a stable system:
+\begin{align*}
+  G(s) = \frac{a(s)}{b(s)}=\frac{a(s)}{(s+p_1)\dots(s+p_n)},
+\end{align*}
+where $p_i$ are assumed to be distinct poles.
+
+Consider the input 
+\begin{align*}
+r(t) = A \exp\left[j\omega t\right] = A\cos(\omega t + \phi)+jA\sin(\omega t+\phi).
+\end{align*}
+whose Laplace transform is 
+\begin{align*}
+R(s) = A\exp(j\phi)\frac{1}{s-j\omega}.
+\end{align*}
+
+The output is given by
+\begin{align*}
+  Y(s) &= G(s)R(s) \\
+       &=  \frac{a(s)}{(s+p_1)\dots(s+p_n)}\times \frac{A\exp(j\phi)}{s-j\omega} \\
+       &=\frac{k_1}{s+p_1}+\frac{k_2}{s+p_2}+\dots+\frac{k_n}{s+p_n} + \frac{\alpha}{s-j\omega}. 
+\end{align*}
+
+If we multiply the LHS and RHS of the equation by $s-j\omega$ and take the limit $s\rightarrow j\omega$, we get
+\begin{align*}
+  \lim_{s\rightarrow -j\omega}G(s)R(s) = A\exp(j\phi)G(j\omega) = A|G(j\omega)|\times e^{j(\phi + \angle G(j\omega))} = \alpha.
+\end{align*}
+
+Therefore, the response of the system can be written as
+\begin{align*}
+y(t) &= k_1e^{-p_1t}+\dots+k_ne^{-p_nt} \\
+&+ A|G(j\omega)|\cos(\omega t + \phi + \angle G(j\omega))\\ 
+&+j A|G(j\omega)|\sin(\omega t + \phi + \angle G(j\omega)).
+\end{align*}
+
+If we input $r(t) = A\sin(\omega t + \phi)$, then the steady-state output will be 
+\begin{align*}
+y_{ss}(t) =  A|G(j\omega)|\sin(\omega t + \phi + \angle G(j\omega)).
+\end{align*}
+
++ The steady-state response of a sinusoidal signal is another sinusoidal signal, where
+    1. The frequency is the same.
+    2. The amplitude is $A\times |G(j\omega)|$.
+    3. The phase is $\phi + \angle G(j\omega)$.
++ $|G (j\omega)|$ and $\angle G(j\omega)$ are frequency dependent and are referred to as the magnitude and phase responses of the system, respectively.
+
+** Example: RC-Network
+
+Consider the RC-network with transfer function
+\begin{align*}
+G(s) = \frac{1}{0.1s+1}.
+\end{align*}
+Find the steady state output due to the input $r(t) = 2\sin(\omega t+ 30^\circ)$.
+
+** RC-Network: Solution
++ Notice that$$0.1j\omega + 1 = \sqrt{1+0.01\omega^2}\angle \tan^{-1}(0.1\omega).$$
++ Therefore,$$G(j\omega) = \frac{1}{\sqrt{1+0.01\omega^2}}\angle -\tan^{-1}(0.1\omega).$$
++ Hence, the response to $r(t)$ is$$y_{ss}(t) =  \frac{2}{\sqrt{1+0.01\omega^2}}\sin\left[\omega t+30^\circ -\tan^{-1}(0.1\omega)\right.$$
++ For $\omega  = 5$, $|G(j5)| = 0.8944$, $\angle G(j5) = -26.6^\circ$.$$y_{ss}(t) = 1.7888\sin(5t+3.4^\circ).$$
++ For $\omega  = 50$, $|G(j5)| = 0.1961$, $\angle G(j5) = -78.7^\circ$.$$y_{ss}(t) = 0.3922\sin(50t-48.7^\circ).$$
+
+** Bode and Nyquist Plot
+
+- From the analysis above, $G(j\omega)$ plays a key role in frequency response. 
+- To visualize $G(j\omega)$, the following plots are typically used
+  1. Bode Plots: Bode Magnitude Plot + Bode Phase Plot
+  2. Nyquist Plots
+
+** Bode Plot
+#+BEGIN_SRC ipython :session :file assets/Lec1Bode.svg  :exports results
+  # Bode Plot
+  control.bode_plot(sys);
 #+END_SRC
 
 #+RESULTS:
 [[file:./Lec1Bode.svg]]
 
-#+BEGIN_SRC ipython :session :file ./Lec1Nyquist.svg  :exports both
-# Nyquist Plot
-control.nyquist_plot(sys, omega = [1e-2, 1e3]);
+
+** Nyquist Plot
+#+BEGIN_SRC ipython :session :file assets/Lec1Nyquist.svg  :exports results
+  # Nyquist Plot
+  control.nyquist_plot(sys, omega = [1e-2, 1e3]);
 #+END_SRC
 
 #+RESULTS:
-[[file:./Lec1Nyquist.svg]]
+[[file:assets/Lec1Nyquist.svg]]
 
+** Real World Example: Voice Coil Motor
+
+[[https://www.researchgate.net/profile/Chunling_Du/publication/224089426/figure/fig3/AS:302745262280715@1449191504173/Figure-3-HDD-with-a-VCM-actuator.png]]
+
+[[https://www.researchgate.net/profile/Chunling_Du/publication/224089426/figure/fig4/AS:302745266475011@1449191504229/Figure-4-Frequency-responses-of-the-VCM-actuator-LDV-range-2-m-m-V.png]]
+
+** Hendrik Wade Bode(1905 - 1982)
+[[https://upload.wikimedia.org/wikipedia/en/a/a5/Hendrik_Wade_Bode.png]]
+- A pioneer of modern control theory and electronic telecommunications.  
+- He made important contributions to the design, guidance and control of anti-aircraft systems during World War II 
+- During the Cold War, he also made significant contributions to the design and control of missiles and anti-ballistic missiles. 
+- Contributions to control system theory and mathematical tools for the analysis of stability of linear systems, inventing *Bode plots*, *gain margin* and *phase margin*. 
+- Worked in Bell Lab from 1926 to 1967. Became a professor at Harvard after retiring from Bell Lab.
+
+** Harry Nyquist (1889 - 1976)
+[[https://upload.wikimedia.org/wikipedia/en/b/b4/Harry_Nyquist.jpg]]
+- Worked in Bell Lab from 1917 to 1954.
+- Received the IEEE Medal of Honor in 1960 for "*fundamental contributions to a quantitative understanding of thermal noise, data transmission and negative feedback*."
+- Received the National Academy of Engineering's fourth Founder's Medal "*in recognition of his many fundamental contributions to engineering.*"
+- 
 ** Summary
-The frequency response of a system is defined as the *steady-state response* of the system to *a sinusoidal input*.
+   The frequency response of a system is defined as the *steady-state response* of the system to *a sinusoidal input*.
 
-#+BEGIN_SRC ipython :session :file assets/Lec1Summary.svg :exports results
-%%tikz -l matrix,arrows -s 400,30 -f svg -S assets/Lec1Summary.svg
+   #+BEGIN_SRC ipython :session :file assets/Lec1Summary.svg :exports results
+     %%tikz -l matrix,arrows -s 400,30 -f svg -S assets/Lec1Summary.svg
 
-\tikzstyle{point} = [coordinate]
-\tikzstyle{box} = [rectangle, draw, semithick]
-\node (plant) [box] {$G(s)$};
-\node (p1) [left of=plant, anchor=east] {$A\sin(\omega t + \phi)$};
-\node (p2) [right of=plant, anchor=west] {$A|G(j\omega)|\sin(\omega t + \phi+\angle G(j\omega))$};
-\draw [semithick,-stealth'] (p1)--(plant);
-\draw [semithick,-stealth'] (plant)--(p2);
-#+END_SRC
+     \tikzstyle{point} = [coordinate]
+     \tikzstyle{box} = [rectangle, draw, semithick]
+     \node (plant) [box] {$G(s)$};
+     \node (p1) [left of=plant, anchor=east] {$A\sin(\omega t + \phi)$};
+     \node (p2) [right of=plant, anchor=west] {$A|G(j\omega)|\sin(\omega t + \phi+\angle G(j\omega))$};
+     \draw [semithick,-stealth'] (p1)--(plant);
+     \draw [semithick,-stealth'] (plant)--(p2);
+   #+END_SRC
 
-#+RESULTS:
-[[file:assets/Lec1Summary.svg]]
+   #+RESULTS:
+   [[file:assets/Lec1Summary.svg]]
 
-It is also a sinusoidal signal, where
-1. The frequency is the same.
-2. The amplitude is $A\times |G(j\omega)|$.
-3. The phase is $\phi + \angle G(j\omega)$.
-
+   It is also a sinusoidal signal, where
+   1. The frequency is the same.
+   2. The amplitude is $A\times |G(j\omega)|$.
+   3. The phase is $\phi + \angle G(j\omega)$.
 
 

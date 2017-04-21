@@ -1,0 +1,153 @@
+---
+layout: slides
+title: Lecture 1 - EE 3011 Modelling and Control
+---
+			  <section>
+			    <h2>EE3011 Modeling and Control Part-II</h1>
+
+			    <h3>Asst Prof. Mo Yilin</h3>
+
+			    <p>School of EEE</p>
+			    <p>Room:S1-B1c-104; EXT: 4551</p>
+			    <p>ylmo@ntu.edu.sg</p>
+			  </section>
+			  <section>
+			      <h2>What is Frequency Response</h2>
+
+			      <div id="left">
+			      <img src="/assets/Lec1RC.svg" alt="RC-Network" width="90%">
+			      <figcaption align="center">RC Network</figcaption>
+
+<p>$R = 1k\Omega$, $C = 10^{-4}F$.</p>
+			      </div>
+
+
+			      <div id="right">
+$$v_i = R I + v_o,\,\frac{dv_o}{dt} = CI.$$
+<p text-align="left">System transfer function: </p>
+
+\begin{align}
+\frac{V_0(s)}{V_i(s)}&= \frac{1/sC}{R+1/sC} \\
+&= \frac{1}{\tau s+1},
+\end{align}
+
+where $\tau = RC = 0.1s$.
+
+			      </div>
+			  </section>
+			  <section>
+			    <h2>What is Frequency Response</h2>
+
+			    <div id="left">
+			      <img src="/assets/Lec1RC.svg" alt="RC-Network" width="90%">
+			      <figcaption align="center">RC Network</figcaption>
+			    </div>
+
+			    <div id="right">
+
+			      <p text-align="left">$v_i(t) = u(t)$: </p>
+			      <img src="/assets/Lec1Step.svg" alt="Step Response" width="90%">
+			    </div>
+			  </section>
+			  <section>
+			    <h2>What is Frequency Response</h2>
+			    <div id="left">
+			      <img src="/assets/Lec1RC.svg" alt="RC-Network" width="90%">
+			      <figcaption align="center">RC Network</figcaption>
+			    </div>
+
+			    <div id="right">
+
+			      <p text-align="left">$v_i(t) = 2\sin(5t+30^\circ)$: </p>
+			      <img src="/assets/Lec1Fre5.svg" alt="Step Response" width="90%">
+			    </div>
+			  </section>
+			  <section>
+			    <h2>What is Frequency Response</h2>
+			    <div id="left">
+			      <img src="/assets/Lec1RC.svg" alt="RC-Network" width="90%">
+			      <figcaption align="center">RC Network</figcaption>
+			    </div>
+
+			    <div id="right">
+			      <p text-align="left">$v_i(t) = 2\sin(50t+30^\circ)$: </p>
+			      <img src="/assets/Lec1Fre50.svg" alt="Step Response" width="90%">
+			    </div>
+			  </section>
+			  <section>
+			    <h3> Computing Frequency Response </h3>
+			    <ul>
+			      <li> Consider a stable system:
+				$$
+				G(s) = \frac{a(s)}{b(s)}=\frac{a(s)}{(s+p_1)\dots(s+p_n)},
+				$$
+				where $p_i$ are assumed to be distinct poles. </li> 
+			      <li> Consider the input 
+
+				\begin{align}
+				r(t) &= A \exp\left[j(\omega t+\phi)\right]\\
+				&= A\cos(\omega t + \phi)+jA\sin(\omega t+\phi).
+				\end{align}
+
+				whose Laplace transform is 
+				\begin{align}
+				R(s) = A\exp(j\phi)\frac{1}{s-j\omega}.
+				\end{align}
+			      </li>
+			    </ul>
+			  </section>
+			  <section>
+			      <ul>
+				<li>	 The output is given by </li>
+			      \begin{align}
+			      Y(s) &= G(s)R(s) \\
+			      &= \frac{a(s)}{(s+p_1)\dots(s+p_n)}\times \frac{A\exp(j\phi)}{s-j\omega} \\
+			      &=\frac{k_1}{s+p_1}+\dots+\frac{k_n}{s+p_n} + \frac{\alpha}{s-j\omega}. 
+			      \end{align}
+				<li> Multiply the LHS and RHS of the equation by $s-j\omega$,
+			      \begin{align}
+			      &\frac{a(s)}{(s+p_1)\dots(s+p_n)}\times A\exp(j\phi) \\
+			      &=k_1\frac{s-j\omega}{s+p_1}+\dots+k_n\frac{s-j\omega}{s+p_n} + \alpha. 
+			      \end{align}
+			      </ul>
+			  </section>
+			  <section>
+
+			    \begin{align}
+			    &\frac{a(s)}{(s+p_1)\dots(s+p_n)}\times A\exp(j\phi) \\
+			    &=k_1\frac{s-j\omega}{s+p_1}+\dots+k_n\frac{s-j\omega}{s+p_n} + \alpha. 
+			    \end{align}
+			   <p> Take the limit $s\rightarrow j\omega$, </p>
+			    \begin{align}
+			    G(j\omega)\times A\exp(j\phi) &= A|G(j\omega)|\angle\left(\phi + \angle G(j\omega)\right) \\
+			    &= 0+\dots+0+\alpha.
+			    \end{align}
+
+			  </section>
+			  <section>
+			    <ul>
+			      <li>
+				Therefore, the response of the system can be written as
+				\begin{align}
+				y(t) &= k_1e^{-p_1t}+\dots+k_ne^{-p_nt} \\
+				&+ A|G(j\omega)|\exp\left[j(\omega t + \phi + \angle G(j\omega))\right]
+				\end{align}
+			      </li> 
+			      <li>
+				To summarize, if we input 
+				$$ r(t) = A \exp\left[j(\omega t+\phi)\right],$$
+				the steady state output will be
+				\begin{align}
+				y_{ss}(t) &= A|G(j\omega)|\cos(\omega t + \phi + \angle G(j\omega))\\ 
+				&+j A|G(j\omega)|\sin(\omega t + \phi + \angle G(j\omega)).
+				\end{align}
+
+			      </li>
+			      <li>
+				If we input $r(t) = A\sin(\omega t + \phi)$, then the steady-state output will be 
+				\begin{align}
+				y_{ss}(t) =  A|G(j\omega)|\sin(\omega t + \phi + \angle G(j\omega)).
+				\end{align}
+			      </li>
+			    </ul>
+			  </section>

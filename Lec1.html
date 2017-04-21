@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-04-21 Fri 12:55 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Yilin" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgc8a221e">1. Frequency Response</a>
+<ul>
+<li><a href="#org057aa78">1.1. Introduction</a></li>
+<li><a href="#orga531dac">1.2. What is Frequency Response: RC-Network</a></li>
+<li><a href="#org2a9ec11">1.3. RC-Network: Step Response</a></li>
+<li><a href="#org8a6e560">1.4. RC-Network: Response to Sinusoidal Input with \(\omega = 5\)</a></li>
+<li><a href="#orgbd1ba80">1.5. RC-Network: Response to Sinusoidal Input with \(\omega = 50\)</a></li>
+<li><a href="#org453bbf1">1.6. Frequency Response</a></li>
+<li><a href="#org198f421">1.7. Why Do We Need Frequency Response</a></li>
+<li><a href="#orgce79ef1">1.8. How to Get Frequency Response</a></li>
+<li><a href="#orgb7cc57b">1.9. How to get Frequency Response from Transfer Function</a></li>
+<li><a href="#orgb508242">1.10. Example: RC-Network</a></li>
+<li><a href="#orgb599a60">1.11. RC-Network: Solution</a></li>
+<li><a href="#orgb66f1a1">1.12. Bode and Nyquist Plot</a></li>
+<li><a href="#orge9b7743">1.13. Bode Plot</a></li>
+<li><a href="#org2c6acd0">1.14. Nyquist Plot</a></li>
+<li><a href="#org14e30f0">1.15. Real World Example: Voice Coil Motor</a></li>
+<li><a href="#orgcab4c03">1.16. Hendrik Wade Bode(1905 - 1982)</a></li>
+<li><a href="#orgeb08a3d">1.17. Harry Nyquist (1889 - 1976)</a></li>
+<li><a href="#org936c168">1.18. Summary</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc8a221e" class="outline-2">
+<h2 id="orgc8a221e"><span class="section-number-2">1</span> Frequency Response</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-org057aa78" class="outline-3">
+<h3 id="org057aa78"><span class="section-number-3">1.1</span> Introduction</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Review of time domain analysis
+</p>
+<ul class="org-ul">
+<li>System modeling</li>
+<li>Time-domain responses systems of control</li>
+<li>Routh-Hurwitz Criterion and Root locus for stability analysis</li>
+<li>Time-domain specifications:
+<ul class="org-ul">
+<li>rise time</li>
+<li>settling time</li>
+<li>maximum overshoot</li>
+<li>steady-state error</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga531dac" class="outline-3">
+<h3 id="orga531dac"><span class="section-number-3">1.2</span> What is Frequency Response: RC-Network</h3>
+<div class="outline-text-3" id="text-1-2">
+\begin{align*}
+  \frac{V_0(s)}{V_i(s)}= \frac{1/sC}{R+1/sC} = \frac{1}{\tau s+1},\,\tau=RC.
+\end{align*}
+
+\begin{align*}
+  v_i(t) = 2\sin(\omega t+ 30^\circ)
+\end{align*}
+
+<p>
+Assuming \(R = 1k\Omega\), \(C = 10^{-4}F\), then \(\tau = 0.1s\).
+</p>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec1RC.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2a9ec11" class="outline-3">
+<h3 id="org2a9ec11"><span class="section-number-3">1.3</span> RC-Network: Step Response</h3>
+<div class="outline-text-3" id="text-1-3">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec1Step.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8a6e560" class="outline-3">
+<h3 id="org8a6e560"><span class="section-number-3">1.4</span> RC-Network: Response to Sinusoidal Input with \(\omega = 5\)</h3>
+<div class="outline-text-3" id="text-1-4">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec1Fre5.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbd1ba80" class="outline-3">
+<h3 id="orgbd1ba80"><span class="section-number-3">1.5</span> RC-Network: Response to Sinusoidal Input with \(\omega = 50\)</h3>
+<div class="outline-text-3" id="text-1-5">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec1Fre50.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org453bbf1" class="outline-3">
+<h3 id="org453bbf1"><span class="section-number-3">1.6</span> Frequency Response</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+The frequency response of a system is defined as the <b>steady-state response</b> of the system to <b>a sinusoidal input</b>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org198f421" class="outline-3">
+<h3 id="org198f421"><span class="section-number-3">1.7</span> Why Do We Need Frequency Response</h3>
+<div class="outline-text-3" id="text-1-7">
+<ul class="org-ul">
+<li>The frequency response of a complex system can be derived from the response of simple systems (Bode Plot).</li>
+<li>The stability of the closed-loop system is determined by the frequency response of the open-loop system (Nyquist Stability Criterion)</li>
+<li>Controller design can be carried out <b>in an intuitive fashion</b> by shaping the frequency response of the open-loop systems (Lag, Lead, PID controller Design)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgce79ef1" class="outline-3">
+<h3 id="orgce79ef1"><span class="section-number-3">1.8</span> How to Get Frequency Response</h3>
+<div class="outline-text-3" id="text-1-8">
+<ul class="org-ul">
+<li>The frequency response can be derived from transfer functions</li>
+<li>The frequency response of complex systems can be obtained experimentally</li>
+<li>In fact, for an unknown system, usually we get its transfer function from the frequency response.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb7cc57b" class="outline-3">
+<h3 id="orgb7cc57b"><span class="section-number-3">1.9</span> How to get Frequency Response from Transfer Function</h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+Consider a stable system:
+</p>
+\begin{align*}
+  G(s) = \frac{a(s)}{b(s)}=\frac{a(s)}{(s+p_1)\dots(s+p_n)},
+\end{align*}
+<p>
+where \(p_i\) are assumed to be distinct poles.
+</p>
+
+<p>
+Consider the input 
+</p>
+\begin{align*}
+r(t) = A \exp\left[j\omega t\right] = A\cos(\omega t + \phi)+jA\sin(\omega t+\phi).
+\end{align*}
+<p>
+whose Laplace transform is 
+</p>
+\begin{align*}
+R(s) = A\exp(j\phi)\frac{1}{s-j\omega}.
+\end{align*}
+
+<p>
+The output is given by
+</p>
+\begin{align*}
+  Y(s) &= G(s)R(s) \\
+       &=  \frac{a(s)}{(s+p_1)\dots(s+p_n)}\times \frac{A\exp(j\phi)}{s-j\omega} \\
+       &=\frac{k_1}{s+p_1}+\frac{k_2}{s+p_2}+\dots+\frac{k_n}{s+p_n} + \frac{\alpha}{s-j\omega}. 
+\end{align*}
+
+<p>
+If we multiply the LHS and RHS of the equation by \(s-j\omega\) and take the limit \(s\rightarrow j\omega\), we get
+</p>
+\begin{align*}
+  \lim_{s\rightarrow -j\omega}G(s)R(s) = A\exp(j\phi)G(j\omega) = A|G(j\omega)|\times e^{j(\phi + \angle G(j\omega))} = \alpha.
+\end{align*}
+
+<p>
+Therefore, the response of the system can be written as
+</p>
+\begin{align*}
+y(t) &= k_1e^{-p_1t}+\dots+k_ne^{-p_nt} \\
+&+ A|G(j\omega)|\cos(\omega t + \phi + \angle G(j\omega))\\ 
+&+j A|G(j\omega)|\sin(\omega t + \phi + \angle G(j\omega)).
+\end{align*}
+
+<p>
+If we input \(r(t) = A\sin(\omega t + \phi)\), then the steady-state output will be 
+</p>
+\begin{align*}
+y_{ss}(t) =  A|G(j\omega)|\sin(\omega t + \phi + \angle G(j\omega)).
+\end{align*}
+
+<ul class="org-ul">
+<li>The steady-state response of a sinusoidal signal is another sinusoidal signal, where
+<ol class="org-ol">
+<li>The frequency is the same.</li>
+<li>The amplitude is \(A\times |G(j\omega)|\).</li>
+<li>The phase is \(\phi + \angle G(j\omega)\).</li>
+</ol></li>
+<li>\(|G (j\omega)|\) and \(\angle G(j\omega)\) are frequency dependent and are referred to as the magnitude and phase responses of the system, respectively.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb508242" class="outline-3">
+<h3 id="orgb508242"><span class="section-number-3">1.10</span> Example: RC-Network</h3>
+<div class="outline-text-3" id="text-1-10">
+<p>
+Consider the RC-network with transfer function
+</p>
+\begin{align*}
+G(s) = \frac{1}{0.1s+1}.
+\end{align*}
+<p>
+Find the steady state output due to the input \(r(t) = 2\sin(\omega t+ 30^\circ)\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb599a60" class="outline-3">
+<h3 id="orgb599a60"><span class="section-number-3">1.11</span> RC-Network: Solution</h3>
+<div class="outline-text-3" id="text-1-11">
+<ul class="org-ul">
+<li>Notice that\[0.1j\omega + 1 = \sqrt{1+0.01\omega^2}\angle \tan^{-1}(0.1\omega).\]</li>
+<li>Therefore,\[G(j\omega) = \frac{1}{\sqrt{1+0.01\omega^2}}\angle -\tan^{-1}(0.1\omega).\]</li>
+<li>Hence, the response to \(r(t)\) is\[y_{ss}(t) =  \frac{2}{\sqrt{1+0.01\omega^2}}\sin\left[\omega t+30^\circ -\tan^{-1}(0.1\omega)\right.\]</li>
+<li>For \(\omega  = 5\), \(|G(j5)| = 0.8944\), \(\angle G(j5) = -26.6^\circ\).\[y_{ss}(t) = 1.7888\sin(5t+3.4^\circ).\]</li>
+<li>For \(\omega  = 50\), \(|G(j5)| = 0.1961\), \(\angle G(j5) = -78.7^\circ\).\[y_{ss}(t) = 0.3922\sin(50t-48.7^\circ).\]</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb66f1a1" class="outline-3">
+<h3 id="orgb66f1a1"><span class="section-number-3">1.12</span> Bode and Nyquist Plot</h3>
+<div class="outline-text-3" id="text-1-12">
+<ul class="org-ul">
+<li>From the analysis above, \(G(j\omega)\) plays a key role in frequency response.</li>
+<li>To visualize \(G(j\omega)\), the following plots are typically used
+<ol class="org-ol">
+<li>Bode Plots: Bode Magnitude Plot + Bode Phase Plot</li>
+<li>Nyquist Plots</li>
+</ol></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge9b7743" class="outline-3">
+<h3 id="orge9b7743"><span class="section-number-3">1.13</span> Bode Plot</h3>
+<div class="outline-text-3" id="text-1-13">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec1Bode.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2c6acd0" class="outline-3">
+<h3 id="org2c6acd0"><span class="section-number-3">1.14</span> Nyquist Plot</h3>
+<div class="outline-text-3" id="text-1-14">
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec1Nyquist.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org14e30f0" class="outline-3">
+<h3 id="org14e30f0"><span class="section-number-3">1.15</span> Real World Example: Voice Coil Motor</h3>
+<div class="outline-text-3" id="text-1-15">
+
+<div class="figure">
+<p><img src="https://www.researchgate.net/profile/Chunling_Du/publication/224089426/figure/fig3/AS:302745262280715@1449191504173/Figure-3-HDD-with-a-VCM-actuator.png" alt="Figure-3-HDD-with-a-VCM-actuator.png" />
+</p>
+</div>
+
+
+<div class="figure">
+<p><img src="https://www.researchgate.net/profile/Chunling_Du/publication/224089426/figure/fig4/AS:302745266475011@1449191504229/Figure-4-Frequency-responses-of-the-VCM-actuator-LDV-range-2-m-m-V.png" alt="Figure-4-Frequency-responses-of-the-VCM-actuator-LDV-range-2-m-m-V.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcab4c03" class="outline-3">
+<h3 id="orgcab4c03"><span class="section-number-3">1.16</span> Hendrik Wade Bode(1905 - 1982)</h3>
+<div class="outline-text-3" id="text-1-16">
+
+<div class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Hendrik_Wade_Bode.png" alt="Hendrik_Wade_Bode.png" />
+</p>
+</div>
+<ul class="org-ul">
+<li>A pioneer of modern control theory and electronic telecommunications.</li>
+<li>He made important contributions to the design, guidance and control of anti-aircraft systems during World War II</li>
+<li>During the Cold War, he also made significant contributions to the design and control of missiles and anti-ballistic missiles.</li>
+<li>Contributions to control system theory and mathematical tools for the analysis of stability of linear systems, inventing <b>Bode plots</b>, <b>gain margin</b> and <b>phase margin</b>.</li>
+<li>Worked in Bell Lab from 1926 to 1967. Became a professor at Harvard after retiring from Bell Lab.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgeb08a3d" class="outline-3">
+<h3 id="orgeb08a3d"><span class="section-number-3">1.17</span> Harry Nyquist (1889 - 1976)</h3>
+<div class="outline-text-3" id="text-1-17">
+
+<div class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/en/b/b4/Harry_Nyquist.jpg" alt="Harry_Nyquist.jpg" />
+</p>
+</div>
+<ul class="org-ul">
+<li>Worked in Bell Lab from 1917 to 1954.</li>
+<li>Received the IEEE Medal of Honor in 1960 for "<b>fundamental contributions to a quantitative understanding of thermal noise, data transmission and negative feedback</b>."</li>
+<li>Received the National Academy of Engineering's fourth Founder's Medal "<b>in recognition of his many fundamental contributions to engineering.</b>"</li>
+<li></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org936c168" class="outline-3">
+<h3 id="org936c168"><span class="section-number-3">1.18</span> Summary</h3>
+<div class="outline-text-3" id="text-1-18">
+<p>
+The frequency response of a system is defined as the <b>steady-state response</b> of the system to <b>a sinusoidal input</b>.
+</p>
+
+
+<div class="figure">
+<p><object type="image/svg+xml" data="assets/Lec1Summary.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<p>
+It is also a sinusoidal signal, where
+</p>
+<ol class="org-ol">
+<li>The frequency is the same.</li>
+<li>The amplitude is \(A\times |G(j\omega)|\).</li>
+<li>The phase is \(\phi + \angle G(j\omega)\).</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
