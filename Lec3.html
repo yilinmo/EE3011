@@ -775,13 +775,14 @@ Sorry, your browser does not support SVG.</object>
 <div id="outline-container-org20e80c4" class="outline-4">
 <h4 id="org20e80c4"><span class="section-number-4">2.1.4</span> Step 4 (Optional): Check your result in Matlab</h4>
 <div class="outline-text-4" id="text-2-1-4">
-
-{% highlight python %}
-num = [2000,1000];
+<div class="org-src-container">
+<pre class="src src-ipython">num = [2000,1000];
 den = [1,60,500,0];
 sys = tf(num, den);
 bode(sys);
-{% endhighlight %}
+</pre>
+</div>
+
 
 <div class="figure">
 <p><object type="image/svg+xml" data="assets/Lec3Example1h.svg" class="org-svg">
@@ -905,13 +906,16 @@ Sorry, your browser does not support SVG.</object>
 <div id="outline-container-org1729109" class="outline-4">
 <h4 id="org1729109"><span class="section-number-4">2.2.4</span> Step 4: Check your result in Matlab</h4>
 <div class="outline-text-4" id="text-2-2-4">
-
-{% highlight python %}
-num = [10];
+<div class="org-src-container">
+<pre class="src src-ipython">num = [10];
 den = [1,0.4,4,0];
 sys = tf(num, den);
 bode(sys);
-{% endhighlight %}
+</pre>
+</div>
+
+
+
 
 <div class="figure">
 <p><object type="image/svg+xml" data="assets/Lec3Example2d.svg" class="org-svg">
