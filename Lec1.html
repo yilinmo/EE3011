@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-21 Fri 12:55 -->
+<!-- 2017-04-21 Fri 13:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title></title>
@@ -254,36 +254,36 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc8a221e">1. Frequency Response</a>
+<li><a href="#orgcf307d2">1. Frequency Response</a>
 <ul>
-<li><a href="#org057aa78">1.1. Introduction</a></li>
-<li><a href="#orga531dac">1.2. What is Frequency Response: RC-Network</a></li>
-<li><a href="#org2a9ec11">1.3. RC-Network: Step Response</a></li>
-<li><a href="#org8a6e560">1.4. RC-Network: Response to Sinusoidal Input with \(\omega = 5\)</a></li>
-<li><a href="#orgbd1ba80">1.5. RC-Network: Response to Sinusoidal Input with \(\omega = 50\)</a></li>
-<li><a href="#org453bbf1">1.6. Frequency Response</a></li>
-<li><a href="#org198f421">1.7. Why Do We Need Frequency Response</a></li>
-<li><a href="#orgce79ef1">1.8. How to Get Frequency Response</a></li>
-<li><a href="#orgb7cc57b">1.9. How to get Frequency Response from Transfer Function</a></li>
-<li><a href="#orgb508242">1.10. Example: RC-Network</a></li>
-<li><a href="#orgb599a60">1.11. RC-Network: Solution</a></li>
-<li><a href="#orgb66f1a1">1.12. Bode and Nyquist Plot</a></li>
-<li><a href="#orge9b7743">1.13. Bode Plot</a></li>
-<li><a href="#org2c6acd0">1.14. Nyquist Plot</a></li>
-<li><a href="#org14e30f0">1.15. Real World Example: Voice Coil Motor</a></li>
-<li><a href="#orgcab4c03">1.16. Hendrik Wade Bode(1905 - 1982)</a></li>
-<li><a href="#orgeb08a3d">1.17. Harry Nyquist (1889 - 1976)</a></li>
-<li><a href="#org936c168">1.18. Summary</a></li>
+<li><a href="#orga8218b1">1.1. Introduction</a></li>
+<li><a href="#org94e23f4">1.2. What is Frequency Response: RC-Network</a></li>
+<li><a href="#org83c79dc">1.3. RC-Network: Step Response</a></li>
+<li><a href="#org00cd37d">1.4. RC-Network: Response to Sinusoidal Input with \(\omega = 5\)</a></li>
+<li><a href="#orge52e38d">1.5. RC-Network: Response to Sinusoidal Input with \(\omega = 50\)</a></li>
+<li><a href="#orgd78d8aa">1.6. Frequency Response</a></li>
+<li><a href="#org5dc00d5">1.7. Why Do We Need Frequency Response</a></li>
+<li><a href="#org8330aa8">1.8. How to Get Frequency Response</a></li>
+<li><a href="#orgb6f571f">1.9. How to get Frequency Response from Transfer Function</a></li>
+<li><a href="#orgedad831">1.10. Example: RC-Network</a></li>
+<li><a href="#org890adb4">1.11. RC-Network: Solution</a></li>
+<li><a href="#org73a5954">1.12. Bode and Nyquist Plot</a></li>
+<li><a href="#org34047ff">1.13. Bode Plot</a></li>
+<li><a href="#org00720e6">1.14. Nyquist Plot</a></li>
+<li><a href="#orgd8a8d5b">1.15. Real World Example: Voice Coil Motor</a></li>
+<li><a href="#orgb9fa604">1.16. Hendrik Wade Bode(1905 - 1982)</a></li>
+<li><a href="#org8cbb09e">1.17. Harry Nyquist (1889 - 1976)</a></li>
+<li><a href="#org6defd44">1.18. Summary</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc8a221e" class="outline-2">
-<h2 id="orgc8a221e"><span class="section-number-2">1</span> Frequency Response</h2>
+<div id="outline-container-orgcf307d2" class="outline-2">
+<h2 id="orgcf307d2"><span class="section-number-2">1</span> Frequency Response</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-org057aa78" class="outline-3">
-<h3 id="org057aa78"><span class="section-number-3">1.1</span> Introduction</h3>
+</div><div id="outline-container-orga8218b1" class="outline-3">
+<h3 id="orga8218b1"><span class="section-number-3">1.1</span> Introduction</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Review of time domain analysis
@@ -303,32 +303,31 @@ Review of time domain analysis
 </div>
 </div>
 
-<div id="outline-container-orga531dac" class="outline-3">
-<h3 id="orga531dac"><span class="section-number-3">1.2</span> What is Frequency Response: RC-Network</h3>
+<div id="outline-container-org94e23f4" class="outline-3">
+<h3 id="org94e23f4"><span class="section-number-3">1.2</span> What is Frequency Response: RC-Network</h3>
 <div class="outline-text-3" id="text-1-2">
+<p>
+<object type="image/svg+xml" data="assets/Lec1RC.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object>
+</p>
+
+<p>
+  Consider the above RC-network, whose transfer function is
+</p>
 \begin{align*}
   \frac{V_0(s)}{V_i(s)}= \frac{1/sC}{R+1/sC} = \frac{1}{\tau s+1},\,\tau=RC.
-\end{align*}
-
-\begin{align*}
-  v_i(t) = 2\sin(\omega t+ 30^\circ)
 \end{align*}
 
 <p>
 Assuming \(R = 1k\Omega\), \(C = 10^{-4}F\), then \(\tau = 0.1s\).
 </p>
-
-
-<div class="figure">
-<p><object type="image/svg+xml" data="assets/Lec1RC.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object>
-</p>
-</div>
 </div>
 </div>
 
-<div id="outline-container-org2a9ec11" class="outline-3">
-<h3 id="org2a9ec11"><span class="section-number-3">1.3</span> RC-Network: Step Response</h3>
+
+
+<div id="outline-container-org83c79dc" class="outline-3">
+<h3 id="org83c79dc"><span class="section-number-3">1.3</span> RC-Network: Step Response</h3>
 <div class="outline-text-3" id="text-1-3">
 
 <div class="figure">
@@ -339,9 +338,15 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org8a6e560" class="outline-3">
-<h3 id="org8a6e560"><span class="section-number-3">1.4</span> RC-Network: Response to Sinusoidal Input with \(\omega = 5\)</h3>
+<div id="outline-container-org00cd37d" class="outline-3">
+<h3 id="org00cd37d"><span class="section-number-3">1.4</span> RC-Network: Response to Sinusoidal Input with \(\omega = 5\)</h3>
 <div class="outline-text-3" id="text-1-4">
+<p>
+Assume the input is a sinusoidal wave: 
+</p>
+\begin{align*}
+  v_i(t) = 2\sin(5 t+ 30^\circ),
+\end{align*}
 
 <div class="figure">
 <p><object type="image/svg+xml" data="assets/Lec1Fre5.svg" class="org-svg">
@@ -351,9 +356,15 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgbd1ba80" class="outline-3">
-<h3 id="orgbd1ba80"><span class="section-number-3">1.5</span> RC-Network: Response to Sinusoidal Input with \(\omega = 50\)</h3>
+<div id="outline-container-orge52e38d" class="outline-3">
+<h3 id="orge52e38d"><span class="section-number-3">1.5</span> RC-Network: Response to Sinusoidal Input with \(\omega = 50\)</h3>
 <div class="outline-text-3" id="text-1-5">
+<p>
+Assume the input is a sinusoidal wave: 
+</p>
+\begin{align*}
+  v_i(t) = 2\sin(50t+ 30^\circ),
+\end{align*}
 
 <div class="figure">
 <p><object type="image/svg+xml" data="assets/Lec1Fre50.svg" class="org-svg">
@@ -362,8 +373,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 </div>
-<div id="outline-container-org453bbf1" class="outline-3">
-<h3 id="org453bbf1"><span class="section-number-3">1.6</span> Frequency Response</h3>
+<div id="outline-container-orgd78d8aa" class="outline-3">
+<h3 id="orgd78d8aa"><span class="section-number-3">1.6</span> Frequency Response</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
 The frequency response of a system is defined as the <b>steady-state response</b> of the system to <b>a sinusoidal input</b>.
@@ -371,8 +382,8 @@ The frequency response of a system is defined as the <b>steady-state response</b
 </div>
 </div>
 
-<div id="outline-container-org198f421" class="outline-3">
-<h3 id="org198f421"><span class="section-number-3">1.7</span> Why Do We Need Frequency Response</h3>
+<div id="outline-container-org5dc00d5" class="outline-3">
+<h3 id="org5dc00d5"><span class="section-number-3">1.7</span> Why Do We Need Frequency Response</h3>
 <div class="outline-text-3" id="text-1-7">
 <ul class="org-ul">
 <li>The frequency response of a complex system can be derived from the response of simple systems (Bode Plot).</li>
@@ -382,8 +393,8 @@ The frequency response of a system is defined as the <b>steady-state response</b
 </div>
 </div>
 
-<div id="outline-container-orgce79ef1" class="outline-3">
-<h3 id="orgce79ef1"><span class="section-number-3">1.8</span> How to Get Frequency Response</h3>
+<div id="outline-container-org8330aa8" class="outline-3">
+<h3 id="org8330aa8"><span class="section-number-3">1.8</span> How to Get Frequency Response</h3>
 <div class="outline-text-3" id="text-1-8">
 <ul class="org-ul">
 <li>The frequency response can be derived from transfer functions</li>
@@ -393,8 +404,8 @@ The frequency response of a system is defined as the <b>steady-state response</b
 </div>
 </div>
 
-<div id="outline-container-orgb7cc57b" class="outline-3">
-<h3 id="orgb7cc57b"><span class="section-number-3">1.9</span> How to get Frequency Response from Transfer Function</h3>
+<div id="outline-container-orgb6f571f" class="outline-3">
+<h3 id="orgb6f571f"><span class="section-number-3">1.9</span> How to get Frequency Response from Transfer Function</h3>
 <div class="outline-text-3" id="text-1-9">
 <p>
 Consider a stable system:
@@ -463,8 +474,8 @@ y_{ss}(t) =  A|G(j\omega)|\sin(\omega t + \phi + \angle G(j\omega)).
 </div>
 </div>
 
-<div id="outline-container-orgb508242" class="outline-3">
-<h3 id="orgb508242"><span class="section-number-3">1.10</span> Example: RC-Network</h3>
+<div id="outline-container-orgedad831" class="outline-3">
+<h3 id="orgedad831"><span class="section-number-3">1.10</span> Example: RC-Network</h3>
 <div class="outline-text-3" id="text-1-10">
 <p>
 Consider the RC-network with transfer function
@@ -478,8 +489,8 @@ Find the steady state output due to the input \(r(t) = 2\sin(\omega t+ 30^\circ)
 </div>
 </div>
 
-<div id="outline-container-orgb599a60" class="outline-3">
-<h3 id="orgb599a60"><span class="section-number-3">1.11</span> RC-Network: Solution</h3>
+<div id="outline-container-org890adb4" class="outline-3">
+<h3 id="org890adb4"><span class="section-number-3">1.11</span> RC-Network: Solution</h3>
 <div class="outline-text-3" id="text-1-11">
 <ul class="org-ul">
 <li>Notice that\[0.1j\omega + 1 = \sqrt{1+0.01\omega^2}\angle \tan^{-1}(0.1\omega).\]</li>
@@ -491,8 +502,8 @@ Find the steady state output due to the input \(r(t) = 2\sin(\omega t+ 30^\circ)
 </div>
 </div>
 
-<div id="outline-container-orgb66f1a1" class="outline-3">
-<h3 id="orgb66f1a1"><span class="section-number-3">1.12</span> Bode and Nyquist Plot</h3>
+<div id="outline-container-org73a5954" class="outline-3">
+<h3 id="org73a5954"><span class="section-number-3">1.12</span> Bode and Nyquist Plot</h3>
 <div class="outline-text-3" id="text-1-12">
 <ul class="org-ul">
 <li>From the analysis above, \(G(j\omega)\) plays a key role in frequency response.</li>
@@ -505,8 +516,8 @@ Find the steady state output due to the input \(r(t) = 2\sin(\omega t+ 30^\circ)
 </div>
 </div>
 
-<div id="outline-container-orge9b7743" class="outline-3">
-<h3 id="orge9b7743"><span class="section-number-3">1.13</span> Bode Plot</h3>
+<div id="outline-container-org34047ff" class="outline-3">
+<h3 id="org34047ff"><span class="section-number-3">1.13</span> Bode Plot</h3>
 <div class="outline-text-3" id="text-1-13">
 
 <div class="figure">
@@ -518,8 +529,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 
 
-<div id="outline-container-org2c6acd0" class="outline-3">
-<h3 id="org2c6acd0"><span class="section-number-3">1.14</span> Nyquist Plot</h3>
+<div id="outline-container-org00720e6" class="outline-3">
+<h3 id="org00720e6"><span class="section-number-3">1.14</span> Nyquist Plot</h3>
 <div class="outline-text-3" id="text-1-14">
 
 <div class="figure">
@@ -530,8 +541,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-org14e30f0" class="outline-3">
-<h3 id="org14e30f0"><span class="section-number-3">1.15</span> Real World Example: Voice Coil Motor</h3>
+<div id="outline-container-orgd8a8d5b" class="outline-3">
+<h3 id="orgd8a8d5b"><span class="section-number-3">1.15</span> Real World Example: Voice Coil Motor</h3>
 <div class="outline-text-3" id="text-1-15">
 
 <div class="figure">
@@ -547,8 +558,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgcab4c03" class="outline-3">
-<h3 id="orgcab4c03"><span class="section-number-3">1.16</span> Hendrik Wade Bode(1905 - 1982)</h3>
+<div id="outline-container-orgb9fa604" class="outline-3">
+<h3 id="orgb9fa604"><span class="section-number-3">1.16</span> Hendrik Wade Bode(1905 - 1982)</h3>
 <div class="outline-text-3" id="text-1-16">
 
 <div class="figure">
@@ -565,8 +576,8 @@ Sorry, your browser does not support SVG.</object>
 </div>
 </div>
 
-<div id="outline-container-orgeb08a3d" class="outline-3">
-<h3 id="orgeb08a3d"><span class="section-number-3">1.17</span> Harry Nyquist (1889 - 1976)</h3>
+<div id="outline-container-org8cbb09e" class="outline-3">
+<h3 id="org8cbb09e"><span class="section-number-3">1.17</span> Harry Nyquist (1889 - 1976)</h3>
 <div class="outline-text-3" id="text-1-17">
 
 <div class="figure">
@@ -581,8 +592,8 @@ Sorry, your browser does not support SVG.</object>
 </ul>
 </div>
 </div>
-<div id="outline-container-org936c168" class="outline-3">
-<h3 id="org936c168"><span class="section-number-3">1.18</span> Summary</h3>
+<div id="outline-container-org6defd44" class="outline-3">
+<h3 id="org6defd44"><span class="section-number-3">1.18</span> Summary</h3>
 <div class="outline-text-3" id="text-1-18">
 <p>
 The frequency response of a system is defined as the <b>steady-state response</b> of the system to <b>a sinusoidal input</b>.

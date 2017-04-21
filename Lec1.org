@@ -33,15 +33,6 @@ Review of time domain analysis
 
 ** What is Frequency Response: RC-Network
 
-\begin{align*}
-  \frac{V_0(s)}{V_i(s)}= \frac{1/sC}{R+1/sC} = \frac{1}{\tau s+1},\,\tau=RC.
-\end{align*}
-
-\begin{align*}
-  v_i(t) = 2\sin(\omega t+ 30^\circ)
-\end{align*}
-
-Assuming $R = 1k\Omega$, $C = 10^{-4}F$, then $\tau = 0.1s$.
 
 #+BEGIN_SRC ipython :session :file assets/Lec1RC.svg :exports results
 %%tikz -p circuitikz -f svg -S assets/Lec1RC.svg
@@ -56,6 +47,15 @@ to [short, -*] (6,3);
 
 #+RESULTS:
 [[file:assets/Lec1RC.svg]]
+Consider the above RC-network, whose transfer function is
+
+\begin{align*}
+  \frac{V_0(s)}{V_i(s)}= \frac{1/sC}{R+1/sC} = \frac{1}{\tau s+1},\,\tau=RC.
+\end{align*}
+
+Assuming $R = 1k\Omega$, $C = 10^{-4}F$, then $\tau = 0.1s$.
+
+
 
 #+BEGIN_SRC ipython :session :file :exports none
 # Define System
@@ -92,6 +92,10 @@ sys = tf([1],[τ,1])
 [[file:assets/Lec1Step.svg]]
 
 **  RC-Network: Response to Sinusoidal Input with $\omega = 5$
+ Assume the input is a sinusoidal wave: 
+\begin{align*}
+  v_i(t) = 2\sin(5 t+ 30^\circ),
+\end{align*}
 #+BEGIN_SRC ipython :session :file assets/Lec1Fre5.svg :exports results
   t = np.linspace(0,10,500)
   omega = 5
@@ -114,6 +118,11 @@ sys = tf([1],[τ,1])
 [[file:assets/Lec1Fre5.svg]]
 
 **  RC-Network: Response to Sinusoidal Input with $\omega = 50$
+
+ Assume the input is a sinusoidal wave: 
+\begin{align*}
+  v_i(t) = 2\sin(50t+ 30^\circ),
+\end{align*}
 #+BEGIN_SRC ipython :session :file assets/Lec1Fre50.svg  :exports results
   # Frequency response for ω=50rad/s
 
