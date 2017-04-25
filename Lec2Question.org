@@ -37,13 +37,13 @@ plt.semilogx(omega, mag, 'b')
 yticks = np.linspace(-100, 40, 8) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 plt.subplot(212)
 plt.semilogx(omega, phase,'b')
 
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 
 yticks = np.linspace(-270, -90, 5) 
 ylabels = [(str(ytick)) for ytick in yticks]
@@ -70,13 +70,13 @@ plt.plot(omega, mag, 'b')
 yticks = np.linspace(-100, 40, 8) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 plt.subplot(212)
 plt.plot(omega, phase,'b')
 
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 
 yticks = np.linspace(-270, -90, 5) 
 ylabels = [(str(ytick)) for ytick in yticks]
@@ -110,8 +110,8 @@ plt.grid(b=True, which='both')
 plt.subplot(212)
 plt.semilogx(omega, phase,'b')
 
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 
 yticks = np.linspace(-270, -90, 5) 
 ylabels = [(str(ytick)) for ytick in yticks]
@@ -144,8 +144,8 @@ plt.grid(b=True, which='both')
 plt.subplot(212)
 plt.semilogx(omega, phase,'b')
 
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 
 yticks = np.linspace(-270, -90, 5) 
 ylabels = [(str(ytick)) for ytick in yticks]
@@ -182,7 +182,7 @@ plt.subplot(212)
 plt.semilogx(omega, imag,'b')
 
 plt.ylabel('Imaginary Part')
-plt.xlabel('Frequency(rad/sec)')
+plt.xlabel('Frequency (rad/sec)')
 
 yticks = np.linspace(-200, 0, 5) 
 ylabels = [(str(ytick)) for ytick in yticks]
@@ -209,13 +209,13 @@ plt.semilogx(omega, mag, 'b')
 yticks = np.linspace(-40, 0, 5) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 plt.subplot(212)
 plt.semilogx(omega, phase-360,'b')
 
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 
 yticks = np.linspace(-190, -170, 3) 
 ylabels = [(str(ytick)) for ytick in yticks]
@@ -241,7 +241,7 @@ plt.semilogx(omega, [40,-40], 'k')
 yticks = np.linspace(-40, 40, 5) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 plt.subplot(212)
 
@@ -251,8 +251,8 @@ g3, = plt.semilogx(omega, [90,90], 'g:', label = 'Line 3')
 
 plt.legend(handles=[g1, g2, g3], loc=3)
 
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 
 yticks = np.linspace(90, -180, 4) 
 ylabels = [(str(ytick)) for ytick in yticks]
@@ -296,12 +296,12 @@ plt.subplot(211)
 yticks = np.linspace(-60, 60, 7) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
 plt.subplot(212)
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 
 yticks = np.linspace(90, -180, 4) 
 ylabels = [(str(ytick)) for ytick in yticks]
@@ -339,12 +339,12 @@ plt.subplot(211)
 yticks = np.linspace(-80, 20, 6) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
 plt.subplot(212)
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 
 yticks = np.linspace(0, -180, 3) 
 ylabels = [(str(ytick)) for ytick in yticks]

@@ -55,13 +55,13 @@ plt.semilogx(omega, mag, 'b')
 yticks = np.linspace(-60, 20, 5) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
 plt.subplot(212)
 plt.semilogx(omega, phase,'b')
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 yticks = np.linspace(0, -135, 4) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
@@ -110,10 +110,10 @@ plt.annotate('-6dB', xy=(1e1,14), xytext=(5, 14),
 yticks = np.linspace(-60, 20, 5) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
-plt.xlabel('Frequency(rad/sec)')
+plt.xlabel('Frequency (rad/sec)')
 
 plt.show()
 #+END_SRC
@@ -159,9 +159,9 @@ plt.semilogx(freqs,phases, 'r--')
 yticks = np.linspace(-135, 0, 4) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Phase(Deg)')
+plt.ylabel('Phase (Deg)')
 plt.grid(b=True, which='both')
-plt.xlabel('Frequency(rad/sec)')
+plt.xlabel('Frequency (rad/sec)')
 
 plt.show()
 #+END_SRC
@@ -217,10 +217,10 @@ slop = [1e-1,1e1,1e2,1e4]
 yticks = np.linspace(-60, 60, 7) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
-plt.xlabel('Frequency(rad/sec)')
+plt.xlabel('Frequency (rad/sec)')
 
 plt.show()
 #+END_SRC
@@ -267,7 +267,7 @@ plt.title("Pupillary Light Reflex Dynamics")
 plt.semilogx(omega, mag, 'b')
 plt.semilogx(omegaExp[0:len(magExp)], magExp, 'k+')
 plt.semilogx([0.8,12.5,40],[20*log(0.17), 20*log(0.17), 20*log(0.17)-60*log(40/12.5)] , 'g--')
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 
 plt.annotate('-60', xy=(1e1,-14), xytext=(20, -40),
                 horizontalalignment='right',
@@ -285,7 +285,7 @@ plt.subplot(212)
 plt.semilogx(omega,phase, 'g--')
 plt.semilogx(omega,phase-0.2*180/np.pi*omega, 'b')
 plt.semilogx(omegaExp, -1*phaseExp, 'k+')
-plt.ylabel('Phase(deg)')
+plt.ylabel('Phase (deg)')
 
 yticks = np.linspace(0, -360, 5) 
 ylabels = [(str(ytick)) for ytick in yticks]
@@ -293,7 +293,7 @@ plt.yticks(yticks, ylabels)
 plt.ylim(-360,0)
 plt.grid(b=True, which='both')
 
-plt.xlabel('Frequency(rad/sec)')
+plt.xlabel('Frequency (rad/sec)')
 
 plt.show()
 #+END_SRC

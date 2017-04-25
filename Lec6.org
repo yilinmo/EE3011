@@ -131,7 +131,7 @@ plt.annotate('({:.1f}, {:.1f}dB)'.format(Wp, -20*log(Kg)),
 yticks = np.linspace(-80, 20, 6) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
 plt.subplot(212)
@@ -143,8 +143,8 @@ plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-180),
             horizontalalignment='left',
             verticalalignment='center', 
             )
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 yticks = np.linspace(0, -270, 4) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
@@ -180,7 +180,7 @@ plt.annotate('({:.1f}, {:.1f}dB)'.format(Wp, -20*log(Kg)),
 yticks = np.linspace(-80, 20, 6) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
 plt.subplot(212)
@@ -193,8 +193,8 @@ plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-540),
             horizontalalignment='left',
             verticalalignment='center', 
             )
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 yticks = np.linspace(0, -270, 4) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
@@ -349,7 +349,7 @@ plt.semilogx(omega, mag, 'b')
 yticks = np.linspace(-80, 20, 6) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
 plt.subplot(212)
@@ -362,8 +362,8 @@ plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-180),
             horizontalalignment='left',
             verticalalignment='center', 
             )
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 yticks = np.linspace(-90, -180, 3) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
@@ -404,7 +404,7 @@ plt.annotate('({:.1f}, {:.1f}dB)'.format(Wp, -20*log(Kg)),
 yticks = np.linspace(-80, 20, 6) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
 plt.subplot(212)
@@ -417,8 +417,8 @@ plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-180),
             horizontalalignment='left',
             verticalalignment='center', 
             )
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 yticks = np.linspace(-90, -270, 3) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
@@ -456,7 +456,7 @@ plt.annotate('({:.1f}, {:.1f}dB)'.format(Wp, -20*log(Kg)),
 yticks = np.linspace(-80, 40, 7) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
 plt.subplot(212)
@@ -469,8 +469,8 @@ plt.annotate('({:.1f}, {:.1f}$^\circ$)'.format(Wg, pm-540),
             horizontalalignment='left',
             verticalalignment='center', 
             )
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 yticks = np.linspace(-90, -270, 3) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)

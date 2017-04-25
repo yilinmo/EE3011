@@ -192,12 +192,12 @@ plt.subplot(211)
 yticks = np.linspace(20, -20, 3) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
 plt.subplot(212)
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 
 yticks = np.linspace(45, -90, 4) 
 ylabels = [(str(ytick)) for ytick in yticks]

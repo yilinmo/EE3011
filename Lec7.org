@@ -100,7 +100,7 @@ plt.semilogx(omega, mag, 'b')
 yticks = np.linspace(-80, 60, 8) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.semilogx([1e-1,1e0,1e2,1e3],[60,20,-20,-80], 'r--')
 plt.semilogx([Wp,Wp], [-20*log(Kg), 0],'r')
 plt.annotate('$K_g$=%.1fdB' % (20*log(Kg)), xy=(Wp,-20*log(Kg)), xytext=(Wp/2,-20*log(Kg)-20),
@@ -111,8 +111,8 @@ plt.annotate('$K_g$=%.1fdB' % (20*log(Kg)), xy=(Wp,-20*log(Kg)), xytext=(Wp/2,-2
 plt.grid(b=True, which='both')
 plt.subplot(212)
 g2, = plt.semilogx(omega, phase,'b')
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 
 plt.semilogx([Wg,Wg], [pm-180, -180],'r')
 plt.annotate('$\phi_m$=%0.1f' % pm, xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
@@ -168,12 +168,12 @@ plt.semilogx(omega, mag, 'b')
 yticks = np.linspace(20, 40, 3) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 plt.subplot(212)
 g2, = plt.semilogx(omega, phase,'b')
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 
 yticks = np.linspace(0, 90, 3) 
 ylabels = [(str(ytick)) for ytick in yticks]
@@ -223,7 +223,7 @@ plt.annotate('$20\log K - 10\log a$', xy=(Wm,20*log(K)),
 yticks = np.linspace(20, 40, 3) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
 plt.subplot(212)
@@ -235,8 +235,8 @@ plt.annotate('$\sin^{-1}[(1-a)/(1+a)]$', xy=(Wm,0),
             verticalalignment='bottom', 
             )
 yticks = np.linspace(20, 40, 3) 
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 
 yticks = np.linspace(0, 90, 3) 
 ylabels = [(str(ytick)) for ytick in yticks]
@@ -282,7 +282,7 @@ ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
 plt.title("Straight Line Approximation of $100/s(s+1)$")
 plt.semilogx([1e-2,1e0,1e3], [80,40,-80], 'r--')
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
 plt.subplot(212)
@@ -290,8 +290,8 @@ plt.semilogx([1e-2,1e-1,1e1,1e3], [-90,-90,-180,-180], 'r--')
 yticks = np.linspace(-90, -180, 3) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 plt.grid(b=True, which='both')
 
 plt.show()
@@ -343,7 +343,7 @@ plt.semilogx(omega, mag2, 'r')
 yticks = np.linspace(-80, 80, 5) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Magnitude(dB)')
+plt.ylabel('Magnitude (dB)')
 plt.grid(b=True, which='both')
 
 plt.subplot(212)
@@ -358,8 +358,8 @@ plt.annotate('$\phi_m$=%.1f' % pm, xy=(Wg,pm-180), xytext=(2*Wg,pm-180),
 yticks = np.linspace(-90, -180, 3) 
 ylabels = [(str(ytick)) for ytick in yticks]
 plt.yticks(yticks, ylabels)
-plt.ylabel('Phase(deg)')
-plt.xlabel('Frequency(rad/sec)')
+plt.ylabel('Phase (deg)')
+plt.xlabel('Frequency (rad/sec)')
 plt.grid(b=True, which='both')
 
 plt.show()
