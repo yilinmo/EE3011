@@ -75,7 +75,7 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec2Bode2.svg]]
+[[file:assets/Lec2Bode2.svg]]
 
  
 As a result, Bode plots are plotted on semilog papers with the horizontal axis in log scale and the vertical axis in linear scale. 
@@ -127,7 +127,7 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec2BodeConstant.svg]]
+[[file:assets/Lec2BodeConstant.svg]]
 
 
 
@@ -159,7 +159,7 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec2BodeIntegrators.svg]]
+[[file:assets/Lec2BodeIntegrators.svg]]
 
 ** Bode Plot of an Integrator $s^N$ 
 From what we know about $s^{-1}$, we can prove that:
@@ -215,7 +215,7 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec2BodeIntegrators2.svg]]
+[[file:assets/Lec2BodeIntegrators2.svg]]
 
 ** Bode Plot of $1/(\tau s+ 1)$
 
@@ -246,7 +246,7 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec2BodeFirstOrder.svg]]
+[[file:assets/Lec2BodeFirstOrder.svg]]
 
 - Here we will assume $\tau > 0$. ($\tau < 0$ will be discussed later)
 - Observations:
@@ -304,7 +304,7 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec2BodeFirstOrderAsym.svg]]
+[[file:assets/Lec2BodeFirstOrderAsym.svg]]
 
 
 ** Sketch Bode Plot of $\tau s+ 1$ Using Asymptotes
@@ -339,7 +339,7 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec2BodeFirstOrderAsymInv.svg]]
+[[file:assets/Lec2BodeFirstOrderAsymInv.svg]]
 ** Bode Plot of $\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}$
 
 Recall that
@@ -401,7 +401,7 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec2BodeSecondOrder.svg]]
+[[file:assets/Lec2BodeSecondOrder.svg]]
 
 ** Bode Plot of $\frac{1}{(s/\omega_n)^2+2\zeta(s/\omega_n)+1}$
 - If $\omega \ll \omega_n$, then $G(j\omega) \approx 1$
@@ -457,4 +457,4 @@ plt.show()
 #+END_SRC
 
 #+RESULTS:
-[[file:Lec2BodeSecondOrder2.svg]]
+[[file:assets/Lec2BodeSecondOrder2.svg]]
